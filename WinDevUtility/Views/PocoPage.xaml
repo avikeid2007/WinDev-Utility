@@ -1,0 +1,56 @@
+﻿<Page
+    x:Class="WinDevUtility.Views.PocoPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prismMvvm="using:Prism.Windows.Mvvm"
+    prismMvvm:ViewModelLocator.AutoWireViewModel="True"
+    Style="{StaticResource PageStyle}"
+    mc:Ignorable="d">
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+        <Grid Background="{ThemeResource SystemControlAcrylicElementBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox
+                    Margin="8,16,8,8"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    BorderBrush="#ccc"
+                    CornerRadius="8"
+                    FontSize="16"
+                    PlaceholderText="Enter properties and varibles with or without access modifier">
+                    <TextBox.Shadow>
+                        <ThemeShadow />
+                    </TextBox.Shadow>
+                </TextBox>
+                <Grid
+                    Grid.Column="1"
+                    Width="400"
+                    Margin="8" />
+
+            </Grid>
+            <Grid Grid.Row="1" Height="100" />
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBox
+                    Margin="8,8,8,16"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    CornerRadius="8"
+                    FontSize="16"
+                    PlaceholderText="Enter properties and varibles with or without access modifier" />
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
