@@ -15,31 +15,331 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox
+                x:Name="TxtPocoInput"
+                Margin="8"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                BorderBrush="#ccc"
+                CornerRadius="8"
+                FontSize="16"
+                PlaceholderText="Enter properties and varibles with or without access modifier">
+                <TextBox.Shadow>
+                    <ThemeShadow />
+                </TextBox.Shadow>
+            </TextBox>
+            <Grid
+                x:Name="GridPocoSetting"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Margin="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel
+                    Padding="8"
+                    BorderBrush="#ccc"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <TextBlock
+                        Margin="0,4"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Text="Input Formats:" />
+                    <TextBlock Margin="4,0" Text="string UserName" />
+                    <TextBlock Margin="4,0" Text="public string UserName" />
+                    <TextBlock Margin="4,0" Text="public string UserName { get; set; }" />
+                </StackPanel>
+                <Grid
+                    Grid.Row="1"
+                    Margin="0,8,0,0"
+                    Padding="8"
+                    BorderBrush="#ccc"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="48" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Margin="0,4"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Text="POCO Setting:" />
+                    <TextBlock
+                        Grid.Row="1"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Text="Include Property Changed Event" />
+
+                    <ToggleSwitch
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="8,0,0,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        OffContent=""
+                        OnContent="" />
+                    <TextBlock
+                        Grid.Row="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Text="Prism Property Changed Event" />
+
+                    <ToggleSwitch
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="8,0,0,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        OffContent=""
+                        OnContent="" />
+
+                    <TextBlock
+                        Grid.Row="3"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Text="Include Dirty Check" />
+
+
+                    <ToggleSwitch
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Margin="8,0,0,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        OffContent=""
+                        OnContent="" />
+                    <TextBlock
+                        Grid.Row="4"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Text="Generate Class" />
+
+
+                    <ToggleSwitch
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Margin="8,0,0,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        OffContent=""
+                        OnContent="" />
+
+                </Grid>
+                <Grid
+                    Grid.Row="2"
+                    Margin="0,8,0,0"
+                    Padding="8"
+                    BorderBrush="#ccc"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Margin="0,4"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Text="Class Configuration:" />
+
+
+                    <TextBox
+                        Grid.Row="1"
+                        Margin="0,4"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        CornerRadius="8"
+                        FontSize="16"
+                        PlaceholderText="Class name i.e. User">
+                        <TextBox.Header>
+                            <TextBlock
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                FontWeight="Medium"
+                                Text="Class Name" />
+                        </TextBox.Header>
+                    </TextBox>
+                    <TextBox
+                        Grid.Row="2"
+                        Margin="0,4"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        CornerRadius="8"
+                        FontSize="16"
+                        PlaceholderText="Namespace i.e. MyProject.Models">
+                        <TextBox.Header>
+                            <TextBlock
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                FontWeight="Medium"
+                                Text="Namespace" />
+                        </TextBox.Header>
+                    </TextBox>
+                    <TextBox
+                        Grid.Row="3"
+                        Margin="0,4"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        CornerRadius="8"
+                        FontSize="16"
+                        PlaceholderText="Class name i.e. MyProject.Base1">
+                        <TextBox.Header>
+                            <TextBlock
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                FontWeight="Medium"
+                                Text="Base Class" />
+                        </TextBox.Header>
+                    </TextBox>
+                </Grid>
+            </Grid>
+
+
+            <Grid
+                x:Name="GridPocoButtons"
+                Grid.Row="1"
+                Height="100">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBox
-                    Margin="8,16,8,8"
+                <Button
+                    Height="60"
+                    Margin="16,0,0,0"
                     HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    BorderBrush="#ccc"
-                    CornerRadius="8"
-                    FontSize="16"
-                    PlaceholderText="Enter properties and varibles with or without access modifier">
-                    <TextBox.Shadow>
-                        <ThemeShadow />
-                    </TextBox.Shadow>
-                </TextBox>
-                <Grid
+                    Background="DodgerBlue"
+                    CornerRadius="4">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource SymbolThemeFontFamily}"
+                            FontSize="14"
+                            Foreground="White"
+                            Text="&#xF272;" />
+                        <TextBlock
+                            Margin="8,0,8,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            FontWeight="Medium"
+                            Foreground="White"
+                            Text="Generate" />
+                    </StackPanel>
+                </Button>
+                <Button
                     Grid.Column="1"
-                    Width="400"
-                    Margin="8" />
-
+                    Height="60"
+                    Margin="16,0,0,0"
+                    HorizontalAlignment="Stretch"
+                    Background="Tomato"
+                    CornerRadius="4">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource SymbolThemeFontFamily}"
+                            FontSize="14"
+                            Foreground="White"
+                            Text="&#xF272;" />
+                        <TextBlock
+                            Margin="8,0,8,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            FontWeight="Medium"
+                            Foreground="White"
+                            Text="Copy" />
+                    </StackPanel>
+                </Button>
+                <Button
+                    Grid.Column="2"
+                    Height="60"
+                    Margin="16,0,0,0"
+                    HorizontalAlignment="Stretch"
+                    Background="MediumSeaGreen"
+                    CornerRadius="4">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource SymbolThemeFontFamily}"
+                            FontSize="14"
+                            Foreground="White"
+                            Text="&#xF272;" />
+                        <TextBlock
+                            Margin="8,0,8,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            FontWeight="Medium"
+                            Foreground="White"
+                            Text="Export" />
+                    </StackPanel>
+                </Button>
+                <Button
+                    Grid.Column="3"
+                    Height="60"
+                    Margin="16,0,0,0"
+                    HorizontalAlignment="Stretch"
+                    Background="Orange"
+                    CornerRadius="4">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource SymbolThemeFontFamily}"
+                            FontSize="14"
+                            Foreground="White"
+                            Text="&#xF272;" />
+                        <TextBlock
+                            Margin="8,0,8,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            FontWeight="Medium"
+                            Foreground="White"
+                            Text="Clear" />
+                    </StackPanel>
+                </Button>
             </Grid>
-            <Grid Grid.Row="1" Height="100" />
-            <Grid Grid.Row="2">
+            <Grid
+                x:Name="GridPocoOutput"
+                Grid.Row="2"
+                Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
@@ -52,5 +352,44 @@
                     PlaceholderText="Enter properties and varibles with or without access modifier" />
             </Grid>
         </Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="AdaptiveVisualStateGroup">
+                <VisualState x:Name="VisualStateNarrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--<Setter Target="GridDesc.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="GridDesc.(Grid.Column)" Value="2" />
+                        <Setter Target="SwitchViewBtn.Visibility" Value="Visible" />-->
+                        <!--<Setter Target="SearchListRow.Height" Value="100"/>-->
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="VisualStateNormal">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource NormalMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="GridPocoOutput.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="GridPocoSetting.(Grid.RowSpan)" Value="3" />
+                        <!--<Setter Target="GridDesc.(Grid.Column)" Value="2" />
+                        <Setter Target="SwitchViewBtn.Visibility" Value="Visible" />-->
+                        <!--<Setter Target="SearchListRow.Height" Value="100"/>-->
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="VisualStateWide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--<Setter Target="GridDesc.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="GridDesc.(Grid.Column)" Value="3" />
+                        <Setter Target="SwitchViewBtn.Visibility" Value="Collapsed" />
+                        <Setter Target="SearchPane.Visibility" Value="Visible" />-->
+                        <!--<Setter Target="SearchListRow.Height" Value="auto"/>-->
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>
