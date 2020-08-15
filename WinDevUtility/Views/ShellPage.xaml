@@ -97,10 +97,7 @@
                 </Grid>
             </winui:NavigationView.PaneFooter>
             <winui:NavigationView.PaneHeader>
-                <TextBlock
-                    VerticalAlignment="Center"
-                    FontSize="16"
-                    Text="WinDEV Utility" />
+                <Path Data="M0,18 L14,18 L14,32 L2,32 C0.895,32 0,31.105 0,30 L0,18 Z M2,0 C0.895,0 0,0.895 0,2 L0,14 L14,14 L14,0 L2,0 Z M18,32 L30,32 C31.105,32 32,31.105 32,30 L32,18 L18,18 L18,32 Z M30,0 L18,0 L18,4 L28,4 L28,14 L32,14 L32,2 C32,0.895 31.105,0 30,0 Z" Stroke="White" />
             </winui:NavigationView.PaneHeader>
             <Grid>
                 <Frame x:Name="shellFrame" />
