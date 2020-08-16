@@ -191,6 +191,7 @@
                         VerticalAlignment="Center"
                         CornerRadius="8"
                         FontSize="16"
+                        IsEnabled="{Binding IsGenerateClass}"
                         PlaceholderText="Class name i.e. User"
                         Text="{Binding ClassName, Mode=TwoWay}">
                         <TextBox.Header>
@@ -209,6 +210,7 @@
                         VerticalAlignment="Center"
                         CornerRadius="8"
                         FontSize="16"
+                        IsEnabled="{Binding IsGenerateClass}"
                         PlaceholderText="Namespace i.e. MyProject.Models"
                         Text="{Binding Namespace, Mode=TwoWay}">
                         <TextBox.Header>
@@ -227,6 +229,7 @@
                         VerticalAlignment="Center"
                         CornerRadius="8"
                         FontSize="16"
+                        IsEnabled="{Binding IsGenerateClass}"
                         PlaceholderText="Class name i.e. MyProject.Base1"
                         Text="{Binding BaseClass, Mode=TwoWay}">
                         <TextBox.Header>
@@ -242,7 +245,10 @@
             </Grid>
 
 
-            <Grid x:Name="GridPocoButtons" Grid.Row="1">
+            <Grid
+                x:Name="GridPocoButtons"
+                Grid.Row="1"
+                Margin="16,0,16,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -251,7 +257,6 @@
                 </Grid.ColumnDefinitions>
                 <Button
                     Height="60"
-                    Margin="16,0,0,0"
                     HorizontalAlignment="Stretch"
                     Background="DodgerBlue"
                     Command="{Binding GeneratePropertiesCommand}"
@@ -261,9 +266,9 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontFamily="{StaticResource SymbolThemeFontFamily}"
-                            FontSize="14"
+                            FontSize="20"
                             Foreground="White"
-                            Text="&#xF272;" />
+                            Text="&#xF133;" />
                         <TextBlock
                             Margin="8,0,8,0"
                             HorizontalAlignment="Center"
@@ -280,15 +285,16 @@
                     Margin="16,0,0,0"
                     HorizontalAlignment="Stretch"
                     Background="Tomato"
+                    Command="{Binding CopyCommand}"
                     CornerRadius="4">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontFamily="{StaticResource SymbolThemeFontFamily}"
-                            FontSize="14"
+                            FontSize="20"
                             Foreground="White"
-                            Text="&#xF272;" />
+                            Text="&#xE8C8;" />
                         <TextBlock
                             Margin="8,0,8,0"
                             HorizontalAlignment="Center"
@@ -311,9 +317,9 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontFamily="{StaticResource SymbolThemeFontFamily}"
-                            FontSize="14"
+                            FontSize="20"
                             Foreground="White"
-                            Text="&#xF272;" />
+                            Text="&#xED25;" />
                         <TextBlock
                             Margin="8,0,8,0"
                             HorizontalAlignment="Center"
@@ -336,9 +342,9 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontFamily="{StaticResource SymbolThemeFontFamily}"
-                            FontSize="14"
+                            FontSize="20"
                             Foreground="White"
-                            Text="&#xF272;" />
+                            Text="&#xE8E6;" />
                         <TextBlock
                             Margin="8,0,8,0"
                             HorizontalAlignment="Center"
@@ -364,6 +370,7 @@
                     AcceptsReturn="True"
                     CornerRadius="8"
                     FontSize="16"
+                    IsReadOnly="True"
                     PlaceholderText="Enter properties and varibles with or without access modifier"
                     Text="{Binding OutputText, Mode=TwoWay}"
                     TextWrapping="Wrap" />

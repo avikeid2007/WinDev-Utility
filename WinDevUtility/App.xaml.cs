@@ -39,6 +39,7 @@ namespace WinDevUtility
             Container.RegisterInstance<IIdentityService>(identityService);
             Container.RegisterInstance<IMicrosoftGraphService>(microsoftGraphService);
             Container.RegisterInstance<IUserDataService>(userDataService);
+            Container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
         }
 
         protected override async Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)

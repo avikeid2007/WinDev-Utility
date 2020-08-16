@@ -1,4 +1,5 @@
 ﻿using AsyncCommands;
+using Prism.Commands;
 using Prism.Windows.Mvvm;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -6,12 +7,15 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using WinDevUtility.Extensions;
 using WinDevUtility.Helpers;
+using WinDevUtility.Services;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 
 namespace WinDevUtility.ViewModels
 {
     public class PocoViewModel : ViewModelBase
     {
+        private readonly IDialogService _dialogService;
         private string PrivatePropertyString = string.Empty;
         private string PublicPropertyString = string.Empty;
         private const string privateStr = "private";
@@ -25,9 +29,19 @@ namespace WinDevUtility.ViewModels
         private string _className;
         private string _namespace;
         private string _baseClass;
+        public ICommand GeneratePropertiesCommand => new AsyncCommand(OnGeneratePropertiesCommandExecuteAsync);
+        public ICommand CopyCommand => new DelegateCommand(OnCopyCommandExecute);
 
-        public PocoViewModel()
+        private void OnCopyCommandExecute()
         {
+            var dataPackage = new DataPackage();
+            dataPackage.SetText(OutputText);
+            Clipboard.SetContent(dataPackage);
+        }
+
+        public PocoViewModel(IDialogService dialogService)
+        {
+            _dialogService = dialogService;
             _ = StartUpSettingAsync();
 #if DEBUG
             InputText = @"string Username
@@ -155,11 +169,8 @@ public virtual ICollection<Blogs> BlogList
                 RaisePropertyChanged();
             }
         }
-        string classBaseText = "using System;\r using System.Collections.Generic;\r using System.Linq;\rusing System.Text;\r";
-        //namespace JMS365UWPClient.Models
-        //{
-        //    public class  {txtfilename.Text}  : AuditerBindableBase \r\n {" + "\r\n";
-        public ICommand GeneratePropertiesCommand => new AsyncCommand(OnGeneratePropertiesCommandExecuteAsync);
+        private string classBaseText = "using System;\rusing System.Collections.Generic;\rusing System.Linq;\rusing System.Text;\r";
+
         private async Task OnGeneratePropertiesCommandExecuteAsync()
         {
             OutputText = string.Empty;
@@ -167,7 +178,7 @@ public virtual ICollection<Blogs> BlogList
             PublicPropertyString = string.Empty;
             if (!string.IsNullOrEmpty(InputText))
             {
-                if (IsGenerateClass && string.IsNullOrEmpty(ClassName))
+                if (IsGenerateClass && await ValidateClassAsync())
                 {
                     return;
                 }
@@ -179,8 +190,27 @@ public virtual ICollection<Blogs> BlogList
             }
             else
             {
-
+                await _dialogService.AlertAsync("Enter the input text");
             }
+        }
+        private async Task<bool> ValidateClassAsync()
+        {
+            if (string.IsNullOrEmpty(ClassName) || (!string.IsNullOrEmpty(ClassName) && ClassName.Contains(" ")))
+            {
+                await _dialogService.AlertAsync("Enter a valid class name");
+                return true;
+            }
+            if (!string.IsNullOrEmpty(BaseClass) && BaseClass.Contains(" "))
+            {
+                await _dialogService.AlertAsync("Enter a valid Base class name");
+                return true;
+            }
+            if (!string.IsNullOrEmpty(Namespace) && Namespace.Contains(" "))
+            {
+                await _dialogService.AlertAsync("Enter a valid Namespace");
+                return true;
+            }
+            return false;
         }
         private async Task StartUpSettingAsync()
         {
@@ -231,7 +261,6 @@ public virtual ICollection<Blogs> BlogList
                         }
                         SetPropertyStings(propertyName, propertType);
                     }
-
                 }
             }
             var propertiesText = PrivatePropertyString + "\r\n" + PublicPropertyString;

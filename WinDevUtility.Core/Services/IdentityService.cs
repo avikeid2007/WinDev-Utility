@@ -66,10 +66,10 @@ namespace WinDevUtility.Core.Services
 
             try
             {
-                var accounts = await _client.GetAccountsAsync();
+                var accounts = await _client.GetAccountsAsync().ConfigureAwait(false);
                 _authenticationResult = await _client.AcquireTokenInteractive(_graphScopes)
                                                      .WithAccount(accounts.FirstOrDefault())
-                                                     .ExecuteAsync();
+                                                     .ExecuteAsync().ConfigureAwait(false);
 
                 LoggedIn?.Invoke(this, EventArgs.Empty);
                 return LoginResultType.Success;

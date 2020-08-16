@@ -27,8 +27,8 @@ namespace WinDevUtility.ViewModels
         private bool _isBusy;
         private bool _isLoggedIn;
         private bool _isAuthorized;
-        private IIdentityService _identityService;
-        private IUserDataService _userDataService;
+        private readonly IIdentityService _identityService;
+        private readonly IUserDataService _userDataService;
 
         public ICommand ItemInvokedCommand { get; }
 
