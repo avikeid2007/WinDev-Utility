@@ -13,8 +13,8 @@ namespace WinDevUtility.Services
     {
         private const string _userSettingsKey = "IdentityUser";
         private UserViewModel _user;
-        private IIdentityService _identityService;
-        private IMicrosoftGraphService _microsoftGraphService;
+        private readonly IIdentityService _identityService;
+        private readonly IMicrosoftGraphService _microsoftGraphService;
 
         public event EventHandler<UserViewModel> UserDataUpdated;
 
@@ -32,7 +32,7 @@ namespace WinDevUtility.Services
 
         public async Task<UserViewModel> GetUserAsync()
         {
-            return _user ?? (_user = await GetUserFromCacheAsync() ?? GetDefaultUserData());
+            return _user ??= await GetUserFromCacheAsync() ?? GetDefaultUserData();
         }
 
         private async void OnLoggedInAsync(object sender, EventArgs e)
@@ -50,7 +50,7 @@ namespace WinDevUtility.Services
         private async Task<UserViewModel> GetUserFromCacheAsync()
         {
             var cacheData = await ApplicationData.Current.LocalFolder.ReadAsync<User>(_userSettingsKey);
-            return await GetUserViewModelFromData(cacheData);
+            return await GetUserViewModelFromDataAsync(cacheData);
         }
 
         private async Task<UserViewModel> GetUserFromGraphApiAsync()
@@ -68,10 +68,10 @@ namespace WinDevUtility.Services
                 await ApplicationData.Current.LocalFolder.SaveAsync(_userSettingsKey, userData);
             }
 
-            return await GetUserViewModelFromData(userData);
+            return await GetUserViewModelFromDataAsync(userData);
         }
 
-        private async Task<UserViewModel> GetUserViewModelFromData(User userData)
+        private async Task<UserViewModel> GetUserViewModelFromDataAsync(User userData)
         {
             if (userData == null)
             {

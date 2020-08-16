@@ -8,14 +8,27 @@
     <prismUnity:PrismUnityApplication.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <XamlControlsResources  xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <ResourceDictionary Source="/Styles/_Colors.xaml" />
                 <ResourceDictionary Source="/Styles/_FontSizes.xaml" />
                 <ResourceDictionary Source="/Styles/_Thickness.xaml" />
 
                 <ResourceDictionary Source="/Styles/TextBlock.xaml" />
-                <ResourceDictionary Source="/Styles/Page.xaml"/>
+                <ResourceDictionary Source="/Styles/Page.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <ImageSource x:Key="Logo">/Assets/logo-light.png</ImageSource>
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="Dark">
+                    <ImageSource x:Key="Logo">/Assets/logo.png</ImageSource>
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="HighContrast">
+                    <ImageSource x:Key="Logo">/Assets/logo-light.png</ImageSource>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
     </prismUnity:PrismUnityApplication.Resources>
 </prismUnity:PrismUnityApplication>

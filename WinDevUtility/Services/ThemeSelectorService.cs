@@ -24,7 +24,6 @@ namespace WinDevUtility.Services
         public static async Task SetThemeAsync(ElementTheme theme)
         {
             Theme = theme;
-
             await SetRequestedThemeAsync();
             await SaveThemeInSettingsAsync(Theme);
         }
@@ -47,7 +46,6 @@ namespace WinDevUtility.Services
         {
             ElementTheme cacheTheme = ElementTheme.Default;
             string themeName = await ApplicationData.Current.LocalSettings.ReadAsync<string>(SettingsKey);
-
             if (!string.IsNullOrEmpty(themeName))
             {
                 Enum.TryParse(themeName, out cacheTheme);

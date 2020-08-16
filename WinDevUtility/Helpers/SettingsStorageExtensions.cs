@@ -32,7 +32,7 @@ namespace WinDevUtility.Helpers
         {
             if (!File.Exists(Path.Combine(folder.Path, GetFileName(name))))
             {
-                return default(T);
+                return default;
             }
 
             var file = await folder.GetFileAsync($"{name}.json");
@@ -53,14 +53,11 @@ namespace WinDevUtility.Helpers
 
         public static async Task<T> ReadAsync<T>(this ApplicationDataContainer settings, string key)
         {
-            object obj = null;
-
-            if (settings.Values.TryGetValue(key, out obj))
+            if (settings.Values.TryGetValue(key, out object obj))
             {
                 return await Json.ToObjectAsync<T>((string)obj);
             }
-
-            return default(T);
+            return default;
         }
 
         public static async Task<StorageFile> SaveFileAsync(this StorageFolder folder, byte[] content, string fileName, CreationCollisionOption options = CreationCollisionOption.ReplaceExisting)
@@ -84,10 +81,10 @@ namespace WinDevUtility.Helpers
         {
             var item = await folder.TryGetItemAsync(fileName).AsTask().ConfigureAwait(false);
 
-            if ((item != null) && item.IsOfType(StorageItemTypes.File))
+            if (item?.IsOfType(StorageItemTypes.File) == true)
             {
                 var storageFile = await folder.GetFileAsync(fileName);
-                byte[] content = await storageFile.ReadBytesAsync();
+                byte[] content = await storageFile.ReadBytesAsync().ConfigureAwait(false);
                 return content;
             }
 
@@ -98,16 +95,12 @@ namespace WinDevUtility.Helpers
         {
             if (file != null)
             {
-                using (IRandomAccessStream stream = await file.OpenReadAsync())
-                {
-                    using (var reader = new DataReader(stream.GetInputStreamAt(0)))
-                    {
-                        await reader.LoadAsync((uint)stream.Size);
-                        var bytes = new byte[stream.Size];
-                        reader.ReadBytes(bytes);
-                        return bytes;
-                    }
-                }
+                using IRandomAccessStream stream = await file.OpenReadAsync();
+                using var reader = new DataReader(stream.GetInputStreamAt(0));
+                await reader.LoadAsync((uint)stream.Size);
+                var bytes = new byte[stream.Size];
+                reader.ReadBytes(bytes);
+                return bytes;
             }
 
             return null;
