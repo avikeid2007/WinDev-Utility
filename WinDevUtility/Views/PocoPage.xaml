@@ -7,11 +7,12 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid Background="{ThemeResource SystemControlAcrylicElementBrush}">
+        <Grid Background="Transparent">
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*" />
                 <RowDefinition Height="Auto" />
@@ -311,6 +312,7 @@
                     Margin="16,0,0,0"
                     HorizontalAlignment="Stretch"
                     Background="MediumSeaGreen"
+                    Command="{Binding ExportCommand}"
                     CornerRadius="4">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock
@@ -336,6 +338,7 @@
                     Margin="16,0,0,0"
                     HorizontalAlignment="Stretch"
                     Background="Orange"
+                    Command="{Binding ClearCommand}"
                     CornerRadius="4">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock

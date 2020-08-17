@@ -8,7 +8,6 @@ using System.Windows.Input;
 using WinDevUtility.Extensions;
 using WinDevUtility.Helpers;
 using WinDevUtility.Services;
-using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 
 namespace WinDevUtility.ViewModels
@@ -31,12 +30,32 @@ namespace WinDevUtility.ViewModels
         private string _baseClass;
         public ICommand GeneratePropertiesCommand => new AsyncCommand(OnGeneratePropertiesCommandExecuteAsync);
         public ICommand CopyCommand => new DelegateCommand(OnCopyCommandExecute);
+        public ICommand ExportCommand => new AsyncCommand(OnExportCommandExecuteAsync);
+        public ICommand ClearCommand => new DelegateCommand(OnClearCommandExecute);
+
+        private void OnClearCommandExecute()
+        {
+            InputText = string.Empty;
+            OutputText = string.Empty;
+            ClassName = string.Empty;
+            Namespace = string.Empty;
+            BaseClass = string.Empty;
+        }
+
+        private async Task OnExportCommandExecuteAsync()
+        {
+            if (!string.IsNullOrEmpty(OutputText))
+            {
+                await FileHelper.SaveFileAsync(OutputText, ClassName);
+            }
+        }
 
         private void OnCopyCommandExecute()
         {
-            var dataPackage = new DataPackage();
-            dataPackage.SetText(OutputText);
-            Clipboard.SetContent(dataPackage);
+            if (!string.IsNullOrEmpty(OutputText))
+            {
+                FileHelper.CopyText(OutputText);
+            }
         }
 
         public PocoViewModel(IDialogService dialogService)
