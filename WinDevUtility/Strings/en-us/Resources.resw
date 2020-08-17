@@ -251,4 +251,16 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
     <value>Log out</value>
     <comment></comment>
   </data>
+  <data name="Shell_Guid.Content" xml:space="preserve">
+    <value>Guid</value>
+    <comment>Navigation view item name for Guid</comment>
+  </data>
+  <data name="Shell_Xaml.Content" xml:space="preserve">
+    <value>Xaml</value>
+    <comment>Navigation view item name for Xaml</comment>
+  </data>
+  <data name="Shell_Command.Content" xml:space="preserve">
+    <value>Command</value>
+    <comment>Navigation view item name for Command</comment>
+  </data>
 </root>

@@ -1,0 +1,303 @@
+﻿<Page
+    x:Class="WinDevUtility.Views.GuidPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prismMvvm="using:Prism.Windows.Mvvm"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    prismMvvm:ViewModelLocator.AutoWireViewModel="True"
+    Style="{StaticResource PageStyle}"
+    mc:Ignorable="d">
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Pivot>
+            <PivotItem Header="Quick">
+                <TextBlock Text="{Binding GuidText}" />
+            </PivotItem>
+            <PivotItem Header="Generate">
+                <StackPanel>
+                    <winui:NumberBox
+                        x:Name="NumberBoxSpinButtonPlacementExample"
+                        Height="64"
+                        Margin="0,8,0,0"
+                        Header="How many GUIDs do you want (1-1000)"
+                        SmallChange="1"
+                        SpinButtonPlacementMode="Compact"
+                        Value="{Binding NoofGuid, Mode=TwoWay}">
+                        <winui:NumberBox.Shadow>
+                            <ThemeShadow />
+                        </winui:NumberBox.Shadow>
+                    </winui:NumberBox>
+                    <Grid
+                        x:Name="GridPocoButtons"
+                        Grid.Row="1"
+                        Margin="0,32,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            Height="60"
+                            HorizontalAlignment="Stretch"
+                            Background="DodgerBlue"
+                            Command="{Binding GeneratePropertiesCommand}"
+                            CornerRadius="4">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    FontSize="20"
+                                    Foreground="White"
+                                    Text="&#xF133;" />
+                                <TextBlock
+                                    Margin="8,0,8,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    FontWeight="Medium"
+                                    Foreground="White"
+                                    Text="Generate" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Grid.Column="1"
+                            Height="60"
+                            Margin="16,0,0,0"
+                            HorizontalAlignment="Stretch"
+                            Background="Tomato"
+                            Command="{Binding CopyCommand}"
+                            CornerRadius="4">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    FontSize="20"
+                                    Foreground="White"
+                                    Text="&#xE8C8;" />
+                                <TextBlock
+                                    Margin="8,0,8,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    FontWeight="Medium"
+                                    Foreground="White"
+                                    Text="Copy" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Grid.Column="2"
+                            Height="60"
+                            Margin="16,0,0,0"
+                            HorizontalAlignment="Stretch"
+                            Background="MediumSeaGreen"
+                            Command="{Binding ExportCommand}"
+                            CornerRadius="4">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    FontSize="20"
+                                    Foreground="White"
+                                    Text="&#xED25;" />
+                                <TextBlock
+                                    Margin="8,0,8,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    FontWeight="Medium"
+                                    Foreground="White"
+                                    Text="Export" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Grid.Column="3"
+                            Height="60"
+                            Margin="16,0,0,0"
+                            HorizontalAlignment="Stretch"
+                            Background="Orange"
+                            Command="{Binding ClearCommand}"
+                            CornerRadius="4">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    FontSize="20"
+                                    Foreground="White"
+                                    Text="&#xE8E6;" />
+                                <TextBlock
+                                    Margin="8,0,8,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    FontWeight="Medium"
+                                    Foreground="White"
+                                    Text="Clear" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </PivotItem>
+            <PivotItem Header="Validate">
+                <TextBlock Text="unread emails go here." />
+            </PivotItem>
+            <PivotItem Header="Empty">
+                <TextBlock Text="{Binding EmptyGuid}" />
+            </PivotItem>
+
+        </Pivot>
+
+        <Grid
+            Grid.Column="1"
+            Margin="0,8,0,0"
+            Padding="8"
+            VerticalAlignment="Top"
+            BorderBrush="#ccc"
+            BorderThickness="1"
+            CornerRadius="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="48" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Margin="0,4"
+                FontSize="16"
+                FontWeight="Medium"
+                Text="GUID Setting:" />
+            <TextBlock
+                Grid.Row="1"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontWeight="Medium"
+                Text="Upper Case" />
+
+            <ToggleSwitch
+                x:Name="TglPropertyChange"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="8,0,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                IsOn="{Binding IsUpper, Mode=TwoWay}"
+                OffContent=""
+                OnContent="" />
+            <TextBlock
+                Grid.Row="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontWeight="Medium"
+                Text="Lower Case" />
+
+            <ToggleSwitch
+                x:Name="TglPrism"
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="8,0,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                IsOn="{Binding IsLower, Mode=TwoWay}"
+                OffContent=""
+                OnContent="" />
+
+            <TextBlock
+                Grid.Row="3"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontWeight="Medium"
+                Text="Include Hyphens" />
+
+
+            <ToggleSwitch
+                x:Name="TglDirty"
+                Grid.Row="3"
+                Grid.Column="1"
+                Margin="8,0,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                IsOn="{Binding IsIncludeHyphens, Mode=TwoWay}"
+                OffContent=""
+                OnContent="" />
+
+            <TextBlock
+                Grid.Row="4"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontWeight="Medium"
+                Text="Include Braces" />
+
+
+            <ToggleSwitch
+                Grid.Row="4"
+                Grid.Column="1"
+                Margin="8,0,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                IsOn="{Binding IsIncludeBraces, Mode=TwoWay}"
+                OffContent=""
+                OnContent="" />
+            <TextBlock
+                Grid.Row="5"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontWeight="Medium"
+                Text="Is Sequential" />
+
+
+            <ToggleSwitch
+                Grid.Row="5"
+                Grid.Column="1"
+                Margin="8,0,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                IsOn="{Binding IsSequential, Mode=TwoWay}"
+                OffContent=""
+                OnContent="" />
+
+        </Grid>
+        <ListView
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            ItemsSource="{Binding GuidCollection}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="{Binding}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

@@ -7,10 +7,13 @@ namespace WinDevUtility
     {
         public const string POCOPage = "Poco";
         public const string SettingsPage = "Settings";
-
+        public const string GuidPage = "Guid";
         internal static IEnumerable<string> GetAll() => typeof(PageTokens)
                                                             .GetFields()
                                                             .Select(p => p.GetValue(p) as string);
+
+        public const string XamlPage = "Xaml";
+        public const string CommandPage = "Command";
     }
 
 }
