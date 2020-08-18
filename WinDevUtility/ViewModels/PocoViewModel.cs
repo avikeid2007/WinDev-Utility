@@ -2,7 +2,6 @@
 using Prism.Commands;
 using Prism.Windows.Mvvm;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WinDevUtility.Extensions;
@@ -100,7 +99,7 @@ public virtual ICollection<Blogs> BlogList
                         IsPrism = false;
                     }
                     RaisePropertyChanged();
-                    _ = SaveSettingAsync(value.ToString());
+                    _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
                 }
             }
         }
@@ -117,7 +116,7 @@ public virtual ICollection<Blogs> BlogList
                         IsDirtyCheck = true;
                     }
                     RaisePropertyChanged();
-                    _ = SaveSettingAsync(value.ToString());
+                    _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
                 }
             }
         }
@@ -130,7 +129,7 @@ public virtual ICollection<Blogs> BlogList
                 {
                     _isDirtyCheck = value;
                     RaisePropertyChanged();
-                    _ = SaveSettingAsync(value.ToString());
+                    _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
                 }
             }
         }
@@ -237,10 +236,10 @@ public virtual ICollection<Blogs> BlogList
             IsPrism = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsPrism));
             IsDirtyCheck = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsDirtyCheck));
         }
-        private async Task SaveSettingAsync(string value, [CallerMemberName] string propertyName = "")
-        {
-            await ApplicationData.Current.LocalSettings.SaveAsync(propertyName, value);
-        }
+        //private async Task SaveSettingAsync(string value, [CallerMemberName] string propertyName = "")
+        //{
+        //    await ApplicationData.Current.LocalSettings.SaveAsync(propertyName, value);
+        //}
         private string PropertyGetter(string propertyName)
         {
             return "{ \r\tget { return " + propertyName + "; }\r";

@@ -1,16 +1,18 @@
 ﻿using AsyncCommands;
 using Prism.Commands;
 using Prism.Windows.Mvvm;
+using SequentialGuid;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WinDevUtility.Helpers;
+using Windows.Storage;
 
 namespace WinDevUtility.ViewModels
 {
     public class GuidViewModel : ViewModelBase
     {
-        private bool _isLower;
         private bool _isUpper;
         private bool _isIncludeHyphens;
         private bool _isIncludeBraces;
@@ -18,7 +20,6 @@ namespace WinDevUtility.ViewModels
         private int _noofGuid;
         private string _guidText;
         private ObservableCollection<string> _guidCollection;
-        private string _emptyGuid;
         private bool _isValidGuid;
         public ICommand GeneratePropertiesCommand => new DelegateCommand(OnGeneratePropertiesCommandExecute);
         public ICommand CopyCommand => new DelegateCommand(OnCopyCommandExecute);
@@ -26,19 +27,11 @@ namespace WinDevUtility.ViewModels
         public ICommand ClearCommand => new DelegateCommand(OnClearCommandExecute);
         public GuidViewModel()
         {
+            _ = StartUpSettingAsync();
+            NoofGuid = 1;
+            GuidText = GenerateGuid();
         }
-        public bool IsLower
-        {
-            get { return _isLower; }
-            set
-            {
-                if (_isLower != value)
-                {
-                    _isLower = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+
         public bool IsUpper
         {
             get { return _isUpper; }
@@ -47,7 +40,9 @@ namespace WinDevUtility.ViewModels
                 if (_isUpper != value)
                 {
                     _isUpper = value;
+
                     RaisePropertyChanged();
+                    _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
                 }
             }
         }
@@ -60,6 +55,7 @@ namespace WinDevUtility.ViewModels
                 {
                     _isIncludeHyphens = value;
                     RaisePropertyChanged();
+                    _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
                 }
             }
         }
@@ -72,6 +68,7 @@ namespace WinDevUtility.ViewModels
                 {
                     _isIncludeBraces = value;
                     RaisePropertyChanged();
+                    _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
                 }
             }
         }
@@ -84,6 +81,7 @@ namespace WinDevUtility.ViewModels
                 {
                     _isSequential = value;
                     RaisePropertyChanged();
+                    _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
                 }
             }
         }
@@ -123,18 +121,6 @@ namespace WinDevUtility.ViewModels
                 }
             }
         }
-        public string EmptyGuid
-        {
-            get { return _emptyGuid; }
-            set
-            {
-                if (_emptyGuid != value)
-                {
-                    _emptyGuid = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
         public bool IsValidGuid
         {
             get { return _isValidGuid; }
@@ -145,6 +131,17 @@ namespace WinDevUtility.ViewModels
                     _isValidGuid = value;
                     RaisePropertyChanged();
                 }
+            }
+        }
+        private int _selectGuidOption;
+
+        public int SelectGuidOption
+        {
+            get { return _selectGuidOption; }
+            set
+            {
+                _selectGuidOption = value;
+                RaisePropertyChanged();
             }
         }
         private void OnClearCommandExecute()
@@ -162,23 +159,38 @@ namespace WinDevUtility.ViewModels
                 GuidCollection.Clear();
                 for (int i = 0; i < NoofGuid - 1; i++)
                 {
-                    var guid = Guid.NewGuid().ToString();
-                    if (IsUpper)
-                    {
-                        guid = guid.ToUpper();
-                    }
-                    if (!IsIncludeHyphens)
-                    {
-                        guid = guid.Replace("-", "");
-                    }
-                    if (IsIncludeBraces)
-                    {
-                        guid = $"{{{guid}}}";
-                    }
+                    string guid = GenerateGuid();
                     GuidCollection.Add(guid);
                 }
             }
         }
+
+        private string GenerateGuid()
+        {
+            string guid = IsSequential ? SequentialGuidGenerator.Instance.NewGuid().ToString() : Guid.NewGuid().ToString();
+            if (IsUpper)
+            {
+                guid = guid.ToUpper();
+            }
+            if (!IsIncludeHyphens)
+            {
+                guid = guid.Replace("-", "");
+            }
+            if (IsIncludeBraces)
+            {
+                guid = $"{{{guid}}}";
+            }
+
+            return guid;
+        }
+        private async Task StartUpSettingAsync()
+        {
+            IsUpper = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsUpper));
+            IsIncludeBraces = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsIncludeBraces));
+            IsIncludeHyphens = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsIncludeHyphens));
+            IsSequential = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsSequential));
+        }
+
         private Task OnExportCommandExecuteAsync()
         {
             throw new NotImplementedException();

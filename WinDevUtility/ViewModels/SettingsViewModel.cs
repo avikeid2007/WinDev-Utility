@@ -48,18 +48,18 @@ namespace WinDevUtility.ViewModels
         {
             get
             {
-                return _switchThemeCommand ?? (_switchThemeCommand = new DelegateCommand<object>(
+                return _switchThemeCommand ??= new DelegateCommand<object>(
                         async (param) =>
                         {
                             ElementTheme = (ElementTheme)param;
                             await ThemeSelectorService.SetThemeAsync((ElementTheme)param);
-                        }));
+                        });
             }
         }
 
-        public DelegateCommand LogInCommand => _logInCommand ?? (_logInCommand = new DelegateCommand(OnLogIn, () => !IsBusy));
+        public DelegateCommand LogInCommand => _logInCommand ??= new DelegateCommand(OnLogInAsync, () => !IsBusy);
 
-        public DelegateCommand LogOutCommand => _logOutCommand ?? (_logOutCommand = new DelegateCommand(OnLogOut, () => !IsBusy));
+        public DelegateCommand LogOutCommand => _logOutCommand ??= new DelegateCommand(OnLogOutAsync, () => !IsBusy);
 
         public bool IsLoggedIn
         {
@@ -129,7 +129,7 @@ namespace WinDevUtility.ViewModels
             User = userData;
         }
 
-        private async void OnLogIn()
+        private async void OnLogInAsync()
         {
             IsBusy = true;
             var loginResult = await _identityService.LoginAsync();
@@ -140,7 +140,7 @@ namespace WinDevUtility.ViewModels
             }
         }
 
-        private async void OnLogOut()
+        private async void OnLogOutAsync()
         {
             IsBusy = true;
             await _identityService.LogoutAsync();

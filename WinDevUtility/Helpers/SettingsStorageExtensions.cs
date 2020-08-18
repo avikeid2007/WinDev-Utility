@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 using WinDevUtility.Core.Helpers;
@@ -19,7 +20,10 @@ namespace WinDevUtility.Helpers
         {
             return appData.RoamingStorageQuota == 0;
         }
-
+        public static async Task SaveSettingAsync(string value, [CallerMemberName] string propertyName = "")
+        {
+            await ApplicationData.Current.LocalSettings.SaveAsync(propertyName, value);
+        }
         public static async Task SaveAsync<T>(this StorageFolder folder, string name, T content)
         {
             var file = await folder.CreateFileAsync(GetFileName(name), CreationCollisionOption.ReplaceExisting);
