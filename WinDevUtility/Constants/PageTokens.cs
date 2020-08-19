@@ -15,5 +15,4 @@ namespace WinDevUtility
         public const string XamlPage = "Xaml";
         public const string CommandPage = "Command";
     }
-
 }

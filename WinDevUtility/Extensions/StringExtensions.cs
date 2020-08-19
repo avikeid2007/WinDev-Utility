@@ -89,5 +89,4 @@ namespace WinDevUtility.Extensions
             return str;
         }
     }
-
 }

@@ -13,41 +13,54 @@ namespace WinDevUtility.Helpers
             dataPackage.SetText(text);
             Clipboard.SetContent(dataPackage);
         }
-        public static async Task SaveFileAsync(string text, string fileName = "")
+        public static async Task<bool> SaveFileAsync(string text, FileTypes fileTypes, string fileName = "")
         {
             var savePicker = new Windows.Storage.Pickers.FileSavePicker();
             savePicker.SuggestedStartLocation =
                 Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
-            // Dropdown of file types the user can save the file as
-            savePicker.FileTypeChoices.Add("CS File", new List<string>() { ".cs" });
-            // Default file name if the user does not type one in or select a file to replace
+            savePicker.FileTypeChoices.Add(GetFiletypes(fileTypes));
             savePicker.SuggestedFileName = fileName;
             Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
             if (file != null)
             {
-                // Prevent updates to the remote version of the file until
-                // we finish making changes and call CompleteUpdatesAsync.
                 Windows.Storage.CachedFileManager.DeferUpdates(file);
-                // write to file
                 await Windows.Storage.FileIO.WriteTextAsync(file, text);
-                // Let Windows know that we're finished changing the file so
-                // the other app can update the remote version of the file.
-                // Completing updates may require Windows to ask for user input.
                 Windows.Storage.Provider.FileUpdateStatus status =
                     await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(file);
                 if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
                 {
-                    //this.textBlock.Text = "File " + file.Name + " was saved.";
+                    return true;
                 }
-                else
-                {
-                    //this.textBlock.Text = "File " + file.Name + " couldn't be saved.";
-                }
+
             }
-            else
+            return false;
+        }
+
+        private static KeyValuePair<string, IList<string>> GetFiletypes(FileTypes fileTypes)
+        {
+            return fileTypes switch
             {
-                //this.textBlock.Text = "Operation cancelled.";
-            }
+                FileTypes.CS => new KeyValuePair<string, IList<string>>
+                (
+                        "CS File",
+                        new List<string>() { ".cs" }
+               ),
+                FileTypes.Txt => new KeyValuePair<string, IList<string>>
+                (
+                        "Text File",
+                        new List<string>() { ".txt" }
+               ),
+                FileTypes.Xaml => new KeyValuePair<string, IList<string>>
+                (
+                        "XAML File",
+                        new List<string>() { ".xaml" }
+                ),
+                _ => new KeyValuePair<string, IList<string>>
+                (
+                        "Text File",
+                        new List<string>() { ".txt" }
+                )
+            };
         }
     }
 }

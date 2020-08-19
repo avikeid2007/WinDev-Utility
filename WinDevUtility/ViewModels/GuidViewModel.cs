@@ -4,8 +4,10 @@ using Prism.Windows.Mvvm;
 using SequentialGuid;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WinDevUtility.Extensions;
 using WinDevUtility.Helpers;
 using Windows.Storage;
 
@@ -14,22 +16,28 @@ namespace WinDevUtility.ViewModels
     public class GuidViewModel : ViewModelBase
     {
         private bool _isUpper;
-        private bool _isIncludeHyphens;
+        private bool _isRemoveHyphens;
         private bool _isIncludeBraces;
         private bool _isSequential;
         private int _noofGuid;
         private string _guidText;
         private ObservableCollection<string> _guidCollection;
-        private bool _isValidGuid;
+        private bool? _isValidGuid;
+        private int _selectGuidOption;
+        private string _validGuidText;
         public ICommand GeneratePropertiesCommand => new DelegateCommand(OnGeneratePropertiesCommandExecute);
-        public ICommand CopyCommand => new DelegateCommand(OnCopyCommandExecute);
+        public ICommand CopyAllCommand => new DelegateCommand(OnCopyAllCommandExecute);
+        public ICommand CopySingleCommand => new DelegateCommand(OnCopySingleCommandExecute);
+        public ICommand CopyCommand => new DelegateCommand<Object>(OnCopyCommandExecute);
+        public ICommand CutCommand => new DelegateCommand<Object>(OnCutCommandExecute);
+        public ICommand DeleteCommand => new DelegateCommand<Object>(OnDeleteCommandExecute);
+        public ICommand RefreshCommand => new DelegateCommand(OnRefreshCommandExecute);
         public ICommand ExportCommand => new AsyncCommand(OnExportCommandExecuteAsync);
         public ICommand ClearCommand => new DelegateCommand(OnClearCommandExecute);
         public GuidViewModel()
         {
-            _ = StartUpSettingAsync();
+            StartUpSettingAsync().AwaitAsync(() => GuidText = GenerateGuid(), null);
             NoofGuid = 1;
-            GuidText = GenerateGuid();
         }
 
         public bool IsUpper
@@ -46,14 +54,14 @@ namespace WinDevUtility.ViewModels
                 }
             }
         }
-        public bool IsIncludeHyphens
+        public bool IsRemoveHyphens
         {
-            get { return _isIncludeHyphens; }
+            get { return _isRemoveHyphens; }
             set
             {
-                if (_isIncludeHyphens != value)
+                if (_isRemoveHyphens != value)
                 {
-                    _isIncludeHyphens = value;
+                    _isRemoveHyphens = value;
                     RaisePropertyChanged();
                     _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
                 }
@@ -121,7 +129,7 @@ namespace WinDevUtility.ViewModels
                 }
             }
         }
-        public bool IsValidGuid
+        public bool? IsValidGuid
         {
             get { return _isValidGuid; }
             set
@@ -133,20 +141,31 @@ namespace WinDevUtility.ViewModels
                 }
             }
         }
-        private int _selectGuidOption;
 
+
+        public string ValidGuidText
+        {
+            get { return _validGuidText; }
+            set
+            {
+                _validGuidText = value;
+                IsValidGuid = (bool?)(string.IsNullOrEmpty(value) ? (ValueType)null : Guid.TryParse(_validGuidText, out var _));
+                RaisePropertyChanged();
+            }
+        }
         public int SelectGuidOption
         {
             get { return _selectGuidOption; }
             set
             {
                 _selectGuidOption = value;
+                GuidCollection?.Clear();
                 RaisePropertyChanged();
             }
         }
         private void OnClearCommandExecute()
         {
-            throw new NotImplementedException();
+            GuidCollection?.Clear();
         }
         private void OnGeneratePropertiesCommandExecute()
         {
@@ -157,7 +176,7 @@ namespace WinDevUtility.ViewModels
                     GuidCollection = new ObservableCollection<string>();
                 }
                 GuidCollection.Clear();
-                for (int i = 0; i < NoofGuid - 1; i++)
+                for (int i = 0; i <= NoofGuid - 1; i++)
                 {
                     string guid = GenerateGuid();
                     GuidCollection.Add(guid);
@@ -172,7 +191,7 @@ namespace WinDevUtility.ViewModels
             {
                 guid = guid.ToUpper();
             }
-            if (!IsIncludeHyphens)
+            if (IsRemoveHyphens)
             {
                 guid = guid.Replace("-", "");
             }
@@ -180,24 +199,66 @@ namespace WinDevUtility.ViewModels
             {
                 guid = $"{{{guid}}}";
             }
-
             return guid;
         }
         private async Task StartUpSettingAsync()
         {
             IsUpper = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsUpper));
             IsIncludeBraces = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsIncludeBraces));
-            IsIncludeHyphens = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsIncludeHyphens));
+            IsRemoveHyphens = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsRemoveHyphens));
             IsSequential = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsSequential));
         }
 
-        private Task OnExportCommandExecuteAsync()
+        private async Task OnExportCommandExecuteAsync()
         {
-            throw new NotImplementedException();
+            await FileHelper.SaveFileAsync(GetCollectionText(), FileTypes.Txt, "GuidFile.txt");
         }
-        private void OnCopyCommandExecute()
+        private void OnCopyAllCommandExecute()
         {
-            throw new NotImplementedException();
+            FileHelper.CopyText(GetCollectionText());
+        }
+
+        private string GetCollectionText()
+        {
+            var guidcollectionText = string.Empty;
+            GuidCollection?.ToList().ForEach(x => guidcollectionText += $"{x}\r");
+            return guidcollectionText;
+        }
+
+        private void OnDeleteCommandExecute(object obj)
+        {
+            if (obj is string guid && !string.IsNullOrEmpty(guid))
+            {
+                GuidCollection.Remove(guid);
+            }
+        }
+        private void OnCutCommandExecute(object obj)
+        {
+            if (obj is string guid && !string.IsNullOrEmpty(guid))
+            {
+                FileHelper.CopyText(guid);
+                GuidCollection.Remove(guid);
+            }
+        }
+
+        private void OnCopyCommandExecute(object obj)
+        {
+            if (obj is string guid && !string.IsNullOrEmpty(guid))
+            {
+                FileHelper.CopyText(guid);
+            }
+        }
+        private void OnCopySingleCommandExecute()
+        {
+            if (!string.IsNullOrEmpty(GuidText))
+            {
+                FileHelper.CopyText(GuidText);
+            }
+        }
+        private void OnRefreshCommandExecute()
+        {
+            GuidText = GenerateGuid();
+
         }
     }
 }
