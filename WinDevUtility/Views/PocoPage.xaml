@@ -30,7 +30,7 @@
                 AcceptsReturn="True"
                 BorderBrush="#ccc"
                 CornerRadius="8"
-                FontSize="16"
+                FontSize="{StaticResource MediumFontSize}"
                 PlaceholderText="{Binding PlaceHolder}"
                 Text="{Binding InputText, Mode=TwoWay}"
                 TextWrapping="Wrap">
@@ -42,30 +42,30 @@
                 x:Name="GridPocoSetting"
                 Grid.RowSpan="2"
                 Grid.Column="1"
-                Margin="8">
+                Margin="{StaticResource XSmallLeftTopRightBottomMargin}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackPanel
-                    Padding="8"
+                    Padding="{StaticResource XSmallLeftTopRightBottomMargin}"
                     BorderBrush="#ccc"
                     BorderThickness="1"
                     CornerRadius="8">
                     <TextBlock
-                        Margin="0,4"
-                        FontSize="16"
+                        Margin="{StaticResource XXSmallTopBottomMargin}"
+                        FontSize="{StaticResource MediumFontSize}"
                         FontWeight="Medium"
                         Text="Supported Formats:" />
-                    <TextBlock Margin="4,0" Text="string UserName" />
-                    <TextBlock Margin="4,0" Text="public string UserName" />
-                    <TextBlock Margin="4,0" Text="public string UserName { get; set; }" />
+                    <TextBlock Margin="{StaticResource XXSmallLeftRightMargin}" Text="string UserName" />
+                    <TextBlock Margin="{StaticResource XXSmallLeftRightMargin}" Text="public string UserName" />
+                    <TextBlock Margin="{StaticResource XXSmallLeftRightMargin}" Text="public string UserName { get; set; }" />
                 </StackPanel>
                 <Grid
                     Grid.Row="1"
-                    Margin="0,8,0,0"
-                    Padding="8"
+                    Margin="{StaticResource XSmallTopMargin}"
+                    Padding="{StaticResource XSmallLeftTopRightBottomMargin}"
                     BorderBrush="#ccc"
                     BorderThickness="1"
                     CornerRadius="8">
@@ -82,15 +82,15 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock
-                        Margin="0,4"
-                        FontSize="16"
+                        Margin="{StaticResource XXSmallTopBottomMargin}"
+                        FontSize="{StaticResource MediumFontSize}"
                         FontWeight="Medium"
                         Text="POCO Setting:" />
                     <TextBlock
                         Grid.Row="1"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        FontSize="16"
+                        FontSize="{StaticResource MediumFontSize}"
                         FontWeight="Medium"
                         Text="Include Property Changed Event" />
 
@@ -98,7 +98,7 @@
                         x:Name="TglPropertyChange"
                         Grid.Row="1"
                         Grid.Column="1"
-                        Margin="8,0,0,0"
+                        Margin="{StaticResource XSmallLeftMargin}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         IsOn="{Binding IsIncludePropertyChange, Mode=TwoWay}"
@@ -108,7 +108,7 @@
                         Grid.Row="2"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        FontSize="16"
+                        FontSize="{StaticResource MediumFontSize}"
                         FontWeight="Medium"
                         Text="Prism Property Changed Event" />
 
@@ -116,7 +116,7 @@
                         x:Name="TglPrism"
                         Grid.Row="2"
                         Grid.Column="1"
-                        Margin="8,0,0,0"
+                        Margin="{StaticResource XSmallLeftMargin}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         IsEnabled="{Binding IsIncludePropertyChange}"
@@ -128,7 +128,7 @@
                         Grid.Row="3"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        FontSize="16"
+                        FontSize="{StaticResource MediumFontSize}"
                         FontWeight="Medium"
                         Text="Include Dirty Check" />
 
@@ -137,7 +137,7 @@
                         x:Name="TglDirty"
                         Grid.Row="3"
                         Grid.Column="1"
-                        Margin="8,0,0,0"
+                        Margin="{StaticResource XSmallLeftMargin}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         IsOn="{Binding IsDirtyCheck, Mode=TwoWay}"
@@ -147,7 +147,7 @@
                         Grid.Row="4"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        FontSize="16"
+                        FontSize="{StaticResource MediumFontSize}"
                         FontWeight="Medium"
                         Text="Generate Class" />
 
@@ -155,7 +155,7 @@
                     <ToggleSwitch
                         Grid.Row="4"
                         Grid.Column="1"
-                        Margin="8,0,0,0"
+                        Margin="{StaticResource XSmallLeftMargin}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         IsOn="{Binding IsGenerateClass, Mode=TwoWay}"
@@ -165,8 +165,8 @@
                 </Grid>
                 <Grid
                     Grid.Row="2"
-                    Margin="0,8,0,0"
-                    Padding="8"
+                    Margin="{StaticResource XSmallTopMargin}"
+                    Padding="{StaticResource XSmallLeftTopRightBottomMargin}"
                     BorderBrush="#ccc"
                     BorderThickness="1"
                     CornerRadius="8">
@@ -179,15 +179,15 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock
-                        Margin="0,4"
-                        FontSize="16"
+                        Margin="{StaticResource XXSmallTopBottomMargin}"
+                        FontSize="{StaticResource MediumFontSize}"
                         FontWeight="Medium"
                         Text="Class Configuration:" />
 
 
                     <TextBox
                         Grid.Row="1"
-                        Margin="0,4"
+                        Margin="{StaticResource XXSmallTopBottomMargin}"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         CornerRadius="8"
@@ -267,14 +267,14 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontFamily="{StaticResource SymbolThemeFontFamily}"
-                            FontSize="20"
+                            FontSize="{StaticResource SemiLargeFontSize}"
                             Foreground="White"
                             Text="&#xF133;" />
                         <TextBlock
-                            Margin="8,0,8,0"
+                            Margin="{StaticResource XSmallLeftRightMargin}"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            FontSize="16"
+                            FontSize="{StaticResource MediumFontSize}"
                             FontWeight="Medium"
                             Foreground="White"
                             Text="Generate" />
@@ -283,7 +283,7 @@
                 <Button
                     Grid.Column="1"
                     Height="60"
-                    Margin="16,0,0,0"
+                    Margin="{StaticResource SmallLeftMargin}"
                     HorizontalAlignment="Stretch"
                     Background="Tomato"
                     Command="{Binding CopyCommand}"
@@ -293,14 +293,14 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontFamily="{StaticResource SymbolThemeFontFamily}"
-                            FontSize="20"
+                            FontSize="{StaticResource SemiLargeFontSize}"
                             Foreground="White"
                             Text="&#xE8C8;" />
                         <TextBlock
-                            Margin="8,0,8,0"
+                            Margin="{StaticResource XSmallLeftRightMargin}"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            FontSize="16"
+                            FontSize="{StaticResource MediumFontSize}"
                             FontWeight="Medium"
                             Foreground="White"
                             Text="Copy" />
@@ -309,7 +309,7 @@
                 <Button
                     Grid.Column="2"
                     Height="60"
-                    Margin="16,0,0,0"
+                    Margin="{StaticResource SmallLeftMargin}"
                     HorizontalAlignment="Stretch"
                     Background="MediumSeaGreen"
                     Command="{Binding ExportCommand}"
@@ -319,14 +319,14 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontFamily="{StaticResource SymbolThemeFontFamily}"
-                            FontSize="20"
+                            FontSize="{StaticResource SemiLargeFontSize}"
                             Foreground="White"
                             Text="&#xED25;" />
                         <TextBlock
-                            Margin="8,0,8,0"
+                            Margin="{StaticResource XSmallLeftRightMargin}"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            FontSize="16"
+                            FontSize="{StaticResource MediumFontSize}"
                             FontWeight="Medium"
                             Foreground="White"
                             Text="Export" />
@@ -335,7 +335,7 @@
                 <Button
                     Grid.Column="3"
                     Height="60"
-                    Margin="16,0,0,0"
+                    Margin="{StaticResource SmallLeftMargin}"
                     HorizontalAlignment="Stretch"
                     Background="Orange"
                     Command="{Binding ClearCommand}"
@@ -345,14 +345,14 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontFamily="{StaticResource SymbolThemeFontFamily}"
-                            FontSize="20"
+                            FontSize="{StaticResource SemiLargeFontSize}"
                             Foreground="White"
                             Text="&#xE8E6;" />
                         <TextBlock
-                            Margin="8,0,8,0"
+                            Margin="{StaticResource XSmallLeftRightMargin}"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            FontSize="16"
+                            FontSize="{StaticResource MediumFontSize}"
                             FontWeight="Medium"
                             Foreground="White"
                             Text="Clear" />

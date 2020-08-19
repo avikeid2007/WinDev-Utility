@@ -45,7 +45,7 @@ namespace WinDevUtility.ViewModels
         {
             if (!string.IsNullOrEmpty(OutputText))
             {
-                await FileHelper.SaveFileAsync(OutputText, ClassName);
+                await FileHelper.SaveFileAsync(OutputText, FileTypes.CS, ClassName ?? "");
             }
         }
 
