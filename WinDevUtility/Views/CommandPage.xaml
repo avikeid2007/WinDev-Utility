@@ -39,11 +39,23 @@
             Grid.Column="1"
             Margin="0,0,0,48"
             Padding="0">
-            <winui:RadioButtons Header="MVVM Commands:">
-                <RadioButton Content="Relay Command" IsChecked="{Binding IsRelayCommand, Mode=TwoWay}" />
-                <RadioButton Content="Delegate Command" IsChecked="{Binding IsDelegateCommand, Mode=TwoWay}" />
-                <RadioButton Content="Async Command" IsChecked="{Binding IsAsyncCommand, Mode=TwoWay}" />
-                <RadioButton Content="Custom Command" IsChecked="{Binding IsCustomCommand, Mode=TwoWay}" />
+            <winui:RadioButtons>
+                <RadioButton
+                    Content="Relay Command"
+                    FontWeight="Medium"
+                    IsChecked="{Binding IsRelayCommand, Mode=TwoWay}" />
+                <RadioButton
+                    Content="Delegate Command"
+                    FontWeight="Medium"
+                    IsChecked="{Binding IsDelegateCommand, Mode=TwoWay}" />
+                <RadioButton
+                    Content="Async Command"
+                    FontWeight="Medium"
+                    IsChecked="{Binding IsAsyncCommand, Mode=TwoWay}" />
+                <RadioButton
+                    Content="Custom Command"
+                    FontWeight="Medium"
+                    IsChecked="{Binding IsCustomCommand, Mode=TwoWay}" />
             </winui:RadioButtons>
             <TextBox
                 CornerRadius="8"
@@ -284,7 +296,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <TextBox
-                Margin="{StaticResource XSmallLeftRightMargin}"
+                Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 AcceptsReturn="True"
