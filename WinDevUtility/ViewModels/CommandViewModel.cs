@@ -52,7 +52,6 @@ DeleteCommand
 ShowDialogCommand;
 ";
         public ICommand GeneratePropertiesCommand => new AsyncCommand(OnGeneratePropertiesCommandExecuteAsync);
-
         public ICommand CopyCommand => new DelegateCommand(OnCopyCommandExecute);
         public ICommand ExportCommand => new AsyncCommand(OnExportCommandExecuteAsync);
         public ICommand ClearCommand => new DelegateCommand(OnClearCommandExecute);

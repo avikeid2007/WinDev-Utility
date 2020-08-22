@@ -15,9 +15,11 @@ namespace WinDevUtility.Helpers
         }
         public static async Task<bool> SaveFileAsync(string text, FileTypes fileTypes, string fileName = "")
         {
-            var savePicker = new Windows.Storage.Pickers.FileSavePicker();
-            savePicker.SuggestedStartLocation =
-                Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+            var savePicker = new Windows.Storage.Pickers.FileSavePicker
+            {
+                SuggestedStartLocation =
+                Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary
+            };
             savePicker.FileTypeChoices.Add(GetFiletypes(fileTypes));
             savePicker.SuggestedFileName = fileName;
             Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
@@ -31,7 +33,6 @@ namespace WinDevUtility.Helpers
                 {
                     return true;
                 }
-
             }
             return false;
         }
