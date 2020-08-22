@@ -6,12 +6,21 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WinDevUtility.Helpers;
 using WinDevUtility.Services;
 
 namespace WinDevUtility.ViewModels
 {
     public class XamlViewModel : ViewModelBase
     {
+        private const string GridTextstr = @"<Grid>
+<Grid.RowDefinitions>
+{0}</Grid.RowDefinitions>
+<Grid.ColumnDefinitions>
+{1}</Grid.ColumnDefinitions>
+</Grid>";
+        private const string RowTextstr = @"<RowDefinition Height=""{0}"" />";
+        private const string ColumnTextstr = @"<ColumnDefinition Width=""{0}"" />";
         private bool _isGridLayoutChecked;
         private bool _isListViewChecked;
         private bool _isStyleChecked;
@@ -42,9 +51,39 @@ namespace WinDevUtility.ViewModels
             {
                 await _dialogService.AlertAsync("invalid inputs");
             }
-            throw new NotImplementedException();
+            var rowText = string.Empty;
+            for (int i = 0; i < NoofRows; i++)
+            {
+                rowText += string.Format(RowTextstr, GetRowType(RowType)) + "\r";
+            }
+            var colText = string.Empty;
+            for (int i = 0; i < NoofRows; i++)
+            {
+                colText += string.Format(ColumnTextstr, GetColumnType(ColumnType)) + "\r";
+            }
+            return string.Format(GridTextstr, rowText, colText);
         }
 
+        private string GetRowType(int rowType)
+        {
+            return rowType switch
+            {
+                0 => "*",
+                1 => "auto",
+                2 => RowHeight.ToString(),
+                _ => "*"
+            };
+        }
+        private string GetColumnType(int colType)
+        {
+            return colType switch
+            {
+                0 => "*",
+                1 => "auto",
+                2 => ColumnWidth.ToString(),
+                _ => "*"
+            };
+        }
         public IEnumerable<string> TypeCollection
         {
             get
@@ -199,6 +238,7 @@ namespace WinDevUtility.ViewModels
                 {
                     _isGridLayoutChecked = value;
                     RaisePropertyChanged();
+                    _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
                 }
             }
         }
@@ -211,6 +251,7 @@ namespace WinDevUtility.ViewModels
                 {
                     _isListViewChecked = value;
                     RaisePropertyChanged();
+                    _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
                 }
             }
         }
@@ -223,6 +264,7 @@ namespace WinDevUtility.ViewModels
                 {
                     _isStyleChecked = value;
                     RaisePropertyChanged();
+                    _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
                 }
             }
         }
@@ -235,6 +277,7 @@ namespace WinDevUtility.ViewModels
                 {
                     _isClassToXamlChecked = value;
                     RaisePropertyChanged();
+                    _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
                 }
             }
         }

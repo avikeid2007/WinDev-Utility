@@ -187,7 +187,7 @@ ShowDialogCommand;
                 {
                     _commandType = value;
                     RaisePropertyChanged();
-                    _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
+                    _ = SettingsStorageExtensions.SaveSettingAsync(value);
                 }
             }
         }

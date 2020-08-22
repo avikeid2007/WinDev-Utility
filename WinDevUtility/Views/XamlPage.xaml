@@ -13,19 +13,14 @@
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftTopRightBottomMargin}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-
+            <RowDefinition Height="200" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
-
         </Grid.ColumnDefinitions>
-
-
         <winui:RadioButtons>
             <RadioButton
                 Content="Grid Layout"
@@ -44,12 +39,10 @@
                 FontWeight="Medium"
                 IsChecked="{Binding IsClassToXamlChecked, Mode=TwoWay}" />
         </winui:RadioButtons>
-
-
         <Grid
             x:Name="ClassOption"
             Grid.Column="1"
-            Margin="8">
+            Margin="{StaticResource XSmallLeftTopRightBottomMargin}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="auto" />
@@ -70,7 +63,7 @@
             <Grid
                 Grid.Column="1"
                 Margin="{StaticResource XSmallLeftMargin}"
-                Padding="8"
+                Padding="{StaticResource XSmallLeftTopRightBottomMargin}"
                 VerticalAlignment="Top"
                 BorderBrush="#ccc"
                 BorderThickness="1"
@@ -172,7 +165,7 @@
         <Grid
             x:Name="GridOption"
             Grid.Column="1"
-            Margin="{StaticResource MediumLeftMargin}"
+            Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
             Padding="{StaticResource XSmallLeftTopRightBottomMargin}"
             BorderBrush="#ccc"
             BorderThickness="1"
@@ -231,6 +224,7 @@
             <winui:NumberBox
                 Grid.Row="2"
                 Height="64"
+                Margin="{StaticResource XSmallBottomMargin}"
                 Header="No of Columns"
                 SmallChange="1"
                 SpinButtonPlacementMode="Compact"
@@ -406,12 +400,19 @@
                     PropertyName="Visibility"
                     TargetObject="{Binding ElementName=ClassOption}"
                     Value="Collapsed" />
+                <ic:ChangePropertyAction
+                    PropertyName="Visibility"
+                    TargetObject="{Binding ElementName=GridOption}"
+                    Value="Visible" />
             </ic:DataTriggerBehavior>
             <ic:DataTriggerBehavior
                 Binding="{Binding IsClassToXamlChecked}"
                 ComparisonCondition="Equal"
                 Value="true">
-
+                <ic:ChangePropertyAction
+                    PropertyName="Visibility"
+                    TargetObject="{Binding ElementName=GridOption}"
+                    Value="Collapsed" />
                 <ic:ChangePropertyAction
                     PropertyName="Visibility"
                     TargetObject="{Binding ElementName=ClassOption}"
