@@ -1,26 +1,24 @@
 ﻿
 using AsyncCommands;
+using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using Prism.Commands;
 using Prism.Windows.Mvvm;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WinDevUtility.Constants;
+using WinDevUtility.Extensions;
 using WinDevUtility.Helpers;
 using WinDevUtility.Services;
+using Windows.Storage;
 
 namespace WinDevUtility.ViewModels
 {
     public class XamlViewModel : ViewModelBase
     {
-        private const string GridTextstr = @"<Grid>
-<Grid.RowDefinitions>
-{0}</Grid.RowDefinitions>
-<Grid.ColumnDefinitions>
-{1}</Grid.ColumnDefinitions>
-</Grid>";
-        private const string RowTextstr = @"<RowDefinition Height=""{0}"" />";
-        private const string ColumnTextstr = @"<ColumnDefinition Width=""{0}"" />";
         private bool _isGridLayoutChecked;
         private bool _isListViewChecked;
         private bool _isStyleChecked;
@@ -35,33 +33,239 @@ namespace WinDevUtility.ViewModels
         private IDialogService _dialogService;
         private bool _isCustomHeight;
         private bool _isCustomWidth;
+        private string _inputText;
+        private bool _isUseGrid;
+        private bool _isUseTextBox;
+        private bool _isUseTwoWayBinding;
+        private bool _isUseXBind;
+        private bool _isUWP;
+        private bool _isWPF;
+        private bool _isXamarin;
         public ICommand GeneratePropertiesCommand => new AsyncCommand(OnGeneratePropertiesCommandExecuteAsync);
 
         private async Task OnGeneratePropertiesCommandExecuteAsync()
         {
+            if (!IsGridLayoutChecked && !IsClassToXamlChecked)
+            {
+                await _dialogService.AlertAsync("Please select any option");
+            }
             if (IsGridLayoutChecked)
             {
-                OutputText = await GenerateGridLayoutAsync();
+                OutputText = await GenerateGridLayoutAsync(NoofRows, NoofColumns, RowType, ColumnType);
+            }
+            if (IsClassToXamlChecked)
+            {
+                OutputText = await GenerateClassToXamlAsync();
+            }
+        }
+        private int i = 0;
+        private async Task<string> GenerateClassToXamlAsync()
+        {
+            i = 0;
+            if (!string.IsNullOrEmpty(InputText))
+            {
+                if (await ValidateCommandInputesAsync())
+                {
+                    return "";
+                }
+                var lines = await InputText.GetLinesAsync();
+                if (lines?.Count() > 0)
+                {
+                    return await GenerateXamlTextAsync(lines.ToArray());
+                }
+            }
+            else
+            {
+                await _dialogService.AlertAsync("Enter the input text");
+            }
+            return "";
+        }
+        private string RemoveWantedkeyword(string text)
+        {
+            return text.Replace(" virtual ", " ").Replace(" readonly ", " ").Trim();
+        }
+        string bindingText = string.Empty;
+        private async Task<string> GenerateXamlTextAsync(string[] vs)
+        {
+            bindingText = IsUseXBind ? "x:Bind" : "Binding";
+            bool isClassFound = false;
+            string xamlText = string.Empty;
+            for (int i = 0; i < vs.Length; i++)
+            {
+                if (isClassFound && vs[i].Contains("public "))
+                {
+                    var text = vs[i].RemoveExtraWhiteSpace().Trim();
+                    if (!string.IsNullOrEmpty(text))
+                    {
+                        string line = RemoveWantedkeyword(text);
+                        string[] lineWords = line.Split(new char[0]);
+                        if (lineWords.Length == 3)
+                        {
+                            xamlText += $"{GetControlText(GetQualifiedTypes(lineWords[1]), lineWords[2])}\r";
+                        }
+                    }
+                }
+                if (!isClassFound && vs[i].Contains("class "))
+                {
+                    isClassFound = true;
+                }
+            }
+            if (!string.IsNullOrEmpty(xamlText))
+            {
+                if (IsUseGrid)
+                {
+                    return await GenerateGridLayoutAsync(noofRows: i, noofColumns: 1, content: xamlText);
+                }
+                else
+                {
+                    if (IsXamarin)
+                    {
+                        return string.Format(Globals.StackTextXamarinstr, xamlText);
+                    }
+                    return string.Format(Globals.StackTextstr, xamlText);
+                }
+            }
+            return string.Empty;
+        }
+
+        private string GetControlText(string type, string name)
+        {
+            if (type.Equals(nameof(DateTimeOffset), StringComparison.OrdinalIgnoreCase) || type.Equals(nameof(DateTime), StringComparison.OrdinalIgnoreCase))
+            {
+                return GetDateControl(name);
+            }
+            if (type.Equals(nameof(Guid), StringComparison.OrdinalIgnoreCase))
+            {
+                return GetComboControl(name);
+            }
+            if (type.Equals(nameof(Boolean), StringComparison.OrdinalIgnoreCase) || type.Equals("bool", StringComparison.OrdinalIgnoreCase))
+            {
+                return GetCheckBoxControl(name);
+            }
+            if (type.StartsWith(nameof(List), StringComparison.OrdinalIgnoreCase)
+                || type.StartsWith("ObservableCollection", StringComparison.OrdinalIgnoreCase)
+                || type.StartsWith(nameof(IEnumerable), StringComparison.OrdinalIgnoreCase)
+                || type.StartsWith(nameof(IList), StringComparison.OrdinalIgnoreCase)
+                || type.StartsWith(nameof(ICollection), StringComparison.OrdinalIgnoreCase))
+            {
+                return GetListViewControl(name);
+            }
+            else
+            {
+                return GetTextControl(name);
+            }
+        }
+        private string SetMode(string name)
+        {
+            if (IsUseTwoWayBinding)
+            {
+                return $"{name}, Mode=TwoWay";
+            }
+            return name;
+        }
+        private string GetListViewControl(string name)
+        {
+            return string.Format(Globals.ListViewControlstr, bindingText, name, SetGridRow());
+        }
+
+        private string GetCheckBoxControl(string name)
+        {
+            return string.Format(Globals.CheckBoxControlstr, bindingText, SetMode(name), SetGridRow());
+        }
+
+        private string GetTextControl(string name)
+        {
+            if (IsXamarin)
+            {
+                if (IsUseTextBox)
+                    return string.Format(Globals.TextBoxControlXamarinstr, bindingText, SetMode(name), SetGridRow());
+                else
+                    return string.Format(Globals.TextBlockControlXamarinstr, bindingText, SetMode(name), SetGridRow());
+            }
+            else
+            {
+                if (IsUseTextBox)
+                    return string.Format(Globals.TextBoxControlstr, bindingText, SetMode(name), SetGridRow());
+                else
+                    return string.Format(Globals.TextBlockControlstr, bindingText, SetMode(name), SetGridRow());
             }
         }
 
-        private async Task<string> GenerateGridLayoutAsync()
+        private string GetComboControl(string name)
         {
-            if (NoofRows == 0 || NoofColumns == 0)
+            if (IsXamarin)
+            {
+                return string.Format(Globals.ComboControlXamarinstr, bindingText, SetMode(name), SetGridRow());
+            }
+            else
+            {
+                return string.Format(Globals.ComboControlstr, bindingText, SetMode(name), SetGridRow());
+            }
+        }
+
+        private string SetGridRow()
+        {
+            var row = IsUseGrid ? string.Format(@"Grid.Row=""{0}""", i) : string.Empty;
+            i++;
+            return row;
+        }
+
+        private string GetDateControl(string name)
+        {
+            if (IsWPF)
+            {
+                return string.Format(Globals.DateControlWPFstr, bindingText, SetMode(name), SetGridRow());
+            }
+            else
+            {
+                return string.Format(Globals.DateControlstr, bindingText, SetMode(name), SetGridRow());
+            }
+
+        }
+        private string GetQualifiedTypes(string type)
+        {
+            if (type.StartsWith("Nullable"))
+            {
+                type = type.Replace("Nullable<", "").Replace(">", "").Trim();
+            }
+            if (type.EndsWith("?"))
+            {
+                type = type.Replace("?", "").Trim();
+            }
+            if (type.StartsWith("System."))
+            {
+                type = type.Replace("System.", "").Trim();
+            }
+            return type.ToFirstUpper();
+        }
+
+        private async Task<bool> ValidateCommandInputesAsync()
+        {
+            if (!InputText.Trim().Contains("class "))
+            {
+                await _dialogService.AlertAsync("Invalid Class");
+                return true;
+            }
+            return false;
+        }
+
+        private async Task<string> GenerateGridLayoutAsync(int noofRows, int noofColumns, int rowType = 0, int columnType = 0, string content = "")
+        {
+            if (noofRows == 0 || noofColumns == 0)
             {
                 await _dialogService.AlertAsync("invalid inputs");
             }
             var rowText = string.Empty;
-            for (int i = 0; i < NoofRows; i++)
+            for (int i = 0; i < noofRows; i++)
             {
-                rowText += string.Format(RowTextstr, GetRowType(RowType)) + "\r";
+                rowText += string.Format(Globals.RowTextstr, GetRowType(rowType)) + "\r";
             }
             var colText = string.Empty;
-            for (int i = 0; i < NoofRows; i++)
+            for (int i = 0; i < noofColumns; i++)
             {
-                colText += string.Format(ColumnTextstr, GetColumnType(ColumnType)) + "\r";
+                colText += string.Format(Globals.ColumnTextstr, GetColumnType(columnType)) + "\r";
             }
-            return string.Format(GridTextstr, rowText, colText);
+            return string.Format(Globals.GridTextstr, rowText, colText, content);
         }
 
         private string GetRowType(int rowType)
@@ -93,6 +297,20 @@ namespace WinDevUtility.ViewModels
                 yield return "Custom";
             }
         }
+        private async Task StartUpSettingAsync()
+        {
+            IsGridLayoutChecked = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsGridLayoutChecked));
+            //IsListViewChecked = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsListViewChecked));
+            //IsStyleChecked = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsStyleChecked));
+            IsClassToXamlChecked = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsClassToXamlChecked));
+            IsUseXBind = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsUseXBind));
+            IsUseTwoWayBinding = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsUseTwoWayBinding));
+            IsUseTextBox = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsUseTextBox));
+            IsUseGrid = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsUseGrid));
+            IsUWP = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsUWP));
+            IsXamarin = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsXamarin));
+            IsWPF = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsWPF));
+        }
         public ICommand CopyCommand => new DelegateCommand(OnCopyCommandExecute);
 
         private void OnCopyCommandExecute()
@@ -119,6 +337,32 @@ namespace WinDevUtility.ViewModels
             _dialogService = dialogService;
             NoofColumns = 1;
             NoofRows = 1;
+            StartUpSettingAsync().AwaitAsync(() => Init(), null);
+        }
+
+        private void Init()
+        {
+            if (!IsGridLayoutChecked && !IsClassToXamlChecked)
+            {
+                IsGridLayoutChecked = true;
+            }
+            if (!IsUWP && !IsWPF && !IsXamarin)
+            {
+                IsUWP = true;
+            }
+        }
+
+        public string InputText
+        {
+            get { return _inputText; }
+            set
+            {
+                if (_inputText != value)
+                {
+                    _inputText = value;
+                    RaisePropertyChanged();
+                }
+            }
         }
         public string OutputText
         {
@@ -302,6 +546,105 @@ namespace WinDevUtility.ViewModels
                 {
                     _isCustomWidth = value;
                     RaisePropertyChanged();
+                }
+            }
+        }
+        public bool IsUseGrid
+        {
+            get { return _isUseGrid; }
+            set
+            {
+                if (_isUseGrid != value)
+                {
+                    _isUseGrid = value;
+                    RaisePropertyChanged();
+                    _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
+                }
+            }
+        }
+        public bool IsUseTextBox
+        {
+            get { return _isUseTextBox; }
+            set
+            {
+                if (_isUseTextBox != value)
+                {
+                    _isUseTextBox = value;
+                    if (!value)
+                    {
+                        IsUseTwoWayBinding = false;
+                    }
+                    RaisePropertyChanged();
+                    _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
+                }
+            }
+        }
+        public bool IsUseTwoWayBinding
+        {
+            get { return _isUseTwoWayBinding; }
+            set
+            {
+                if (_isUseTwoWayBinding != value)
+                {
+                    _isUseTwoWayBinding = value;
+                    RaisePropertyChanged();
+                    _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
+                }
+            }
+        }
+        public bool IsUseXBind
+        {
+            get { return _isUseXBind; }
+            set
+            {
+                if (_isUseXBind != value)
+                {
+                    _isUseXBind = value;
+                    RaisePropertyChanged();
+                    _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
+                }
+
+            }
+        }
+        public bool IsUWP
+        {
+            get { return _isUWP; }
+            set
+            {
+                if (_isUWP != value)
+                {
+                    _isUWP = value; if (!value)
+                    {
+                        IsUseXBind = false;
+                    }
+                    RaisePropertyChanged();
+                    _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
+                }
+            }
+        }
+        public bool IsWPF
+        {
+            get { return _isWPF; }
+            set
+            {
+                if (_isWPF != value)
+                {
+                    _isWPF = value;
+                    RaisePropertyChanged();
+                    _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
+                }
+            }
+        }
+        public bool IsXamarin
+        {
+            get { return _isXamarin; }
+            set
+            {
+                if (_isXamarin != value)
+                {
+                    _isXamarin = value;
+                    RaisePropertyChanged();
+                    _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
                 }
             }
         }
