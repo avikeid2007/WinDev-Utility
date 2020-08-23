@@ -13,7 +13,7 @@
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftTopRightBottomMargin}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="200" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -21,34 +21,67 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <winui:RadioButtons>
-            <RadioButton
-                Content="Grid Layout"
+        <StackPanel>
+            <TextBlock
+                Margin="{StaticResource XSmallTopMargin}"
+                FontSize="{StaticResource MediumFontSize}"
                 FontWeight="Medium"
-                IsChecked="{Binding IsGridLayoutChecked, Mode=TwoWay}" />
-            <RadioButton
+                Text="XAML Option:" />
+            <winui:RadioButtons Margin="{StaticResource MediumRightMargin}">
+                <RadioButton
+                    Content="Grid Layout"
+                    FontWeight="Medium"
+                    IsChecked="{Binding IsGridLayoutChecked, Mode=TwoWay}" />
+                <!--<RadioButton
                 Content="ListView"
                 FontWeight="Medium"
                 IsChecked="{Binding IsListViewChecked, Mode=TwoWay}" />
             <RadioButton
                 Content="Style"
                 FontWeight="Medium"
-                IsChecked="{Binding IsStyleChecked, Mode=TwoWay}" />
-            <RadioButton
-                Content="Class to XAML"
-                FontWeight="Medium"
-                IsChecked="{Binding IsClassToXamlChecked, Mode=TwoWay}" />
-        </winui:RadioButtons>
+                IsChecked="{Binding IsStyleChecked, Mode=TwoWay}" />-->
+                <RadioButton
+                    Content="Class to XAML"
+                    FontWeight="Medium"
+                    IsChecked="{Binding IsClassToXamlChecked, Mode=TwoWay}" />
+            </winui:RadioButtons>
+        </StackPanel>
         <Grid
             x:Name="ClassOption"
             Grid.Column="1"
-            Margin="{StaticResource XSmallLeftTopRightBottomMargin}">
+            Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
+            Visibility="Visible">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
+            <winui:RadioButtons
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                MaxColumns="3">
+                <RadioButton
+                    Width="60"
+                    Content="For UWP"
+                    FontWeight="Medium"
+                    IsChecked="{Binding IsUWP, Mode=TwoWay}" />
+                <RadioButton
+                    Content="For WPF"
+                    FontWeight="Medium"
+                    IsChecked="{Binding IsWPF, Mode=TwoWay}" />
+                <RadioButton
+                    Content="For Xamarin"
+                    FontWeight="Medium"
+                    IsChecked="{Binding IsXamarin, Mode=TwoWay}" />
+            </winui:RadioButtons>
             <TextBox
                 x:Name="TxtInput"
+                Grid.Row="1"
+                MaxHeight="300"
+                VerticalAlignment="Stretch"
                 AcceptsReturn="True"
                 BorderBrush="#ccc"
                 CornerRadius="8"
@@ -61,6 +94,7 @@
                 </TextBox.Shadow>
             </TextBox>
             <Grid
+                Grid.RowSpan="2"
                 Grid.Column="1"
                 Margin="{StaticResource XSmallLeftMargin}"
                 Padding="{StaticResource XSmallLeftTopRightBottomMargin}"
@@ -78,21 +112,24 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
+
 
                 <TextBlock
                     Margin="{StaticResource XXSmallTopBottomMargin}"
                     FontSize="{StaticResource MediumFontSize}"
                     FontWeight="Medium"
-                    Text="Mvvm Command Setting:" />
+                    Text="XAML Setting:" />
+
+
                 <TextBlock
                     Grid.Row="1"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center"
                     FontSize="16"
                     FontWeight="Medium"
-                    Text="Include Execute Method" />
+                    Text="Use Grid Layout" />
 
                 <ToggleSwitch
                     Grid.Row="1"
@@ -100,7 +137,7 @@
                     Margin="8,0,0,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    IsOn="{Binding IsIncludeExecute, Mode=TwoWay}"
+                    IsOn="{Binding IsUseGrid, Mode=TwoWay}"
                     OffContent=""
                     OnContent="" />
 
@@ -110,7 +147,7 @@
                     VerticalAlignment="Center"
                     FontSize="16"
                     FontWeight="Medium"
-                    Text="Include CanExecute Method" />
+                    Text="Use TextBox" />
 
 
                 <ToggleSwitch
@@ -119,8 +156,7 @@
                     Margin="8,0,0,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    IsEnabled="{Binding IsIncludeExecute}"
-                    IsOn="{Binding IsIncludeCanExecute, Mode=TwoWay}"
+                    IsOn="{Binding IsUseTextBox, Mode=TwoWay}"
                     OffContent=""
                     OnContent="" />
 
@@ -130,37 +166,59 @@
                     VerticalAlignment="Center"
                     FontSize="16"
                     FontWeight="Medium"
-                    Text="Include Command Parameter" />
+                    Text="Use Two-way Binding" />
 
 
                 <ToggleSwitch
                     Grid.Row="3"
+                    Grid.Column="1"
+                    Margin="8,0,0,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    IsEnabled="{Binding IsUseTextBox}"
+                    IsOn="{Binding IsUseTwoWayBinding, Mode=TwoWay}"
+                    OffContent=""
+                    OnContent="" />
+                <TextBlock
+                    Grid.Row="4"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    FontWeight="Medium"
+                    Text="Use x:Bind" />
+
+
+                <ToggleSwitch
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Margin="8,0,0,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    IsEnabled="{Binding IsUWP}"
+                    IsOn="{Binding IsUseXBind, Mode=TwoWay}"
+                    OffContent=""
+                    OnContent="" />
+                <!--<TextBlock
+                    Grid.Row="5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    FontWeight="Medium"
+                    Text="Use Calendar for dates" />
+
+
+                <ToggleSwitch
+                    Grid.Row="5"
                     Grid.Column="1"
                     Margin="8,0,0,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     IsOn="{Binding IsIncludeParameter, Mode=TwoWay}"
                     OffContent=""
-                    OnContent="" />
-                <TextBox
-                    Grid.Row="4"
-                    Grid.ColumnSpan="2"
-                    CornerRadius="8"
-                    FontSize="{StaticResource MediumFontSize}"
-                    IsEnabled="{Binding IsIncludeParameter}"
-                    PlaceholderText="i.e. string"
-                    Text="{Binding ParameterType, Mode=TwoWay}">
-                    <TextBox.Header>
-                        <TextBlock
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
-                            FontSize="12"
-                            FontWeight="Medium"
-                            Text="Parameter Type" />
-                    </TextBox.Header>
-                </TextBox>
+                    OnContent="" />-->
 
             </Grid>
+
         </Grid>
         <Grid
             x:Name="GridOption"
@@ -169,7 +227,8 @@
             Padding="{StaticResource XSmallLeftTopRightBottomMargin}"
             BorderBrush="#ccc"
             BorderThickness="1"
-            CornerRadius="8">
+            CornerRadius="8"
+            Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -370,6 +429,7 @@
                         Text="Clear" />
                 </StackPanel>
             </Button>
+
         </Grid>
         <Grid
             x:Name="GridPocoOutput"
@@ -419,5 +479,6 @@
                     Value="Visible" />
             </ic:DataTriggerBehavior>
         </i:Interaction.Behaviors>
+
     </Grid>
 </Page>
