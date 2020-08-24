@@ -1,9 +1,12 @@
 ﻿using AsyncCommands;
 using Prism.Commands;
 using Prism.Windows.Mvvm;
+using Prism.Windows.Navigation;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WinDevUtility.Constants;
 using WinDevUtility.Extensions;
 using WinDevUtility.Helpers;
 using WinDevUtility.Services;
@@ -31,61 +34,18 @@ namespace WinDevUtility.ViewModels
         public ICommand CopyCommand => new DelegateCommand(OnCopyCommandExecute);
         public ICommand ExportCommand => new AsyncCommand(OnExportCommandExecuteAsync);
         public ICommand ClearCommand => new DelegateCommand(OnClearCommandExecute);
-
-        private void OnClearCommandExecute()
-        {
-            InputText = string.Empty;
-            OutputText = string.Empty;
-            ClassName = string.Empty;
-            Namespace = string.Empty;
-            BaseClass = string.Empty;
-        }
-
-        private async Task OnExportCommandExecuteAsync()
-        {
-            if (!string.IsNullOrEmpty(OutputText))
-            {
-                await FileHelper.SaveFileAsync(OutputText, FileTypes.CS, ClassName ?? "");
-            }
-        }
-
-        private void OnCopyCommandExecute()
-        {
-            if (!string.IsNullOrEmpty(OutputText))
-            {
-                FileHelper.CopyText(OutputText);
-            }
-        }
-
         public PocoViewModel(IDialogService dialogService)
         {
             _dialogService = dialogService;
             _ = StartUpSettingAsync();
-#if DEBUG
-            InputText = @"string Username
-bool _isNull
-List<string> _productName;
-int userId;
-string   username;
-Books book
-private Employee emp
-public readonly Post post
-public string Username {get; set;}
-public virtual ICollection<Blogs> BlogList";
-#endif
         }
-        public string PlaceHolder => @"Enter properties and variables with or without access modifier i.e.
-string Username
-bool _isNull
-List<string> _productName;
-int userId;
-string   username;
-Books book
-private Employee emp
-public readonly Post post
-public string Username {get; set;}
-public virtual ICollection<Blogs> BlogList
-";
+        public override void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState, bool suspending)
+        {
+            _ = SettingsStorageExtensions.SaveSettingAsync(PageTokens.POCOPage, nameof(PageTokens));
+        }
+
+        public string PlaceHolder => Globals.PocoPlaceHolder;
+
         public bool IsIncludePropertyChange
         {
             get { return _isincludePropertyChange; }
@@ -236,18 +196,8 @@ public virtual ICollection<Blogs> BlogList
             IsPrism = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsPrism));
             IsDirtyCheck = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsDirtyCheck));
         }
-        //private async Task SaveSettingAsync(string value, [CallerMemberName] string propertyName = "")
-        //{
-        //    await ApplicationData.Current.LocalSettings.SaveAsync(propertyName, value);
-        //}
-        private string PropertyGetter(string propertyName)
-        {
-            return "{ \r\tget { return " + propertyName + "; }\r";
-        }
-        private string RemoveWantedkeyword(string text)
-        {
-            return text.Replace(" virtual ", " ").Replace(" readonly ", " ").Trim();
-        }
+        private string PropertyGetter(string propertyName) => "{ \r\tget { return " + propertyName + "; }\r";
+        private string RemoveWantedkeyword(string text) => text.Replace(" virtual ", " ").Replace(" readonly ", " ").Trim();
         private string ValidatePropertyName(string propertyName)
         {
             propertyName = propertyName.StartsWith("_") ? propertyName.Substring(1) : propertyName;
@@ -299,15 +249,7 @@ public virtual ICollection<Blogs> BlogList
             }
             return classText;
         }
-        //private void GetFinalText(string classText)
-        //{
-        //    if (!string.IsNullOrEmpty(Namespace))
-        //    {
-        //        classBaseText += $"namespace {Namespace}\r{{\r{classText}\r}}";
-        //        return classBaseText;
-        //    }
 
-        //}
         private void SetPropertyStings(string propertyName, string propertType)
         {
             var publicPropertyName = propertyName.ToFirstUpper();
@@ -321,6 +263,31 @@ public virtual ICollection<Blogs> BlogList
             PublicPropertyString += IsIncludePropertyChange && !IsPrism ? "\t    RaisePropertyChanged();\r" : string.Empty;
             PublicPropertyString += IsDirtyCheck && !IsPrism ? "\t  }\r" : string.Empty;
             PublicPropertyString += "\t} \r}";
+        }
+
+        private void OnClearCommandExecute()
+        {
+            InputText = string.Empty;
+            OutputText = string.Empty;
+            ClassName = string.Empty;
+            Namespace = string.Empty;
+            BaseClass = string.Empty;
+        }
+
+        private async Task OnExportCommandExecuteAsync()
+        {
+            if (!string.IsNullOrEmpty(OutputText))
+            {
+                await FileHelper.SaveFileAsync(OutputText, FileTypes.CS, ClassName ?? "");
+            }
+        }
+
+        private void OnCopyCommandExecute()
+        {
+            if (!string.IsNullOrEmpty(OutputText))
+            {
+                FileHelper.CopyText(OutputText);
+            }
         }
     }
 }

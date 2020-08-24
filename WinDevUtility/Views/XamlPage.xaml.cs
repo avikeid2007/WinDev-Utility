@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 using WinDevUtility.ViewModels;
 
 using Windows.UI.Xaml.Controls;
@@ -13,6 +12,11 @@ namespace WinDevUtility.Views
         public XamlPage()
         {
             InitializeComponent();
+        }
+
+        private void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            TxtInput.Focus(Windows.UI.Xaml.FocusState.Keyboard);
         }
     }
 }

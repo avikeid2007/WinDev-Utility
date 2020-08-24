@@ -1,8 +1,8 @@
-﻿
-using AsyncCommands;
+﻿using AsyncCommands;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using Prism.Commands;
 using Prism.Windows.Mvvm;
+using Prism.Windows.Navigation;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +14,8 @@ using WinDevUtility.Extensions;
 using WinDevUtility.Helpers;
 using WinDevUtility.Services;
 using Windows.Storage;
+using Windows.System;
+using Windows.UI.Xaml.Input;
 
 namespace WinDevUtility.ViewModels
 {
@@ -41,295 +43,28 @@ namespace WinDevUtility.ViewModels
         private bool _isUWP;
         private bool _isWPF;
         private bool _isXamarin;
-        public ICommand GeneratePropertiesCommand => new AsyncCommand(OnGeneratePropertiesCommandExecuteAsync);
-
-        private async Task OnGeneratePropertiesCommandExecuteAsync()
-        {
-            if (!IsGridLayoutChecked && !IsClassToXamlChecked)
-            {
-                await _dialogService.AlertAsync("Please select any option");
-            }
-            if (IsGridLayoutChecked)
-            {
-                OutputText = await GenerateGridLayoutAsync(NoofRows, NoofColumns, RowType, ColumnType);
-            }
-            if (IsClassToXamlChecked)
-            {
-                OutputText = await GenerateClassToXamlAsync();
-            }
-        }
         private int i = 0;
-        private async Task<string> GenerateClassToXamlAsync()
-        {
-            i = 0;
-            if (!string.IsNullOrEmpty(InputText))
-            {
-                if (await ValidateCommandInputesAsync())
-                {
-                    return "";
-                }
-                var lines = await InputText.GetLinesAsync();
-                if (lines?.Count() > 0)
-                {
-                    return await GenerateXamlTextAsync(lines.ToArray());
-                }
-            }
-            else
-            {
-                await _dialogService.AlertAsync("Enter the input text");
-            }
-            return "";
-        }
-        private string RemoveWantedkeyword(string text)
-        {
-            return text.Replace(" virtual ", " ").Replace(" readonly ", " ").Trim();
-        }
-        string bindingText = string.Empty;
-        private async Task<string> GenerateXamlTextAsync(string[] vs)
-        {
-            bindingText = IsUseXBind ? "x:Bind" : "Binding";
-            bool isClassFound = false;
-            string xamlText = string.Empty;
-            for (int i = 0; i < vs.Length; i++)
-            {
-                if (isClassFound && vs[i].Contains("public "))
-                {
-                    var text = vs[i].RemoveExtraWhiteSpace().Trim();
-                    if (!string.IsNullOrEmpty(text))
-                    {
-                        string line = RemoveWantedkeyword(text);
-                        string[] lineWords = line.Split(new char[0]);
-                        if (lineWords.Length == 3)
-                        {
-                            xamlText += $"{GetControlText(GetQualifiedTypes(lineWords[1]), lineWords[2])}\r";
-                        }
-                    }
-                }
-                if (!isClassFound && vs[i].Contains("class "))
-                {
-                    isClassFound = true;
-                }
-            }
-            if (!string.IsNullOrEmpty(xamlText))
-            {
-                if (IsUseGrid)
-                {
-                    return await GenerateGridLayoutAsync(noofRows: i, noofColumns: 1, content: xamlText);
-                }
-                else
-                {
-                    if (IsXamarin)
-                    {
-                        return string.Format(Globals.StackTextXamarinstr, xamlText);
-                    }
-                    return string.Format(Globals.StackTextstr, xamlText);
-                }
-            }
-            return string.Empty;
-        }
-
-        private string GetControlText(string type, string name)
-        {
-            if (type.Equals(nameof(DateTimeOffset), StringComparison.OrdinalIgnoreCase) || type.Equals(nameof(DateTime), StringComparison.OrdinalIgnoreCase))
-            {
-                return GetDateControl(name);
-            }
-            if (type.Equals(nameof(Guid), StringComparison.OrdinalIgnoreCase))
-            {
-                return GetComboControl(name);
-            }
-            if (type.Equals(nameof(Boolean), StringComparison.OrdinalIgnoreCase) || type.Equals("bool", StringComparison.OrdinalIgnoreCase))
-            {
-                return GetCheckBoxControl(name);
-            }
-            if (type.StartsWith(nameof(List), StringComparison.OrdinalIgnoreCase)
-                || type.StartsWith("ObservableCollection", StringComparison.OrdinalIgnoreCase)
-                || type.StartsWith(nameof(IEnumerable), StringComparison.OrdinalIgnoreCase)
-                || type.StartsWith(nameof(IList), StringComparison.OrdinalIgnoreCase)
-                || type.StartsWith(nameof(ICollection), StringComparison.OrdinalIgnoreCase))
-            {
-                return GetListViewControl(name);
-            }
-            else
-            {
-                return GetTextControl(name);
-            }
-        }
-        private string SetMode(string name)
-        {
-            if (IsUseTwoWayBinding)
-            {
-                return $"{name}, Mode=TwoWay";
-            }
-            return name;
-        }
-        private string GetListViewControl(string name)
-        {
-            return string.Format(Globals.ListViewControlstr, bindingText, name, SetGridRow());
-        }
-
-        private string GetCheckBoxControl(string name)
-        {
-            return string.Format(Globals.CheckBoxControlstr, bindingText, SetMode(name), SetGridRow());
-        }
-
-        private string GetTextControl(string name)
-        {
-            if (IsXamarin)
-            {
-                if (IsUseTextBox)
-                    return string.Format(Globals.TextBoxControlXamarinstr, bindingText, SetMode(name), SetGridRow());
-                else
-                    return string.Format(Globals.TextBlockControlXamarinstr, bindingText, SetMode(name), SetGridRow());
-            }
-            else
-            {
-                if (IsUseTextBox)
-                    return string.Format(Globals.TextBoxControlstr, bindingText, SetMode(name), SetGridRow());
-                else
-                    return string.Format(Globals.TextBlockControlstr, bindingText, SetMode(name), SetGridRow());
-            }
-        }
-
-        private string GetComboControl(string name)
-        {
-            if (IsXamarin)
-            {
-                return string.Format(Globals.ComboControlXamarinstr, bindingText, SetMode(name), SetGridRow());
-            }
-            else
-            {
-                return string.Format(Globals.ComboControlstr, bindingText, SetMode(name), SetGridRow());
-            }
-        }
-
-        private string SetGridRow()
-        {
-            var row = IsUseGrid ? string.Format(@"Grid.Row=""{0}""", i) : string.Empty;
-            i++;
-            return row;
-        }
-
-        private string GetDateControl(string name)
-        {
-            if (IsWPF)
-            {
-                return string.Format(Globals.DateControlWPFstr, bindingText, SetMode(name), SetGridRow());
-            }
-            else
-            {
-                return string.Format(Globals.DateControlstr, bindingText, SetMode(name), SetGridRow());
-            }
-
-        }
-        private string GetQualifiedTypes(string type)
-        {
-            if (type.StartsWith("Nullable"))
-            {
-                type = type.Replace("Nullable<", "").Replace(">", "").Trim();
-            }
-            if (type.EndsWith("?"))
-            {
-                type = type.Replace("?", "").Trim();
-            }
-            if (type.StartsWith("System."))
-            {
-                type = type.Replace("System.", "").Trim();
-            }
-            return type.ToFirstUpper();
-        }
-
-        private async Task<bool> ValidateCommandInputesAsync()
-        {
-            if (!InputText.Trim().Contains("class "))
-            {
-                await _dialogService.AlertAsync("Invalid Class");
-                return true;
-            }
-            return false;
-        }
-
-        private async Task<string> GenerateGridLayoutAsync(int noofRows, int noofColumns, int rowType = 0, int columnType = 0, string content = "")
-        {
-            if (noofRows == 0 || noofColumns == 0)
-            {
-                await _dialogService.AlertAsync("invalid inputs");
-            }
-            var rowText = string.Empty;
-            for (int i = 0; i < noofRows; i++)
-            {
-                rowText += string.Format(Globals.RowTextstr, GetRowType(rowType)) + "\r";
-            }
-            var colText = string.Empty;
-            for (int i = 0; i < noofColumns; i++)
-            {
-                colText += string.Format(Globals.ColumnTextstr, GetColumnType(columnType)) + "\r";
-            }
-            return string.Format(Globals.GridTextstr, rowText, colText, content);
-        }
-
-        private string GetRowType(int rowType)
-        {
-            return rowType switch
-            {
-                0 => "*",
-                1 => "auto",
-                2 => RowHeight.ToString(),
-                _ => "*"
-            };
-        }
-        private string GetColumnType(int colType)
-        {
-            return colType switch
-            {
-                0 => "*",
-                1 => "auto",
-                2 => ColumnWidth.ToString(),
-                _ => "*"
-            };
-        }
-        public IEnumerable<string> TypeCollection
-        {
-            get
-            {
-                yield return "*";
-                yield return "Auto";
-                yield return "Custom";
-            }
-        }
-        private async Task StartUpSettingAsync()
-        {
-            IsGridLayoutChecked = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsGridLayoutChecked));
-            //IsListViewChecked = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsListViewChecked));
-            //IsStyleChecked = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsStyleChecked));
-            IsClassToXamlChecked = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsClassToXamlChecked));
-            IsUseXBind = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsUseXBind));
-            IsUseTwoWayBinding = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsUseTwoWayBinding));
-            IsUseTextBox = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsUseTextBox));
-            IsUseGrid = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsUseGrid));
-            IsUWP = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsUWP));
-            IsXamarin = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsXamarin));
-            IsWPF = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsWPF));
-        }
+        private string bindingText = string.Empty;
+        public ICommand GeneratePropertiesCommand => new AsyncCommand(OnGeneratePropertiesCommandExecuteAsync);
         public ICommand CopyCommand => new DelegateCommand(OnCopyCommandExecute);
-
-        private void OnCopyCommandExecute()
-        {
-            throw new NotImplementedException();
-        }
-
         public ICommand ExportCommand => new AsyncCommand(OnExportCommandExecuteAsync);
-
-        private Task OnExportCommandExecuteAsync()
-        {
-            throw new NotImplementedException();
-        }
-
         public ICommand ClearCommand => new DelegateCommand(OnClearCommandExecute);
+        public ICommand KeyDownCommand => new DelegateCommand<KeyRoutedEventArgs>(OnKeyDownCommandExecute);
 
-        private void OnClearCommandExecute()
+        private void OnKeyDownCommandExecute(KeyRoutedEventArgs obj)
         {
-            throw new NotImplementedException();
+            if (obj.Key == VirtualKey.F5)
+            {
+            }
+            if (obj.Key == VirtualKey.F6)
+            {
+            }
+            if (obj.Key == VirtualKey.F7)
+            {
+            }
+            if (obj.Key == VirtualKey.F8)
+            {
+            }
         }
 
         public XamlViewModel(IDialogService dialogService)
@@ -339,7 +74,10 @@ namespace WinDevUtility.ViewModels
             NoofRows = 1;
             StartUpSettingAsync().AwaitAsync(() => Init(), null);
         }
-
+        public override void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState, bool suspending)
+        {
+            _ = SettingsStorageExtensions.SaveSettingAsync(PageTokens.XamlPage, nameof(PageTokens));
+        }
         private void Init()
         {
             if (!IsGridLayoutChecked && !IsClassToXamlChecked)
@@ -401,29 +139,8 @@ namespace WinDevUtility.ViewModels
                 }
             }
         }
-
-        private void SetCustomWidth(int value)
-        {
-            if (value == 2)
-            {
-                IsCustomWidth = true;
-            }
-            else
-            {
-                IsCustomWidth = false;
-            }
-        }
-        private void SetCustomHeight(int value)
-        {
-            if (value == 2)
-            {
-                IsCustomHeight = true;
-            }
-            else
-            {
-                IsCustomHeight = false;
-            }
-        }
+        private void SetCustomWidth(int value) => IsCustomWidth = value == 2;
+        private void SetCustomHeight(int value) => IsCustomHeight = value == 2;
         public int NoofColumns
         {
             get { return _noofColumns; }
@@ -603,7 +320,6 @@ namespace WinDevUtility.ViewModels
                     RaisePropertyChanged();
                     _ = SettingsStorageExtensions.SaveSettingAsync(value.ToString());
                 }
-
             }
         }
         public bool IsUWP
@@ -613,7 +329,8 @@ namespace WinDevUtility.ViewModels
             {
                 if (_isUWP != value)
                 {
-                    _isUWP = value; if (!value)
+                    _isUWP = value;
+                    if (!value)
                     {
                         IsUseXBind = false;
                     }
@@ -648,6 +365,249 @@ namespace WinDevUtility.ViewModels
                 }
             }
         }
-
+        private async Task OnGeneratePropertiesCommandExecuteAsync()
+        {
+            if (!IsGridLayoutChecked && !IsClassToXamlChecked)
+            {
+                await _dialogService.AlertAsync("Please select any option");
+            }
+            if (IsGridLayoutChecked)
+            {
+                OutputText = await GenerateGridLayoutAsync(NoofRows, NoofColumns, RowType, ColumnType);
+            }
+            if (IsClassToXamlChecked)
+            {
+                OutputText = await GenerateClassToXamlAsync();
+            }
+        }
+        private async Task<string> GenerateClassToXamlAsync()
+        {
+            i = 0;
+            if (!string.IsNullOrEmpty(InputText))
+            {
+                if (await ValidateCommandInputesAsync())
+                {
+                    return string.Empty;
+                }
+                var lines = await InputText.GetLinesAsync();
+                if (lines?.Count() > 0)
+                {
+                    return await GenerateXamlTextAsync(lines.ToArray());
+                }
+            }
+            else
+            {
+                await _dialogService.AlertAsync("Enter the input text");
+            }
+            return string.Empty;
+        }
+        private string RemoveWantedkeyword(string text) => text.Replace(" virtual ", " ").Replace(" readonly ", " ").Trim();
+        private async Task<string> GenerateXamlTextAsync(string[] vs)
+        {
+            bindingText = IsUseXBind ? "x:Bind" : "Binding";
+            bool isClassFound = false;
+            string xamlText = string.Empty;
+            for (int i = 0; i < vs.Length; i++)
+            {
+                if (isClassFound && vs[i].Contains("public "))
+                {
+                    var text = vs[i].RemoveExtraWhiteSpace().Trim();
+                    if (!string.IsNullOrEmpty(text))
+                    {
+                        string line = RemoveWantedkeyword(text);
+                        string[] lineWords = line.Split(new char[0]);
+                        if (lineWords.Length == 3)
+                        {
+                            xamlText += $"{GetControlText(GetQualifiedTypes(lineWords[1]), lineWords[2])}\r";
+                        }
+                    }
+                }
+                if (!isClassFound && vs[i].Contains("class "))
+                {
+                    isClassFound = true;
+                }
+            }
+            if (!string.IsNullOrEmpty(xamlText))
+            {
+                if (IsUseGrid)
+                {
+                    return await GenerateGridLayoutAsync(noofRows: i, noofColumns: 1, content: xamlText);
+                }
+                else
+                {
+                    if (IsXamarin)
+                    {
+                        return string.Format(Globals.StackTextXamarinstr, xamlText);
+                    }
+                    return string.Format(Globals.StackTextstr, xamlText);
+                }
+            }
+            return string.Empty;
+        }
+        private string GetControlText(string type, string name)
+        {
+            if (type.Equals(nameof(DateTimeOffset), StringComparison.OrdinalIgnoreCase) || type.Equals(nameof(DateTime), StringComparison.OrdinalIgnoreCase))
+            {
+                return GetDateControl(name);
+            }
+            if (type.Equals(nameof(Guid), StringComparison.OrdinalIgnoreCase))
+            {
+                return GetComboControl(name);
+            }
+            if (type.Equals(nameof(Boolean), StringComparison.OrdinalIgnoreCase) || type.Equals("bool", StringComparison.OrdinalIgnoreCase))
+            {
+                return GetCheckBoxControl(name);
+            }
+            if (type.StartsWith(nameof(List), StringComparison.OrdinalIgnoreCase)
+                || type.StartsWith("ObservableCollection", StringComparison.OrdinalIgnoreCase)
+                || type.StartsWith(nameof(IEnumerable), StringComparison.OrdinalIgnoreCase)
+                || type.StartsWith(nameof(IList), StringComparison.OrdinalIgnoreCase)
+                || type.StartsWith(nameof(ICollection), StringComparison.OrdinalIgnoreCase))
+            {
+                return GetListViewControl(name);
+            }
+            else
+            {
+                return GetTextControl(name);
+            }
+        }
+        private string SetMode(string name)
+        {
+            if (IsUseTwoWayBinding)
+            {
+                return $"{name}, Mode=TwoWay";
+            }
+            return name;
+        }
+        private string GetListViewControl(string name) => string.Format(Globals.ListViewControlstr, bindingText, name, SetGridRow());
+        private string GetCheckBoxControl(string name) => string.Format(Globals.CheckBoxControlstr, bindingText, SetMode(name), SetGridRow());
+        private string GetTextControl(string name)
+        {
+            return IsXamarin
+                ? IsUseTextBox
+                    ? string.Format(Globals.TextBoxControlXamarinstr, bindingText, SetMode(name), SetGridRow())
+                    : string.Format(Globals.TextBlockControlXamarinstr, bindingText, SetMode(name), SetGridRow())
+                : IsUseTextBox
+                    ? string.Format(Globals.TextBoxControlstr, bindingText, SetMode(name), SetGridRow())
+                    : string.Format(Globals.TextBlockControlstr, bindingText, SetMode(name), SetGridRow());
+        }
+        private string GetComboControl(string name)
+        {
+            return IsXamarin
+                ? string.Format(Globals.ComboControlXamarinstr, bindingText, SetMode(name), SetGridRow())
+                : string.Format(Globals.ComboControlstr, bindingText, SetMode(name), SetGridRow());
+        }
+        private string SetGridRow() => IsUseGrid ? string.Format(@"Grid.Row=""{0}""", i++) : string.Empty;
+        private string GetDateControl(string name)
+        {
+            return IsWPF
+                ? string.Format(Globals.DateControlWPFstr, bindingText, SetMode(name), SetGridRow())
+                : string.Format(Globals.DateControlstr, bindingText, SetMode(name), SetGridRow());
+        }
+        private string GetQualifiedTypes(string type)
+        {
+            if (type.StartsWith("Nullable"))
+            {
+                type = type.Replace("Nullable<", "").Replace(">", "").Trim();
+            }
+            if (type.EndsWith("?"))
+            {
+                type = type.Replace("?", "").Trim();
+            }
+            if (type.StartsWith("System."))
+            {
+                type = type.Replace("System.", "").Trim();
+            }
+            return type.ToFirstUpper();
+        }
+        private async Task<bool> ValidateCommandInputesAsync()
+        {
+            if (!InputText.Trim().Contains("class "))
+            {
+                await _dialogService.AlertAsync("Invalid Class");
+                return true;
+            }
+            return false;
+        }
+        private async Task<string> GenerateGridLayoutAsync(int noofRows, int noofColumns, int rowType = 0, int columnType = 0, string content = "")
+        {
+            if (noofRows == 0 || noofColumns == 0)
+            {
+                await _dialogService.AlertAsync("invalid inputs");
+            }
+            var rowText = string.Empty;
+            for (int i = 0; i < noofRows; i++)
+            {
+                rowText += string.Format(Globals.RowTextstr, GetRowType(rowType)) + "\r";
+            }
+            var colText = string.Empty;
+            for (int i = 0; i < noofColumns; i++)
+            {
+                colText += string.Format(Globals.ColumnTextstr, GetColumnType(columnType)) + "\r";
+            }
+            return string.Format(Globals.GridTextstr, rowText, colText, content);
+        }
+        private string GetRowType(int rowType)
+        {
+            return rowType switch
+            {
+                0 => "*",
+                1 => "auto",
+                2 => RowHeight.ToString(),
+                _ => "*"
+            };
+        }
+        private string GetColumnType(int colType)
+        {
+            return colType switch
+            {
+                0 => "*",
+                1 => "auto",
+                2 => ColumnWidth.ToString(),
+                _ => "*"
+            };
+        }
+        public IEnumerable<string> TypeCollection
+        {
+            get
+            {
+                yield return "*";
+                yield return "Auto";
+                yield return "Custom";
+            }
+        }
+        private async Task StartUpSettingAsync()
+        {
+            IsGridLayoutChecked = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsGridLayoutChecked));
+            //IsListViewChecked = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsListViewChecked));
+            //IsStyleChecked = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsStyleChecked));
+            IsClassToXamlChecked = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsClassToXamlChecked));
+            IsUseXBind = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsUseXBind));
+            IsUseTwoWayBinding = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsUseTwoWayBinding));
+            IsUseTextBox = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsUseTextBox));
+            IsUseGrid = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsUseGrid));
+            IsUWP = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsUWP));
+            IsXamarin = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsXamarin));
+            IsWPF = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsWPF));
+        }
+        private async Task OnExportCommandExecuteAsync()
+        {
+            if (!string.IsNullOrEmpty(OutputText))
+            {
+                await FileHelper.SaveFileAsync(OutputText, FileTypes.Xaml, "MyPage");
+            }
+        }
+        private void OnCopyCommandExecute()
+        {
+            if (!string.IsNullOrEmpty(OutputText))
+            {
+                FileHelper.CopyText(OutputText);
+            }
+        }
+        private void OnClearCommandExecute()
+        {
+            InputText = string.Empty;
+            OutputText = string.Empty;
+        }
     }
 }

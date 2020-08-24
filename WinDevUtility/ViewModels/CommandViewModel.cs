@@ -2,9 +2,12 @@
 using AsyncCommands;
 using Prism.Commands;
 using Prism.Windows.Mvvm;
+using Prism.Windows.Navigation;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WinDevUtility.Constants;
 using WinDevUtility.Extensions;
 using WinDevUtility.Helpers;
 using WinDevUtility.Services;
@@ -15,26 +18,7 @@ namespace WinDevUtility.ViewModels
     public class CommandViewModel : ViewModelBase
     {
         private IDialogService _dialogService;
-        private const string icommandStr = "ICommand";
-        private const string relayCommandStr = "RelayCommand";
-        private const string delegateCommandStr = "DelegateCommand";
-        private const string AsyncCommandStr = "AsyncCommand";
-        private const string publicStr = "public";
-        private const string getSetstr = "{ get; set; }";
-        private const string executeMethodstr = "On{0}Executed";
-        private const string canExecuteMethodstr = "Can{0}Executed";
-        private const string executeMethodDefination = @"private void {0}({1})
-{{ 
-    throw new NotImplementedException(); 
-}}";
-        private const string canExecuteMethodDefination = @"private bool {0}({1})
-{{ 
-    throw new NotImplementedException(); 
-}}";
-        private const string executeAsyncMethodDefination = @"private Task {0}({1})
-{{ 
-    throw new NotImplementedException();
-}}";
+
         private bool _isRelayCommand;
         private bool _isDelegateCommand;
         private bool _isAsyncCommand;
@@ -58,8 +42,20 @@ ShowDialogCommand;
         public CommandViewModel(IDialogService dialogService)
         {
             _dialogService = dialogService;
-            _ = StartUpSettingAsync();
+            StartUpSettingAsync().AwaitAsync(() => Init(), null);
         }
+        public override void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState, bool suspending)
+        {
+            _ = SettingsStorageExtensions.SaveSettingAsync(PageTokens.CommandPage, nameof(PageTokens));
+        }
+        private void Init()
+        {
+            if (!IsAsyncCommand && !IsCustomCommand && !IsDelegateCommand && !IsRelayCommand)
+            {
+                IsDelegateCommand = true;
+            }
+        }
+
         public bool IsRelayCommand
         {
             get { return _isRelayCommand; }
@@ -222,14 +218,7 @@ ShowDialogCommand;
                 await _dialogService.AlertAsync("Enter the input text");
             }
         }
-        private string SetCommandParameter(string commandType)
-        {
-            if (IsIncludeParameter)
-            {
-                return $"{commandType}<{ParameterType}>";
-            }
-            return commandType;
-        }
+        private string SetCommandParameter(string commandType) => IsIncludeParameter ? $"{commandType}<{ParameterType}>" : commandType;
         private string GenerateCommandText(string[] vs)
         {
             var commandText = string.Empty;
@@ -242,21 +231,21 @@ ShowDialogCommand;
                 {
                     if (IsRelayCommand)
                     {
-                        var allText = GenarateText(SetCommandParameter(relayCommandStr), nameText.ToFirstUpper());
+                        var allText = GenarateText(SetCommandParameter(Globals.relayCommandStr), nameText.ToFirstUpper());
                         commandText += allText.Item1 + "\r";
                         commandExecuteText += allText.Item2 + "\r";
                         commandCanExecuteText += allText.Item3 + "\r";
                     }
                     if (IsDelegateCommand)
                     {
-                        var allText = GenarateText(SetCommandParameter(delegateCommandStr), nameText.ToFirstUpper());
+                        var allText = GenarateText(SetCommandParameter(Globals.delegateCommandStr), nameText.ToFirstUpper());
                         commandText += allText.Item1 + "\r";
                         commandExecuteText += allText.Item2 + "\r";
                         commandCanExecuteText += allText.Item3 + "\r";
                     }
                     if (IsAsyncCommand)
                     {
-                        var allText = GenarateText(SetCommandParameter(AsyncCommandStr), nameText.ToFirstUpper());
+                        var allText = GenarateText(SetCommandParameter(Globals.AsyncCommandStr), nameText.ToFirstUpper());
                         commandText += allText.Item1 + "\r";
                         commandExecuteText += allText.Item2 + "\r";
                         commandCanExecuteText += allText.Item3 + "\r";
@@ -275,41 +264,39 @@ ShowDialogCommand;
 
         private (string, string, string) GenarateText(string commandStr, string commandName)
         {
-            var text = $"{publicStr} {commandStr} {commandName}";
+            var text = $"{Globals.publicStr} {commandStr} {commandName}";
             if (!IsIncludeExecute && !IsIncludeCanExecute)
             {
-                return ($"{text} {getSetstr}", string.Empty, string.Empty);
+                return ($"{text} {Globals.getSetstr}", string.Empty, string.Empty);
             }
             else
             {
                 if (IsIncludeExecute && !IsIncludeCanExecute)
                 {
-                    text += $" => new {commandStr}( {string.Format(executeMethodstr, commandName)} );";
-                    return (text, GetExecuteString(string.Format(executeMethodstr, commandName)), string.Empty);
+                    text += $" => new {commandStr}( {string.Format(Globals.executeMethodstr, commandName)} );";
+                    return (text, GetExecuteString(string.Format(Globals.executeMethodstr, commandName)), string.Empty);
                 }
                 else
                 {
-                    text += $" => new {commandStr}({string.Format(executeMethodstr, commandName)}, {string.Format(canExecuteMethodstr, commandName)});";
-                    return (text, GetExecuteString(string.Format(executeMethodstr, commandName)), GetCanExecuteString(string.Format(canExecuteMethodstr, commandName)));
+                    text += $" => new {commandStr}({string.Format(Globals.executeMethodstr, commandName)}, {string.Format(Globals.canExecuteMethodstr, commandName)});";
+                    return (text, GetExecuteString(string.Format(Globals.executeMethodstr, commandName)), GetCanExecuteString(string.Format(Globals.canExecuteMethodstr, commandName)));
                 }
             }
         }
 
         private string GetCanExecuteString(string methodName)
         {
-            return string.Format(canExecuteMethodDefination, methodName, IsIncludeParameter ? $"{ParameterType} obj" : string.Empty);
+            return string.Format(Globals.canExecuteMethodDefination, methodName, IsIncludeParameter ? $"{ParameterType} obj" : string.Empty);
         }
 
         private string GetExecuteString(string methodName)
         {
-
-            return string.Format(IsAsyncCommand ? executeAsyncMethodDefination : executeMethodDefination, methodName, IsIncludeParameter ? $"{ParameterType} obj" : " ");
-
+            return string.Format(IsAsyncCommand ? Globals.executeAsyncMethodDefination : Globals.executeMethodDefination, methodName, IsIncludeParameter ? $"{ParameterType} obj" : " ");
         }
 
         private async Task<bool> ValidateCommandInputesAsync()
         {
-            if (IsCustomCommand && string.IsNullOrEmpty(CommandType) || (!string.IsNullOrEmpty(CommandType) && CommandType.Contains(" ")))
+            if ((IsCustomCommand && string.IsNullOrEmpty(CommandType)) || (!string.IsNullOrEmpty(CommandType) && CommandType.Contains(" ")))
             {
                 await _dialogService.AlertAsync("Enter a valid Command Type");
                 return true;
@@ -318,7 +305,7 @@ ShowDialogCommand;
         }
         private async Task<bool> ValidateCommandParameterAsync()
         {
-            if (IsIncludeParameter && string.IsNullOrEmpty(ParameterType) || (!string.IsNullOrEmpty(CommandType) && CommandType.Contains(" ")))
+            if ((IsIncludeParameter && string.IsNullOrEmpty(ParameterType)) || (!string.IsNullOrEmpty(CommandType) && CommandType.Contains(" ")))
             {
                 await _dialogService.AlertAsync("Enter a valid Parameter Type");
                 return true;
@@ -355,6 +342,5 @@ ShowDialogCommand;
             OutputText = string.Empty;
             ParameterType = string.Empty;
         }
-
     }
 }

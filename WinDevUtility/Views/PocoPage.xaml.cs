@@ -13,5 +13,10 @@ namespace WinDevUtility.Views
         {
             InitializeComponent();
         }
+
+        private void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            TxtPocoInput.Focus(Windows.UI.Xaml.FocusState.Keyboard);
+        }
     }
 }

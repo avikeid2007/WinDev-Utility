@@ -14,7 +14,6 @@ using Windows.UI.Xaml;
 
 namespace WinDevUtility.ViewModels
 {
-    // TODO WTS: Add other settings as necessary. For help see https://github.com/Microsoft/WindowsTemplateStudio/blob/release/docs/UWP/pages/settings.md
     public class SettingsViewModel : ViewModelBase
     {
         private IUserDataService _userDataService;

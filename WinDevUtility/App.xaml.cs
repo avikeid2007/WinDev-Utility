@@ -7,10 +7,12 @@ using System;
 using System.Globalization;
 using System.Threading.Tasks;
 using WinDevUtility.Core.Services;
+using WinDevUtility.Helpers;
 using WinDevUtility.Services;
 using WinDevUtility.Views;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Resources;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -44,7 +46,15 @@ namespace WinDevUtility
 
         protected override async Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
-            await LaunchApplicationAsync(PageTokens.POCOPage, null);
+            var lastClosePage = await ApplicationData.Current.LocalSettings.ReadAsync<string>(nameof(PageTokens));
+            if (string.IsNullOrEmpty(lastClosePage))
+            {
+                await LaunchApplicationAsync(PageTokens.POCOPage, null);
+            }
+            else
+            {
+                await LaunchApplicationAsync(lastClosePage, null);
+            }
         }
 
         private async Task LaunchApplicationAsync(string page, object launchParam)
@@ -88,8 +98,6 @@ namespace WinDevUtility
 
         private void OnAppUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
-            // TODO WTS: Please log and handle the exception as appropriate to your scenario
-            // For more info see https://docs.microsoft.com/uwp/api/windows.ui.xaml.application.unhandledexception
         }
 
         public void SetNavigationFrame(Frame frame)
