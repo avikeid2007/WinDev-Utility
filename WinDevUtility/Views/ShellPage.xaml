@@ -19,7 +19,7 @@
     <Page.Resources>
         <converters:BoolToVisibilityConverter
             x:Name="ReverseBoolToVisibility"
-            FalseValue="Visible"    
+            FalseValue="Visible"
             TrueValue="Collapsed" />
     </Page.Resources>
     <Grid>
@@ -33,40 +33,34 @@
             SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}">
             <winui:NavigationView.MenuItems>
                 <winui:NavigationViewItem x:Uid="Shell_Poco" helpers:NavHelper.NavigateTo="Poco">
-                    <StackPanel Orientation="Horizontal">
-                        <!--<TextBlock
-                            VerticalAlignment="Center"
-                            FontFamily="{StaticResource SymbolThemeFontFamily}"
-                            Text="&#xF272;" />-->
-                        <TextBlock
-                            Margin="2,0,0,0"
-                            FontSize="16"
-                            FontWeight="Medium"
-                            Text="Property Generator" />
-                    </StackPanel>
+                    <TextBlock
+                        Margin="2,0,0,0"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Text="Property Generator" />
                 </winui:NavigationViewItem>
                 <winui:NavigationViewItem x:Uid="GuidMenu" helpers:NavHelper.NavigateTo="Guid">
-                    <StackPanel Orientation="Horizontal">
-                        <!--<TextBlock
-                            VerticalAlignment="Center"
-                            FontFamily="{StaticResource SymbolThemeFontFamily}"
-                            Text="&#xF272;" />-->
-                        <TextBlock
-                            Margin="2,0,0,0"
-                            FontSize="16"
-                            FontWeight="Medium"
-                            Text="Guid Generator" />
-                    </StackPanel>
+                    <TextBlock
+                        Margin="2,0,0,0"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Text="Guid Generator" />
                 </winui:NavigationViewItem>
-                <winui:NavigationViewItem
-                    x:Uid="XamlMenu"
-                    helpers:NavHelper.NavigateTo="Xaml"
-                    Content="XAML Snippet" />
+                <winui:NavigationViewItem x:Uid="XamlMenu" helpers:NavHelper.NavigateTo="Xaml">
+                    <TextBlock
+                        Margin="2,0,0,0"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Text="XAML Snippet" />
+                </winui:NavigationViewItem>
 
-                <winui:NavigationViewItem
-                    x:Uid="CommandMenu"
-                    helpers:NavHelper.NavigateTo="Command"
-                    Content="Mvvm Command " />
+                <winui:NavigationViewItem x:Uid="CommandMenu" helpers:NavHelper.NavigateTo="Command">
+                    <TextBlock
+                        Margin="2,0,0,0"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Text="Mvvm Command" />
+                </winui:NavigationViewItem>
             </winui:NavigationView.MenuItems>
             <i:Interaction.Behaviors>
                 <ic:EventTriggerBehavior EventName="ItemInvoked">

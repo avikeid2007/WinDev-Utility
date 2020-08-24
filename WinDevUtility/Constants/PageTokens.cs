@@ -14,7 +14,5 @@ namespace WinDevUtility
                                                             .GetFields()
                                                             .Select(p => p.GetValue(p) as string);
 
-
     }
-
 }

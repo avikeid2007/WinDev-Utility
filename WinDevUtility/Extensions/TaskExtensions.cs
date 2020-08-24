@@ -18,7 +18,6 @@ namespace WinDevUtility.Extensions
             {
                 ErrorCallback?.Invoke(ex);
             }
-
         }
     }
 }

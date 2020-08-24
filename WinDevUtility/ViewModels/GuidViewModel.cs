@@ -1,8 +1,10 @@
 ﻿using AsyncCommands;
 using Prism.Commands;
 using Prism.Windows.Mvvm;
+using Prism.Windows.Navigation;
 using SequentialGuid;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -39,7 +41,10 @@ namespace WinDevUtility.ViewModels
             StartUpSettingAsync().AwaitAsync(() => GuidText = GenerateGuid(), null);
             NoofGuid = 1;
         }
-
+        public override void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState, bool suspending)
+        {
+            _ = SettingsStorageExtensions.SaveSettingAsync(PageTokens.GuidPage, nameof(PageTokens));
+        }
         public bool IsUpper
         {
             get { return _isUpper; }
@@ -141,7 +146,6 @@ namespace WinDevUtility.ViewModels
                 }
             }
         }
-
 
         public string ValidGuidText
         {
@@ -255,10 +259,6 @@ namespace WinDevUtility.ViewModels
                 FileHelper.CopyText(GuidText);
             }
         }
-        private void OnRefreshCommandExecute()
-        {
-            GuidText = GenerateGuid();
-
-        }
+        private void OnRefreshCommandExecute() => GuidText = GenerateGuid();
     }
 }

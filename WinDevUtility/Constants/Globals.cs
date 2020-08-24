@@ -2,6 +2,7 @@
 {
     public static class Globals
     {
+        #region [Xaml Page]
         public const string GridTextstr = @"<Grid>
 <Grid.RowDefinitions>
 {0}</Grid.RowDefinitions>
@@ -28,5 +29,40 @@
         public const string TextBoxControlstr = @"<TextBox Text=""{{{0} {1}}}"" {2} />";
         public const string CheckBoxControlstr = @"<CheckBox IsChecked=""{{{0} {1}}}"" {2} />";
         public const string ListViewControlstr = @"<ListView ItemsSource=""{{{0} {1}}}"" {2} />";
+        #endregion
+
+        #region [Command Page]
+        public const string icommandStr = "ICommand";
+        public const string relayCommandStr = "RelayCommand";
+        public const string delegateCommandStr = "DelegateCommand";
+        public const string AsyncCommandStr = "AsyncCommand";
+        public const string publicStr = "public";
+        public const string getSetstr = "{ get; set; }";
+        public const string executeMethodstr = "On{0}Executed";
+        public const string canExecuteMethodstr = "Can{0}Executed";
+        public const string executeMethodDefination = @"private void {0}({1})
+{{ 
+    throw new NotImplementedException(); 
+}}";
+        public const string canExecuteMethodDefination = @"private bool {0}({1})
+{{ 
+    throw new NotImplementedException(); 
+}}";
+        public const string executeAsyncMethodDefination = @"private Task {0}({1})
+{{ 
+    throw new NotImplementedException();
+}}";
+        #endregion
+        public const string PocoPlaceHolder = @"Enter properties and variables with or without access modifier i.e.
+string Username
+bool _isNull
+List<string> _productName;
+int userId;
+string   haveExtraSpace;
+Books bookClassObject
+private Employee privateObjectDeceleration
+public readonly Post WithReadOnlyKeyword
+public string Poco {get; set;}
+public virtual ICollection<Blogs> WithVirtualKeyword";
     }
 }

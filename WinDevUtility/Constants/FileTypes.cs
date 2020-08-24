@@ -3,7 +3,6 @@ using System.Linq;
 
 namespace WinDevUtility
 {
-
     public enum FileTypes
     {
         CS,

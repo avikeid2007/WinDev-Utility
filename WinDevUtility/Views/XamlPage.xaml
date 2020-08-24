@@ -9,6 +9,7 @@
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
     xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
+    Loaded="Page_Loaded"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftTopRightBottomMargin}">
@@ -446,7 +447,7 @@
                 CornerRadius="8"
                 FontSize="{StaticResource MediumFontSize}"
                 IsReadOnly="True"
-                PlaceholderText="Enter properties and varibles with or without access modifier"
+                PlaceholderText="Get output here."
                 Text="{Binding OutputText, Mode=TwoWay}"
                 TextWrapping="Wrap" />
         </Grid>
@@ -478,7 +479,11 @@
                     TargetObject="{Binding ElementName=ClassOption}"
                     Value="Visible" />
             </ic:DataTriggerBehavior>
+            <ic:EventTriggerBehavior EventName="KeyDown">
+                <ic:InvokeCommandAction Command="{Binding KeyDownCommand}" />
+            </ic:EventTriggerBehavior>
         </i:Interaction.Behaviors>
 
     </Grid>
+
 </Page>

@@ -303,7 +303,7 @@
                 CornerRadius="8"
                 FontSize="{StaticResource MediumFontSize}"
                 IsReadOnly="True"
-                PlaceholderText="Enter properties and varibles with or without access modifier"
+                PlaceholderText="Get output here."
                 Text="{Binding OutputText, Mode=TwoWay}"
                 TextWrapping="Wrap" />
         </Grid>
