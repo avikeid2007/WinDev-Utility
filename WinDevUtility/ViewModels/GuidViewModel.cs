@@ -12,6 +12,8 @@ using System.Windows.Input;
 using WinDevUtility.Extensions;
 using WinDevUtility.Helpers;
 using Windows.Storage;
+using Windows.System;
+using Windows.UI.Xaml.Input;
 
 namespace WinDevUtility.ViewModels
 {
@@ -36,6 +38,27 @@ namespace WinDevUtility.ViewModels
         public ICommand RefreshCommand => new DelegateCommand(OnRefreshCommandExecute);
         public ICommand ExportCommand => new AsyncCommand(OnExportCommandExecuteAsync);
         public ICommand ClearCommand => new DelegateCommand(OnClearCommandExecute);
+        public ICommand KeyDownCommand => new AsyncCommand<KeyRoutedEventArgs>(OnKeyDownCommandExecuteAsync);
+
+        private async Task OnKeyDownCommandExecuteAsync(KeyRoutedEventArgs obj)
+        {
+            if (obj.Key == VirtualKey.F5)
+            {
+                OnGeneratePropertiesCommandExecute();
+            }
+            if (obj.Key == VirtualKey.F6)
+            {
+                OnCopyAllCommandExecute();
+            }
+            if (obj.Key == VirtualKey.F7)
+            {
+                await OnExportCommandExecuteAsync();
+            }
+            if (obj.Key == VirtualKey.F8)
+            {
+                OnClearCommandExecute();
+            }
+        }
         public GuidViewModel()
         {
             StartUpSettingAsync().AwaitAsync(() => GuidText = GenerateGuid(), null);
@@ -175,11 +198,7 @@ namespace WinDevUtility.ViewModels
         {
             if (NoofGuid > 0)
             {
-                if (GuidCollection == null)
-                {
-                    GuidCollection = new ObservableCollection<string>();
-                }
-                GuidCollection.Clear();
+                (GuidCollection ??= new ObservableCollection<string>()).Clear();
                 for (int i = 0; i <= NoofGuid - 1; i++)
                 {
                     string guid = GenerateGuid();

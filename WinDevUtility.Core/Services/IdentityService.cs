@@ -58,7 +58,7 @@ namespace WinDevUtility.Core.Services
                 var accounts = await _client.GetAccountsAsync().ConfigureAwait(false);
                 _authenticationResult = await _client.AcquireTokenInteractive(_graphScopes)
                                                      .WithAccount(accounts.FirstOrDefault())
-                                                     .ExecuteAsync().ConfigureAwait(false);
+                                                     .ExecuteAsync();
 
                 LoggedIn?.Invoke(this, EventArgs.Empty);
                 return LoginResultType.Success;

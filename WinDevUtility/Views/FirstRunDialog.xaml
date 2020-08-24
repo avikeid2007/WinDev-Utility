@@ -12,13 +12,10 @@
         <DataTemplate x:DataType="x:String">
             <StackPanel Orientation="Horizontal">
                 <Image
-                    Width="40"
-                    Height="40"
-                    Source="ms-appx:///Assets/StoreLogo.png" />
-                <TextBlock
-                    Margin="{StaticResource SmallLeftMargin}"
-                    VerticalAlignment="Center"
-                    Text="{x:Bind}" />
+                    Width="200"
+                    HorizontalAlignment="Center"
+                    Source="{ThemeResource Logo}" />
+
             </StackPanel>
         </DataTemplate>
     </ContentDialog.TitleTemplate>

@@ -14,8 +14,11 @@
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
     Background="Transparent"
     mc:Ignorable="d">
-
-
+    <i:Interaction.Behaviors>
+        <ic:EventTriggerBehavior EventName="Loaded">
+            <ic:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </ic:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
     <Page.Resources>
         <converters:BoolToVisibilityConverter
             x:Name="ReverseBoolToVisibility"

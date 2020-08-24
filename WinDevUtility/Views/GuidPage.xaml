@@ -63,7 +63,7 @@
                         Header="How many GUIDs do you want (1-1000)"
                         SmallChange="1"
                         SpinButtonPlacementMode="Compact"
-                        Value="{Binding NoofGuid, Mode=TwoWay}">
+                        Value="{Binding NoofGuid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <winui:NumberBox.Shadow>
                             <ThemeShadow />
                         </winui:NumberBox.Shadow>
@@ -404,5 +404,10 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <i:Interaction.Behaviors>
+            <ic:EventTriggerBehavior EventName="KeyDown">
+                <ic:InvokeCommandAction Command="{Binding KeyDownCommand}" />
+            </ic:EventTriggerBehavior>
+        </i:Interaction.Behaviors>
     </Grid>
 </Page>

@@ -149,46 +149,36 @@
     <value>Light</value>
     <comment>Light theme text for Settings</comment>
   </data>
-  <data name="Settings_About.Text" xml:space="preserve">    
+  <data name="Settings_About.Text" xml:space="preserve">
     <value>About this application</value>
     <comment>About this application title for Settings</comment>
   </data>
-  <data name="Settings_AboutDescription.Text" xml:space="preserve">    
-    <value>Settings page placeholder text.  Your app description goes here.</value>
+  <data name="Settings_AboutDescription.Text" xml:space="preserve">
+    <value>WinDEV Utility is an open-source and free utility for improving productivity during Windows-base development. WinDev Utility is a set of utilities for C# full property included property change events, Mvvm Commands( i.e. ICommands, RelayCommand, DelegateCommand, and AsyncCommand) and XAML generation as you’re likely to get without having to pay for one. It provides equally flexible while the generation of code and XAML.</value>
     <comment>About this application description for Settings</comment>
   </data>
-  <data name="Settings_PrivacyTermsLink.Content" xml:space="preserve">    
-    <value>Privacy Statement</value>
+  <data name="Settings_PrivacyTermsLink.Content" xml:space="preserve">
+    <value>Github Repository</value>
     <comment>Privacy Statement link content for Settings</comment>
   </data>
-  <data name="Settings_PrivacyTermsLink.NavigateUri" xml:space="preserve">  
-    <value>https://YourPrivacyUrlGoesHere/</value>
+  <data name="Settings_PrivacyTermsLink.NavigateUri" xml:space="preserve">
+    <value>https://github.com/avikeid2007/WinDev-Utility</value>
     <comment>Here is your Privacy Statement url for Settings</comment>
   </data>
-  <data name="Settings_Personalization.Text" xml:space="preserve">   
+  <data name="Settings_Personalization.Text" xml:space="preserve">
     <value>Personalization</value>
     <comment>Personalization text for Settings</comment>
   </data>
-  <data name="ExceptionEnumToBooleanConverterValueMustBeAnEnum" xml:space="preserve">   
+  <data name="ExceptionEnumToBooleanConverterValueMustBeAnEnum" xml:space="preserve">
     <value>value must be an Enum!</value>
     <comment>Value must be an Enum in enum to boolean converter</comment>
   </data>
-  <data name="ExceptionEnumToBooleanConverterParameterMustBeAnEnumName" xml:space="preserve">   
+  <data name="ExceptionEnumToBooleanConverterParameterMustBeAnEnumName" xml:space="preserve">
     <value>parameter must be an Enum name!</value>
     <comment>Parameter must be an Enum name in enum to boolean converter</comment>
   </data>
   <data name="FirstRun_Body.Text" xml:space="preserve">
-    <value>Replace the content of this dialog with whatever content is appropriate to your app.
-You might want to explain key features or functionality.
-Don't feel restricted to just text. You can also include images and animations if you wish too.
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.
-
-Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.
-
-Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.
-
-Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.</value>
+    <value>If you are a Windows Developer or Xamarin Developer, you spent a lot of time for generation POCOs, XAML, GUIDs, and Commands within development time. For generating those kinds of redundant code, here is the all in one solution(WinDEV Utility) that will surely saves a lot of time and energy in the long run.  WinDEV Utility is an open-source and free utility for improving productivity during Windows-base development. WinDev Utility is a set of utilities for C# full property included property change events, Mvvm Commands( i.e. ICommands, RelayCommand, DelegateCommand, and AsyncCommand) and XAML generation as you’re likely to get without having to pay for one. It provides equally flexible while the generation of code and XAML.</value>
     <comment>First use prompt message body</comment>
   </data>
   <data name="FirstRunDialog.Title" xml:space="preserve">
@@ -201,15 +191,12 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
   </data>
   <data name="DialogAuthenticationTitle" xml:space="preserve">
     <value>Application Authentication</value>
-    <comment></comment>
   </data>
   <data name="DialogNoNetworkAvailableContent" xml:space="preserve">
     <value>ApplicatioThere is no internet connection, please connect to the internet and try again.</value>
-    <comment></comment>
   </data>
   <data name="DialogStatusUnknownErrorContent" xml:space="preserve">
     <value>Something went wrong during the login, please try again.</value>
-    <comment></comment>
   </data>
   <data name="Settings_User.Text" xml:space="preserve">
     <value>User</value>
@@ -245,11 +232,9 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
   </data>
   <data name="Shell_LogIn.Text" xml:space="preserve">
     <value>Log in</value>
-    <comment></comment>
   </data>
   <data name="Shell_LogOut.Content" xml:space="preserve">
     <value>Log out</value>
-    <comment></comment>
   </data>
   <data name="Shell_Guid.Content" xml:space="preserve">
     <value>Guid</value>
