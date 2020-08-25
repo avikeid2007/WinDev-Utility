@@ -12,6 +12,8 @@ using WinDevUtility.Extensions;
 using WinDevUtility.Helpers;
 using WinDevUtility.Services;
 using Windows.Storage;
+using Windows.System;
+using Windows.UI.Xaml.Input;
 
 namespace WinDevUtility.ViewModels
 {
@@ -33,12 +35,32 @@ namespace WinDevUtility.ViewModels
         public string PlaceHolder => @"Enter command names i.e.
 SaveCommand
 DeleteCommand
-ShowDialogCommand;
-";
+ShowDialogCommand";
         public ICommand GeneratePropertiesCommand => new AsyncCommand(OnGeneratePropertiesCommandExecuteAsync);
         public ICommand CopyCommand => new DelegateCommand(OnCopyCommandExecute);
         public ICommand ExportCommand => new AsyncCommand(OnExportCommandExecuteAsync);
         public ICommand ClearCommand => new DelegateCommand(OnClearCommandExecute);
+        public ICommand KeyDownCommand => new AsyncCommand<KeyRoutedEventArgs>(OnKeyDownCommandExecuteAsync);
+
+        private async Task OnKeyDownCommandExecuteAsync(KeyRoutedEventArgs obj)
+        {
+            if (obj.Key == VirtualKey.F5)
+            {
+                await OnGeneratePropertiesCommandExecuteAsync();
+            }
+            if (obj.Key == VirtualKey.F6)
+            {
+                OnCopyCommandExecute();
+            }
+            if (obj.Key == VirtualKey.F7)
+            {
+                await OnExportCommandExecuteAsync();
+            }
+            if (obj.Key == VirtualKey.F8)
+            {
+                OnClearCommandExecute();
+            }
+        }
         public CommandViewModel(IDialogService dialogService)
         {
             _dialogService = dialogService;

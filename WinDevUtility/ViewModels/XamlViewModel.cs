@@ -49,24 +49,27 @@ namespace WinDevUtility.ViewModels
         public ICommand CopyCommand => new DelegateCommand(OnCopyCommandExecute);
         public ICommand ExportCommand => new AsyncCommand(OnExportCommandExecuteAsync);
         public ICommand ClearCommand => new DelegateCommand(OnClearCommandExecute);
-        public ICommand KeyDownCommand => new DelegateCommand<KeyRoutedEventArgs>(OnKeyDownCommandExecute);
+        public ICommand KeyDownCommand => new AsyncCommand<KeyRoutedEventArgs>(OnKeyDownCommandExecuteAsync);
 
-        private void OnKeyDownCommandExecute(KeyRoutedEventArgs obj)
+        private async Task OnKeyDownCommandExecuteAsync(KeyRoutedEventArgs obj)
         {
             if (obj.Key == VirtualKey.F5)
             {
+                await OnGeneratePropertiesCommandExecuteAsync();
             }
             if (obj.Key == VirtualKey.F6)
             {
+                OnCopyCommandExecute();
             }
             if (obj.Key == VirtualKey.F7)
             {
+                await OnExportCommandExecuteAsync();
             }
             if (obj.Key == VirtualKey.F8)
             {
+                OnClearCommandExecute();
             }
         }
-
         public XamlViewModel(IDialogService dialogService)
         {
             _dialogService = dialogService;

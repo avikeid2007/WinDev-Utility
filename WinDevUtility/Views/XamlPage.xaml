@@ -88,7 +88,7 @@
                 CornerRadius="8"
                 FontSize="{StaticResource MediumFontSize}"
                 PlaceholderText="{Binding PlaceHolder}"
-                Text="{Binding InputText, Mode=TwoWay}"
+                Text="{Binding InputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 TextWrapping="Wrap">
                 <TextBox.Shadow>
                     <ThemeShadow />
@@ -456,7 +456,6 @@
                 Binding="{Binding IsGridLayoutChecked}"
                 ComparisonCondition="Equal"
                 Value="true">
-
                 <ic:ChangePropertyAction
                     PropertyName="Visibility"
                     TargetObject="{Binding ElementName=ClassOption}"
@@ -483,7 +482,6 @@
                 <ic:InvokeCommandAction Command="{Binding KeyDownCommand}" />
             </ic:EventTriggerBehavior>
         </i:Interaction.Behaviors>
-
     </Grid>
 
 </Page>
