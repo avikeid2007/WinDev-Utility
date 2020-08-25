@@ -8,15 +8,15 @@
   IgnorableNamespaces="uap mp genTemplate">
 
   <Identity
-    Name="9AFAEB5A-046B-4E42-8504-3B15D075745F"
-    Publisher="CN=avnish"
+    Name="34488AvnishKumar.WinDevUtility"
+    Publisher="CN=1494B4FB-4349-4083-8AFA-16D2A64B8D99"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="9AFAEB5A-046B-4E42-8504-3B15D075745F" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>WinDevUtility</DisplayName>
-    <PublisherDisplayName>avnish</PublisherDisplayName>
+    <DisplayName>WinDEV Utility</DisplayName>
+    <PublisherDisplayName>Avnish Kumar</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
