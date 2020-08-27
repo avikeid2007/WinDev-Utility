@@ -107,7 +107,7 @@
             <winui:NavigationView.PaneHeader>
                 <Image
                     x:Name="LogoImg"
-                    Height="32"
+                    Height="24"
                     Source="{ThemeResource Logo}" />
             </winui:NavigationView.PaneHeader>
             <Grid>
