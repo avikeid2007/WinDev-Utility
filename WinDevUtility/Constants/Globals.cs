@@ -5,17 +5,24 @@
         #region [Xaml Page]
         public const string GridTextstr = @"<Grid>
 <Grid.RowDefinitions>
-{0}</Grid.RowDefinitions>
+{0}
+
+</Grid.RowDefinitions>
 <Grid.ColumnDefinitions>
-{1}</Grid.ColumnDefinitions>
+{1}
+
+</Grid.ColumnDefinitions>
 {2}
+
 </Grid>";
         public const string StackTextstr = @"<StackPanel>
 {0}
+
 </StackPanel>";
 
         public const string StackTextXamarinstr = @"<StackLayout>
 {0}
+
 </StackLayout>";
         public const string RowTextstr = @"<RowDefinition Height=""{0}"" />";
         public const string ColumnTextstr = @"<ColumnDefinition Width=""{0}"" />";

@@ -88,8 +88,7 @@ namespace WinDevUtility.Helpers
             if (item?.IsOfType(StorageItemTypes.File) == true)
             {
                 var storageFile = await folder.GetFileAsync(fileName);
-                byte[] content = await storageFile.ReadBytesAsync().ConfigureAwait(false);
-                return content;
+                return await storageFile.ReadBytesAsync().ConfigureAwait(false);
             }
 
             return null;

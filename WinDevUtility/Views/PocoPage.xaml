@@ -7,6 +7,7 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
+    xmlns:richText="using:RichTextControls"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
     Loaded="Page_Loaded"
     Style="{StaticResource PageStyle}"
@@ -367,7 +368,32 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBox
+                <ScrollViewer
+                    Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
+                    BorderBrush="#ccc"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <richText:CodeHighlightedTextBlock
+                        x:Name="CodeHighlightedPreviewTextBlock"
+                        Margin="0"
+                        BorderBrush="#ccc"
+                        BorderThickness="1"
+                        Code="{Binding OutputText}"
+                        CornerRadius="8"
+                        HighlightLanguage="CSharp" />
+                </ScrollViewer>
+                <!--<ScrollViewer
+                    Padding="0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                    <richText:CodeHighlightedTextBlock
+                        BorderBrush="#ccc"
+                        BorderThickness="1"
+                        Code="{Binding OutputText}"
+                        CornerRadius="8"
+                        HighlightLanguage="CSharp" />
+                </ScrollViewer>-->
+                <!--<TextBox
                     Margin="8,8,8,16"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
@@ -377,7 +403,7 @@
                     IsReadOnly="True"
                     PlaceholderText="Get output here."
                     Text="{Binding OutputText, Mode=TwoWay}"
-                    TextWrapping="Wrap" />
+                    TextWrapping="Wrap" />-->
             </Grid>
         </Grid>
         <i:Interaction.Behaviors>
