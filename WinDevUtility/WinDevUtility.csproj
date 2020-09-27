@@ -190,6 +190,7 @@
     <Compile Include="Services\IUserDataService.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
     <Compile Include="Services\UserDataService.cs" />
+    <Compile Include="ViewModels\BlogsViewModel.cs" />
     <Compile Include="ViewModels\CommandViewModel.cs" />
     <Compile Include="ViewModels\GuidViewModel.cs" />
     <Compile Include="ViewModels\PocoViewModel.cs" />
@@ -197,6 +198,9 @@
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\XamlViewModel.cs" />
+    <Compile Include="Views\BlogsPage.xaml.cs">
+      <DependentUpon>BlogsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CommandPage.xaml.cs">
       <DependentUpon>CommandPage.xaml</DependentUpon>
     </Compile>
@@ -239,6 +243,10 @@
     <Page Include="Styles\TextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BlogsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\CommandPage.xaml">
       <Generator>MSBuild:Compile</Generator>
