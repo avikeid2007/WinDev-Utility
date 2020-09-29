@@ -1,7 +1,11 @@
-﻿namespace WinDevUtility.Constants
+﻿using Microsoft.Toolkit.Parsers.Rss;
+using System.Collections.Generic;
+
+namespace WinDevUtility.Constants
 {
     public static class Globals
     {
+        public static List<RssSchema> FavList = new List<RssSchema>();
         #region [Xaml Page]
         public const string GridTextstr = @"<Grid>
 <Grid.RowDefinitions>

@@ -172,6 +172,7 @@
     </Compile>
     <Compile Include="Constants\Globals.cs" />
     <Compile Include="Constants\FileTypes.cs" />
+    <Compile Include="Converters\FavouriteConverter.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TaskExtensions.cs" />
     <Compile Include="Helpers\AuthenticationHelper.cs" />
@@ -181,6 +182,7 @@
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Helpers\Restricted.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
+    <Compile Include="Models\BlogFeed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Constants\PageTokens.cs" />
     <Compile Include="Services\DialogService.cs" />

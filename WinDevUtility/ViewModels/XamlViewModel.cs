@@ -374,13 +374,21 @@ namespace WinDevUtility.ViewModels
             {
                 await _dialogService.AlertAsync("Please select any option");
             }
-            if (IsGridLayoutChecked)
+
+            try
             {
-                OutputText = await GenerateGridLayoutAsync(NoofRows, NoofColumns, RowType, ColumnType);
+                if (IsGridLayoutChecked)
+                {
+                    OutputText = await GenerateGridLayoutAsync(NoofRows, NoofColumns, RowType, ColumnType);
+                }
+                if (IsClassToXamlChecked)
+                {
+                    OutputText = await GenerateClassToXamlAsync();
+                }
             }
-            if (IsClassToXamlChecked)
+            catch
             {
-                OutputText = await GenerateClassToXamlAsync();
+                await _dialogService.AlertAsync("oops, something Went Wrong");
             }
         }
         private async Task<string> GenerateClassToXamlAsync()

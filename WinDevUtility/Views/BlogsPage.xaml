@@ -3,6 +3,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
     xmlns:richText="using:RichTextControls"
@@ -11,101 +13,131 @@
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftTopRightBottomMargin}">
-        <Grid Background="Transparent">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="3*" />
-            </Grid.ColumnDefinitions>
-            <ListView ItemsSource="{Binding BlogFeedList}" SelectedItem="{Binding SelectedBlog, Mode=TwoWay}">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="rss:RssSchema">
-                        <Grid MaxHeight="600">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto" />
-                                <RowDefinition Height="auto" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="auto" />
-                            </Grid.RowDefinitions>
-                            <TextBlock
-                                FontSize="24"
-                                Text="{x:Bind Title}"
-                                TextWrapping="WrapWholeWords" />
-                            <StackPanel Grid.Row="1" Orientation="Horizontal">
-                                <TextBlock FontWeight="SemiBold" Text="{x:Bind PublishDate}" />
-                                <TextBlock
-                                    Margin="4,0,0,0"
-                                    FontWeight="SemiBold"
-                                    Text="{x:Bind Author}" />
-                            </StackPanel>
-                            <richText:HtmlTextBlock
-                                x:Name="SummaryHtml"
-                                Grid.Row="2"
-                                Html="{x:Bind Summary}" />
-                            <Grid Grid.Row="3" Margin="{StaticResource XSmallBottomMargin}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <ToggleButton
-                                    Grid.Column="1"
-                                    Style="{StaticResource ToggleButtonHeartStyle}"
-                                    ToolTipService.ToolTip="Add to favorite" />
-                                <HyperlinkButton
-                                    Grid.Column="2"
-                                    Margin="{StaticResource SmallLeftMargin}"
-                                    NavigateUri="{x:Bind InternalID}">
-                                    <TextBlock
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                        FontSize="{StaticResource XLargeFontSize}"
-                                        Foreground="{ThemeResource IconBrush}"
-                                        Text="&#xE774;"
-                                        ToolTipService.ToolTip="Open in Browser" />
-                                </HyperlinkButton>
-                            </Grid>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Grid Grid.Column="1" Margin="{StaticResource MediumLeftTopRightBottomMargin}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <Pivot
+            x:Name="ContentPivot" SelectionChanged="ContentPivot_SelectionChanged"
+            ItemsSource="{Binding BlogList}"
+            SelectedItem="{Binding SelectOption, Mode=TwoWay}">
+            <Pivot.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Type}" />
+                    </StackPanel>
+                </DataTemplate>
+            </Pivot.HeaderTemplate>
+            <Pivot.ItemTemplate>
+                <DataTemplate>
+                    <Grid Grid.Row="1" Background="Transparent">
+                        <ListView ItemsSource="{Binding Blog}" SelectedItem="{Binding DataContext.SelectedBlog, Mode=TwoWay, ElementName=ContentPivot}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="rss:RssSchema">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            FontSize="24"
+                                            Text="{x:Bind Title}"
+                                            TextWrapping="WrapWholeWords" />
+                                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                            <TextBlock FontWeight="SemiBold" Text="{x:Bind PublishDate}" />
+                                            <TextBlock
+                                                Margin="4,0,0,0"
+                                                FontWeight="SemiBold"
+                                                Text="{x:Bind Author}" />
+                                        </StackPanel>
+                                        <richText:HtmlTextBlock
+                                            x:Name="SummaryHtml"
+                                            Grid.Row="2"
+                                            Html="{x:Bind Summary}" />
+                                        <Grid Grid.Row="3" Margin="{StaticResource XSmallBottomMargin}">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <ToggleButton
+                                                Grid.Column="1"
+                                                IsChecked="{x:Bind InternalID, Converter={StaticResource FavouriteConverter}}"
+                                                Style="{StaticResource ToggleButtonHeartStyle}"
+                                                ToolTipService.ToolTip="Add to favorite">
+                                                <i:Interaction.Behaviors>
+                                                    <ic:EventTriggerBehavior EventName="Checked">
+                                                        <ic:InvokeCommandAction Command="{Binding DataContext.CheckedCommand, ElementName=ContentPivot}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=None}}" />
+                                                    </ic:EventTriggerBehavior>
+                                                    <ic:EventTriggerBehavior EventName="Unchecked">
+                                                        <ic:InvokeCommandAction Command="{Binding DataContext.UncheckedCommand, ElementName=ContentPivot}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=None}}" />
+                                                    </ic:EventTriggerBehavior>
+                                                </i:Interaction.Behaviors>
+                                            </ToggleButton>
+                                            <HyperlinkButton
+                                                Grid.Column="2"
+                                                Margin="{StaticResource SmallLeftMargin}"
+                                                NavigateUri="{x:Bind InternalID}">
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                                    FontSize="{StaticResource XLargeFontSize}"
+                                                    Foreground="{ThemeResource IconBrush}"
+                                                    Text="&#xE774;"
+                                                    ToolTipService.ToolTip="Open in Browser" />
+                                            </HyperlinkButton>
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </DataTemplate>
+            </Pivot.ItemTemplate>
+        </Pivot>
+        <Grid Grid.Column="1" Margin="{StaticResource MediumLeftTopRightBottomMargin}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                HorizontalAlignment="Center"
+                FontSize="32"
+                Text="{Binding SelectedBlog.Title}"
+                TextWrapping="WrapWholeWords" />
+            <StackPanel
+                Grid.Row="1"
+                Margin="{StaticResource XSmallBottomMargin}"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
                 <TextBlock
-                    HorizontalAlignment="Center"
-                    FontSize="32"
-                    Text="{Binding SelectedBlog.Title}"
-                    TextWrapping="WrapWholeWords" />
-                <StackPanel
-                    Grid.Row="1"
-                    Margin="{StaticResource XSmallBottomMargin}"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <TextBlock FontWeight="SemiBold" Text="By" />
-                    <TextBlock
-                        Margin="4,0,0,0"
-                        FontWeight="SemiBold"
-                        Text="{Binding SelectedBlog.Author}" />
-                </StackPanel>
-                <ScrollViewer Grid.Row="2">
-                    <richText:HtmlTextBlock Html="{Binding SelectedBlog.Content}" />
-                </ScrollViewer>
-                <HyperlinkButton
-                    Grid.Row="3"
-                    Margin="{StaticResource SmallLeftMargin}"
-                    HorizontalAlignment="Right"
-                    Content="Read full article in Browser..."
-                    FontSize="16"
                     FontWeight="SemiBold"
-                    Foreground="{StaticResource IconBrush}"
-                    NavigateUri="{Binding SelectedBlog.InternalID}" />
-            </Grid>
-
+                    Text="By"
+                    Visibility="{Binding IsRelatedContentVisible}" />
+                <TextBlock
+                    Margin="4,0,0,0"
+                    FontWeight="SemiBold"
+                    Text="{Binding SelectedBlog.Author}" />
+            </StackPanel>
+            <ScrollViewer Grid.Row="2">
+                <richText:HtmlTextBlock x:Name="HtmlTxt" Html="{Binding SelectedBlog.Content}" />
+            </ScrollViewer>
+            <HyperlinkButton
+                Grid.Row="3"
+                Margin="{StaticResource SmallLeftMargin}"
+                HorizontalAlignment="Right"
+                Content="Read full article in Browser..."
+                FontSize="16"
+                FontWeight="SemiBold"
+                Foreground="{StaticResource IconBrush}"
+                NavigateUri="{Binding SelectedBlog.InternalID}"
+                Visibility="{Binding IsRelatedContentVisible}" />
         </Grid>
+
     </Grid>
 </Page>
