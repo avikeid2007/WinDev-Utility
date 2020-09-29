@@ -7,6 +7,7 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
+    xmlns:richText="using:RichTextControls"
     xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
     Loaded="Page_Loaded"
@@ -297,8 +298,22 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBox
-                Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
+            <ScrollViewer
+               Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
+                BorderBrush="#ccc"
+                BorderThickness="1"
+                CornerRadius="8">
+                <richText:CodeHighlightedTextBlock
+                    x:Name="CodeHighlightedPreviewTextBlock"
+                    Margin="0"
+                    BorderBrush="#ccc"
+                    BorderThickness="1"
+                    Code="{Binding OutputText}"
+                    CornerRadius="8"
+                    HighlightLanguage="CSharp" />
+            </ScrollViewer>
+            <!--<TextBox
+                
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 AcceptsReturn="True"
@@ -307,7 +322,7 @@
                 IsReadOnly="True"
                 PlaceholderText="Get output here."
                 Text="{Binding OutputText, Mode=TwoWay}"
-                TextWrapping="Wrap" />
+                TextWrapping="Wrap" />-->
         </Grid>
         <i:Interaction.Behaviors>
             <ic:EventTriggerBehavior EventName="KeyDown">

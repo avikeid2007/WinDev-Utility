@@ -7,6 +7,7 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
+    xmlns:richText="using:RichTextControls"
     xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
     Loaded="Page_Loaded"
@@ -440,6 +441,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <TextBox
+                x:Name="txtplaincode"
                 Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
@@ -449,7 +451,22 @@
                 IsReadOnly="True"
                 PlaceholderText="Get output here."
                 Text="{Binding OutputText, Mode=TwoWay}"
-                TextWrapping="Wrap" />
+                TextWrapping="Wrap"
+                Visibility="Collapsed" />
+            <ScrollViewer
+                Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
+                BorderBrush="#ccc"
+                BorderThickness="1"
+                CornerRadius="8">
+                <richText:CodeHighlightedTextBlock
+                    x:Name="TxtCode"
+                    Margin="0"
+                    BorderBrush="#ccc"
+                    BorderThickness="1"
+                    Code="{Binding ElementName=txtplaincode, Path=Text}"
+                    CornerRadius="8"
+                    HighlightLanguage="XML" />
+            </ScrollViewer>
         </Grid>
         <i:Interaction.Behaviors>
             <ic:DataTriggerBehavior

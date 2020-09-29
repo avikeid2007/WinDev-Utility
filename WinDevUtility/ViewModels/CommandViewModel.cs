@@ -223,21 +223,28 @@ ShowDialogCommand";
         }
         private async Task OnGeneratePropertiesCommandExecuteAsync()
         {
-            if (!string.IsNullOrEmpty(InputText))
+            try
             {
-                if (await ValidateCommandInputesAsync())
+                if (!string.IsNullOrEmpty(InputText))
                 {
-                    return;
+                    if (await ValidateCommandInputesAsync())
+                    {
+                        return;
+                    }
+                    var lines = await InputText.GetLinesAsync();
+                    if (lines?.Count() > 0)
+                    {
+                        OutputText = GenerateCommandText(lines.ToArray());
+                    }
                 }
-                var lines = await InputText.GetLinesAsync();
-                if (lines?.Count() > 0)
+                else
                 {
-                    OutputText = GenerateCommandText(lines.ToArray());
+                    await _dialogService.AlertAsync("Enter the input text");
                 }
             }
-            else
+            catch
             {
-                await _dialogService.AlertAsync("Enter the input text");
+                await _dialogService.AlertAsync("oops, something Went Wrong");
             }
         }
         private string SetCommandParameter(string commandType) => IsIncludeParameter ? $"{commandType}<{ParameterType}>" : commandType;

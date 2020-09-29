@@ -31,7 +31,6 @@ namespace WinDevUtility
 
         protected override void ConfigureContainer()
         {
-            // register a singleton using Container.RegisterType<IInterface, Type>(new ContainerControlledLifetimeManager());
             base.ConfigureContainer();
             var identityService = new IdentityService();
             var microsoftGraphService = new MicrosoftGraphService();
@@ -79,9 +78,6 @@ namespace WinDevUtility
             identityService.InitializeWithAadAndPersonalMsAccounts();
             await identityService.AcquireTokenSilentAsync();
             await ThemeSelectorService.InitializeAsync().ConfigureAwait(false);
-
-            // We are remapping the default ViewNamePage and ViewNamePageViewModel naming to ViewNamePage and ViewNameViewModel to
-            // gain better code reuse with other frameworks and pages within Windows Template Studio
             ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver((viewType) =>
             {
                 var viewModelTypeName = string.Format(CultureInfo.InvariantCulture, "WinDevUtility.ViewModels.{0}ViewModel, WinDevUtility", viewType.Name.Substring(0, viewType.Name.Length - 4));

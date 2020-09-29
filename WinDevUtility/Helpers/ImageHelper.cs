@@ -25,8 +25,7 @@ namespace WinDevUtility.Helpers
 
         public static BitmapImage ImageFromAssetsFile(string fileName)
         {
-            var image = new BitmapImage(new Uri($"ms-appx:///Assets/{fileName}"));
-            return image;
+            return new BitmapImage(new Uri($"ms-appx:///Assets/{fileName}"));
         }
     }
 }

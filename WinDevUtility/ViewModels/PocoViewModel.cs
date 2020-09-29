@@ -173,24 +173,31 @@ namespace WinDevUtility.ViewModels
 
         private async Task OnGeneratePropertiesCommandExecuteAsync()
         {
-            OutputText = string.Empty;
-            PrivatePropertyString = string.Empty;
-            PublicPropertyString = string.Empty;
-            if (!string.IsNullOrEmpty(InputText))
+            try
             {
-                if (IsGenerateClass && await ValidateClassAsync())
+                OutputText = string.Empty;
+                PrivatePropertyString = string.Empty;
+                PublicPropertyString = string.Empty;
+                if (!string.IsNullOrEmpty(InputText))
                 {
-                    return;
+                    if (IsGenerateClass && await ValidateClassAsync())
+                    {
+                        return;
+                    }
+                    var lines = await InputText.GetLinesAsync();
+                    if (lines?.Count() > 0)
+                    {
+                        OutputText = GenrateProperties(lines.ToArray());
+                    }
                 }
-                var lines = await InputText.GetLinesAsync();
-                if (lines?.Count() > 0)
+                else
                 {
-                    OutputText = GenrateProperties(lines.ToArray());
+                    await _dialogService.AlertAsync("Enter the input text");
                 }
             }
-            else
+            catch
             {
-                await _dialogService.AlertAsync("Enter the input text");
+                await _dialogService.AlertAsync("oops, something Went Wrong");
             }
         }
         private async Task<bool> ValidateClassAsync()

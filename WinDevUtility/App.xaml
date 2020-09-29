@@ -19,14 +19,17 @@
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
                     <ImageSource x:Key="Logo">/Assets/logo-light.png</ImageSource>
+                    <SolidColorBrush x:Key="IconBrush" Color="Gray" />
                 </ResourceDictionary>
 
                 <ResourceDictionary x:Key="Dark">
                     <ImageSource x:Key="Logo">/Assets/logo.png</ImageSource>
+                    <SolidColorBrush x:Key="IconBrush" Color="White" />
                 </ResourceDictionary>
 
                 <ResourceDictionary x:Key="HighContrast">
                     <ImageSource x:Key="Logo">/Assets/logo-light.png</ImageSource>
+                    <SolidColorBrush x:Key="IconBrush" Color="Gray" />
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>

@@ -1,10 +1,7 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.Helpers;
+using System;
 using System.Threading.Tasks;
-
-using Microsoft.Toolkit.Uwp.Helpers;
-
 using WinDevUtility.Views;
-
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 
@@ -12,8 +9,7 @@ namespace WinDevUtility.Services
 {
     public class FirstRunDisplayService : IFirstRunDisplayService
     {
-        private static bool shown = false;
-
+        private static bool shown;
         public async Task ShowIfAppropriateAsync()
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(

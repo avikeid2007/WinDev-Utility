@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace WinDevUtility
+﻿namespace WinDevUtility
 {
     public enum FileTypes
     {
         CS,
         Txt,
         Xaml
+    }
+    public enum BlogType
+    {
+        Latest,
+        Favourite
     }
 }

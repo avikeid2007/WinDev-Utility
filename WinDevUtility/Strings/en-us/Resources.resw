@@ -248,4 +248,8 @@
     <value>Command</value>
     <comment>Navigation view item name for Command</comment>
   </data>
+  <data name="Shell_Blogs.Content" xml:space="preserve">
+    <value>Blogs</value>
+    <comment>Navigation view item name for Blogs</comment>
+  </data>
 </root>
