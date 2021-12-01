@@ -2,6 +2,7 @@
 using Prism.Commands;
 using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,6 +38,13 @@ namespace WinDevUtility.ViewModels
         public ICommand ExportCommand => new AsyncCommand(OnExportCommandExecuteAsync);
         public ICommand ClearCommand => new DelegateCommand(OnClearCommandExecute);
         public ICommand KeyDownCommand => new AsyncCommand<KeyRoutedEventArgs>(OnKeyDownCommandExecuteAsync);
+        public ICommand TypeCommand => new DelegateCommand<string>(OnTypeCommandExecuted);
+        private void OnTypeCommandExecuted(string type)
+        {
+            InputText += string.IsNullOrWhiteSpace(InputText)? $"{type} " : $"\n{type} ";
+        }
+
+
         private async Task OnKeyDownCommandExecuteAsync(KeyRoutedEventArgs obj)
         {
             if (obj.Key == VirtualKey.F5)
@@ -225,7 +233,7 @@ namespace WinDevUtility.ViewModels
             IsPrism = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsPrism));
             IsDirtyCheck = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsDirtyCheck));
         }
-        private string PropertyGetter(string propertyName) => "{ \r\tget { return " + propertyName + "; }\r";
+        private string PropertyGetter(string propertyName) => "{ \r\tget => " + propertyName + ";\r";
         private string RemoveWantedkeyword(string text) => text.Replace(" virtual ", " ").Replace(" readonly ", " ").Trim();
         private string ValidatePropertyName(string propertyName)
         {
