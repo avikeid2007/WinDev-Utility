@@ -2,7 +2,6 @@
 using Prism.Commands;
 using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -41,7 +40,7 @@ namespace WinDevUtility.ViewModels
         public ICommand TypeCommand => new DelegateCommand<string>(OnTypeCommandExecuted);
         private void OnTypeCommandExecuted(string type)
         {
-            InputText += string.IsNullOrWhiteSpace(InputText)? $"{type} " : $"\n{type} ";
+            InputText += string.IsNullOrWhiteSpace(InputText) ? $"{type} " : $"\n{type} ";
         }
 
 
@@ -268,12 +267,8 @@ namespace WinDevUtility.ViewModels
                     }
                 }
             }
-            var propertiesText = PrivatePropertyString + "\r\n" + PublicPropertyString;
-            if (IsGenerateClass)
-            {
-                return GetClassText(propertiesText);
-            }
-            return propertiesText;
+            var propertiesText = PrivatePropertyString + PublicPropertyString;
+            return IsGenerateClass ? GetClassText(propertiesText) : propertiesText;
         }
 
         private string GetClassText(string propertiesText)
