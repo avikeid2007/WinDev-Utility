@@ -42,34 +42,29 @@ namespace WinDevUtilityUno.Helpers
 
         private static KeyValuePair<string, IList<string>> GetFiletypes(FileTypes fileTypes)
         {
-            return new KeyValuePair<string, IList<string>>
+            return fileTypes switch
+            {
+                FileTypes.CS => new KeyValuePair<string, IList<string>>
                 (
                         "CS File",
                         new List<string>() { ".cs" }
-               );
-            //return fileTypes switch
-            //{
-            //    FileTypes.CS => new KeyValuePair<string, IList<string>>
-            //    (
-            //            "CS File",
-            //            new List<string>() { ".cs" }
-            //   ),
-            //    FileTypes.Txt => new KeyValuePair<string, IList<string>>
-            //    (
-            //            "Text File",
-            //            new List<string>() { ".txt" }
-            //   ),
-            //    FileTypes.Xaml => new KeyValuePair<string, IList<string>>
-            //    (
-            //            "XAML File",
-            //            new List<string>() { ".xaml" }
-            //    ),
-            //    _ => new KeyValuePair<string, IList<string>>
-            //    (
-            //            "Text File",
-            //            new List<string>() { ".txt" }
-            //    )
-            //};
+               ),
+                FileTypes.Txt => new KeyValuePair<string, IList<string>>
+                (
+                        "Text File",
+                        new List<string>() { ".txt" }
+               ),
+                FileTypes.Xaml => new KeyValuePair<string, IList<string>>
+                (
+                        "XAML File",
+                        new List<string>() { ".xaml" }
+                ),
+                _ => new KeyValuePair<string, IList<string>>
+                (
+                        "Text File",
+                        new List<string>() { ".txt" }
+                )
+            };
         }
     }
 }

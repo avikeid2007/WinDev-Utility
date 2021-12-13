@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
+using System.Linq;
+
 using WinDevUtilityUno.ViewModels;
 
 using Windows.UI.Xaml.Controls;
@@ -23,5 +25,9 @@ namespace WinDevUtilityUno.Views
         }
 
         internal XamlViewModel VM { get; }
+        private void TextBox_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
+        {
+            args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
+        }
     }
 }

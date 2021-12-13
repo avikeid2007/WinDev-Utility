@@ -8,33 +8,29 @@ namespace WinDevUtilityUno.Extensions
     {
         public static int GetLineCount(this string str)
         {
-            var count = 0;
             if (string.IsNullOrEmpty(str))
             {
-                return count;
+                return 0;
             }
-            using (var sr = new StringReader(str))
+            using var sr = new StringReader(str);
+            var count = 0;
+            while (sr.ReadLine() != null)
             {
-                while (sr.ReadLine() != null)
-                {
-                    count++;
-                }
+                count++;
             }
             return count;
         }
         public static async Task<int> GetLineCountAsync(this string str)
         {
-            var count = 0;
             if (string.IsNullOrEmpty(str))
             {
-                return count;
+                return 0;
             }
-            using (var sr = new StringReader(str))
+            using var sr = new StringReader(str);
+            var count = 0;
+            while ((await sr.ReadLineAsync()) != null)
             {
-                while (await sr.ReadLineAsync() != null)
-                {
-                    count++;
-                }
+                count++;
             }
             return count;
         }
@@ -45,13 +41,11 @@ namespace WinDevUtilityUno.Extensions
             {
                 return default;
             }
+            using var sr = new StringReader(str);
             var lines = new List<string>();
-            using (var sr = new StringReader(str))
+            while (sr.ReadLine() is string line)
             {
-                while (sr.ReadLine() is string line)
-                {
-                    lines.Add(line);
-                }
+                lines.Add(line);
             }
             return lines;
         }
@@ -61,13 +55,11 @@ namespace WinDevUtilityUno.Extensions
             {
                 return default;
             }
+            using var sr = new StringReader(str);
             var lines = new List<string>();
-            using (var sr = new StringReader(str))
+            while ((await sr.ReadLineAsync()) is string line)
             {
-                while ((await sr.ReadLineAsync()) is string line)
-                {
-                    lines.Add(line);
-                }
+                lines.Add(line);
             }
             return lines;
         }

@@ -563,33 +563,23 @@ namespace WinDevUtilityUno.ViewModels
         }
         private string GetRowType(int rowType)
         {
-            switch (rowType)
+            return rowType switch
             {
-                case 0: return "*";
-                case 1: return "auto";
-                case 2: return RowHeight.ToString();
-                default:
-                    return "*";
-            }
-            //return rowType switch
-            //{
-            //    0 => "*",
-            //    1 => "auto",
-            //    2 => RowHeight.ToString(),
-            //    _ => "*"
-            //};
+                0 => "*",
+                1 => "auto",
+                2 => RowHeight.ToString(),
+                _ => "*"
+            };
         }
         private string GetColumnType(int colType)
         {
-            switch (colType)
+            return colType switch
             {
-
-                case 0: return "*";
-                case 1: return "auto";
-                case 2: return ColumnWidth.ToString();
-                default:
-                    return "*";
-            }
+                0 => "*",
+                1 => "auto",
+                2 => ColumnWidth.ToString(),
+                _ => "*"
+            };
         }
         public IEnumerable<string> TypeCollection
         {
@@ -603,8 +593,6 @@ namespace WinDevUtilityUno.ViewModels
         private async Task StartUpSettingAsync()
         {
             IsGridLayoutChecked = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsGridLayoutChecked));
-            //IsListViewChecked = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsListViewChecked));
-            //IsStyleChecked = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsStyleChecked));
             IsClassToXamlChecked = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsClassToXamlChecked));
             IsUseXBind = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsUseXBind));
             IsUseTwoWayBinding = await ApplicationData.Current.LocalSettings.ReadAsync<bool>(nameof(IsUseTwoWayBinding));

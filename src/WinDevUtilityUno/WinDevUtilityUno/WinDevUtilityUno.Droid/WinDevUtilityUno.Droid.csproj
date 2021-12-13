@@ -12,6 +12,7 @@
     <RootNamespace>WinDevUtilityUno.Droid</RootNamespace>
     <AssemblyName>WinDevUtilityUno.Droid</AssemblyName>
     <FileAlignment>512</FileAlignment>
+	  <LangVersion>8.0</LangVersion>
     <AndroidApplication>true</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -26,6 +27,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
     <Optimize>false</Optimize>
+	  <LangVersion>8.0</LangVersion>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -38,6 +40,7 @@
     <DebugSymbols>true</DebugSymbols>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <Optimize>true</Optimize>
+	  <LangVersion>8.0</LangVersion>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>

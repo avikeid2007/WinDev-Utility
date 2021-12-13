@@ -203,11 +203,7 @@ namespace WinDevUtilityUno.ViewModels
         {
             if (NoofGuid > 0)
             {
-                if (GuidCollection==null)
-                {
-                    GuidCollection = new ObservableCollection<string>();
-                }
-                GuidCollection.Clear();
+                (GuidCollection??=new ObservableCollection<string>()).Clear();
                 for (int i = 0; i <= NoofGuid - 1; i++)
                 {
                     string guid = GenerateGuid();

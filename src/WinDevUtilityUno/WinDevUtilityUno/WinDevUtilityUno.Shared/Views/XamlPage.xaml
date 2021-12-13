@@ -201,29 +201,10 @@
                     IsOn="{Binding IsUseXBind, Mode=TwoWay}"
                     OffContent=""
                     OnContent="" />
-                <!--<TextBlock
-                    Grid.Row="5"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Center"
-                    FontSize="16"
-                    FontWeight="Medium"
-                    Text="Use Calendar for dates" />
-
-
-                <ToggleSwitch
-                    Grid.Row="5"
-                    Grid.Column="1"
-                    Margin="8,0,0,0"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    IsOn="{Binding IsIncludeParameter, Mode=TwoWay}"
-                    OffContent=""
-                    OnContent="" />-->
-
             </Grid>
 
         </Grid>
-        <Grid
+        <win:Grid
             x:Name="GridOption"
             Grid.Column="1"
             Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
@@ -301,8 +282,83 @@
                 SmallChange="1"
                 SpinButtonPlacementMode="Compact"
                 Value="{Binding ColumnWidth, Mode=TwoWay}" />
-        </Grid>
+        </win:Grid>
+        <wasm:Grid
+            x:Name="GridOption"
+            Grid.Column="1"
+            Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
+            Padding="{StaticResource XSmallLeftTopRightBottomMargin}"
+            BorderBrush="#ccc"
+            BorderThickness="1"
+            CornerRadius="8"
+            Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="4*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.ColumnSpan="3"
+                Margin="{StaticResource XXSmallTopBottomMargin}"
+                FontSize="{StaticResource MediumFontSize}"
+                FontWeight="Medium"
+                Text="Grid layout setting:" />
+            <TextBox
+                Grid.Row="1"
+                Height="64"
+                BeforeTextChanging="TextBox_BeforeTextChanging"
+                Header="No of Rows"
+                Text="{Binding NoofRows, Mode=TwoWay}" />
+            <ComboBox
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="{StaticResource XSmallLeftMargin}"
+                HorizontalAlignment="Stretch"
+                Header="Row Type"
+                ItemsSource="{Binding TypeCollection}"
+                SelectedIndex="{Binding RowType, Mode=TwoWay}" />
 
+            <winui:NumberBox
+                Grid.Row="1"
+                Grid.Column="2"
+                Height="64"
+                Margin="{StaticResource XSmallLeftMargin}"
+                Header="Row Height"
+                IsEnabled="{Binding IsCustomHeight}"
+                SmallChange="1"
+                SpinButtonPlacementMode="Compact"
+                Value="{Binding RowHeight, Mode=TwoWay}" />
+            <TextBox
+                Grid.Row="2"
+                Height="64"
+                Margin="{StaticResource XSmallBottomMargin}"
+                BeforeTextChanging="TextBox_BeforeTextChanging"
+                Header="No of Columns"
+                Text="{Binding NoofColumns, Mode=TwoWay}" />
+            <ComboBox
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="{StaticResource XSmallLeftMargin}"
+                HorizontalAlignment="Stretch"
+                Header="Column Type"
+                ItemsSource="{Binding TypeCollection}"
+                SelectedIndex="{Binding ColumnType, Mode=TwoWay}" />
+            <TextBox
+                Grid.Row="2"
+                Grid.Column="2"
+                Height="64"
+                Margin="{StaticResource XSmallLeftMargin}"
+                BeforeTextChanging="TextBox_BeforeTextChanging"
+                Header="Column Width"
+                IsEnabled="{Binding IsCustomWidth}"
+                Text="{Binding ColumnWidth, Mode=TwoWay}" />
+        </wasm:Grid>
         <Grid
             x:Name="GridPocoButtons"
             Grid.Row="1"
