@@ -1,0 +1,368 @@
+﻿<Page
+    x:Class="WinDevUtilityUno.Views.CommandPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:local="using:WinDevUtilityUno.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:richText="using:RichTextControls"
+    xmlns:wasm="http://uno.ui/wasm"
+    xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d wasm">
+
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftTopRightBottomMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <TextBox
+            x:Name="TxtPocoInput"
+            Margin="8"
+            AcceptsReturn="True"
+            BorderBrush="#ccc"
+            CornerRadius="8"
+            FontSize="{StaticResource MediumFontSize}"
+            PlaceholderText="{Binding PlaceHolder}"
+            Text="{Binding InputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            TextWrapping="Wrap">
+            <TextBox.Shadow>
+                <ThemeShadow />
+            </TextBox.Shadow>
+        </TextBox>
+        <StackPanel
+            Grid.Column="1"
+            Margin="0,0,0,48"
+            Padding="0">
+            <winui:RadioButtons>
+                <RadioButton
+                    Content="Relay Command"
+                    FontWeight="Medium"
+                    IsChecked="{Binding IsRelayCommand, Mode=TwoWay}" />
+                <RadioButton
+                    Content="Delegate Command"
+                    FontWeight="Medium"
+                    IsChecked="{Binding IsDelegateCommand, Mode=TwoWay}" />
+                <RadioButton
+                    Content="Async Command"
+                    FontWeight="Medium"
+                    IsChecked="{Binding IsAsyncCommand, Mode=TwoWay}" />
+                <RadioButton
+                    Content="Custom Command"
+                    FontWeight="Medium"
+                    IsChecked="{Binding IsCustomCommand, Mode=TwoWay}" />
+            </winui:RadioButtons>
+            <TextBox
+                CornerRadius="8"
+                FontSize="{StaticResource MediumFontSize}"
+                IsEnabled="{Binding IsCustomCommand}"
+                PlaceholderText="i.e. MyCommand"
+                Text="{Binding CommandType, Mode=TwoWay}">
+                <TextBox.Header>
+                    <TextBlock
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        FontSize="12"
+                        FontWeight="Medium"
+                        Text="Command Type" />
+                </TextBox.Header>
+            </TextBox>
+        </StackPanel>
+        <Grid
+            Grid.Column="2"
+            Margin="{StaticResource XSmallLeftMargin}"
+            Padding="8"
+            VerticalAlignment="Top"
+            BorderBrush="#ccc"
+            BorderThickness="1"
+            CornerRadius="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="48" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Margin="0,4"
+                FontSize="16"
+                FontWeight="Medium"
+                Text="Mvvm Command Setting:" />
+            <TextBlock
+                Grid.Row="1"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontWeight="Medium"
+                Text="Include Execute Method" />
+
+            <ToggleSwitch
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="8,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                IsOn="{Binding IsIncludeExecute, Mode=TwoWay}"
+                OffContent=""
+                OnContent="" />
+
+            <TextBlock
+                Grid.Row="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontWeight="Medium"
+                Text="Include CanExecute Method" />
+
+
+            <ToggleSwitch
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="8,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                IsEnabled="{Binding IsIncludeExecute}"
+                IsOn="{Binding IsIncludeCanExecute, Mode=TwoWay}"
+                OffContent=""
+                OnContent="" />
+
+            <TextBlock
+                Grid.Row="3"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                FontSize="16"
+                FontWeight="Medium"
+                Text="Include Command Parameter" />
+
+
+            <ToggleSwitch
+                Grid.Row="3"
+                Grid.Column="1"
+                Margin="8,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                IsOn="{Binding IsIncludeParameter, Mode=TwoWay}"
+                OffContent=""
+                OnContent="" />
+            <TextBox
+                Grid.Row="4"
+                Grid.ColumnSpan="2"
+                CornerRadius="8"
+                FontSize="{StaticResource MediumFontSize}"
+                IsEnabled="{Binding IsIncludeParameter}"
+                PlaceholderText="i.e. string"
+                Text="{Binding ParameterType, Mode=TwoWay}">
+                <TextBox.Header>
+                    <TextBlock
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        FontSize="12"
+                        FontWeight="Medium"
+                        Text="Parameter Type" />
+                </TextBox.Header>
+            </TextBox>
+
+        </Grid>
+        <Grid
+            x:Name="GridPocoButtons"
+            Grid.Row="1"
+            Grid.ColumnSpan="3"
+            Margin="16,0,16,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button
+                Height="60"
+                HorizontalAlignment="Stretch"
+                Background="DodgerBlue"
+                Command="{Binding GeneratePropertiesCommand}"
+                CornerRadius="4">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                        FontSize="{StaticResource SemiLargeFontSize}"
+                        Foreground="White"
+                        Text="&#xF133;" />
+                    <TextBlock
+                        Margin="{StaticResource XSmallLeftRightMargin}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="{StaticResource MediumFontSize}"
+                        FontWeight="Medium"
+                        Foreground="White"
+                        Text="Generate" />
+                </StackPanel>
+            </Button>
+            <Button
+                Grid.Column="1"
+                Height="60"
+                Margin="{StaticResource SmallLeftMargin}"
+                HorizontalAlignment="Stretch"
+                Background="Tomato"
+                Command="{Binding CopyCommand}"
+                CornerRadius="4">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                        FontSize="{StaticResource SemiLargeFontSize}"
+                        Foreground="White"
+                        Text="&#xE8C8;" />
+                    <TextBlock
+                        Margin="{StaticResource XSmallLeftRightMargin}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="{StaticResource MediumFontSize}"
+                        FontWeight="Medium"
+                        Foreground="White"
+                        Text="Copy" />
+                </StackPanel>
+            </Button>
+            <Button
+                Grid.Column="2"
+                Height="60"
+                Margin="{StaticResource SmallLeftMargin}"
+                HorizontalAlignment="Stretch"
+                Background="MediumSeaGreen"
+                Command="{Binding ExportCommand}"
+                CornerRadius="4">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                        FontSize="{StaticResource SemiLargeFontSize}"
+                        Foreground="White"
+                        Text="&#xED25;" />
+                    <TextBlock
+                        Margin="{StaticResource XSmallLeftRightMargin}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="{StaticResource MediumFontSize}"
+                        FontWeight="Medium"
+                        Foreground="White"
+                        Text="Export" />
+                </StackPanel>
+            </Button>
+            <Button
+                Grid.Column="3"
+                Height="60"
+                Margin="{StaticResource SmallLeftMargin}"
+                HorizontalAlignment="Stretch"
+                Background="Orange"
+                Command="{Binding ClearCommand}"
+                CornerRadius="4">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                        FontSize="{StaticResource SemiLargeFontSize}"
+                        Foreground="White"
+                        Text="&#xE8E6;" />
+                    <TextBlock
+                        Margin="{StaticResource XSmallLeftRightMargin}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="{StaticResource MediumFontSize}"
+                        FontWeight="Medium"
+                        Foreground="White"
+                        Text="Clear" />
+                </StackPanel>
+            </Button>
+        </Grid>
+        <Grid
+            x:Name="GridPocoOutput"
+            Grid.Row="2"
+            Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <!--<ScrollViewer
+                Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
+                BorderBrush="#ccc"
+                BorderThickness="1"
+                CornerRadius="8">
+                <richText:CodeHighlightedTextBlock
+                    x:Name="CodeHighlightedPreviewTextBlock"
+                    Margin="0"
+                    BorderBrush="#ccc"
+                    BorderThickness="1"
+                    Code="{Binding OutputText}"
+                    CornerRadius="8"
+                    HighlightLanguage="CSharp" />
+            </ScrollViewer>-->
+            <wasm:ScrollViewer
+                Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
+                BorderBrush="#ccc"
+                BorderThickness="1"
+                CornerRadius="8">
+                <TextBox
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    AcceptsReturn="True"
+                    BorderBrush="#ccc"
+                    CornerRadius="8"
+                    FontSize="{StaticResource MediumFontSize}"
+                    TabIndex="0"
+                    Text="{x:Bind VM.OutputText, Mode=OneWay}"
+                    TextWrapping="Wrap" />
+                <!--<wasm:TextBox.Shadow>
+                            <ThemeShadow />
+                        </wasm:TextBox.Shadow>-->
+
+            </wasm:ScrollViewer>
+            <win:ScrollViewer
+                Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
+                BorderBrush="#ccc"
+                BorderThickness="1"
+                CornerRadius="8">
+                <richText:CodeHighlightedTextBlock
+                    x:Name="CodeHighlightedPreviewTextBlock"
+                    Margin="0"
+                    BorderBrush="#ccc"
+                    BorderThickness="1"
+                    Code="{x:Bind VM.OutputText, Mode=OneWay}"
+                    CornerRadius="8"
+                    HighlightLanguage="CSharp" />
+            </win:ScrollViewer>
+            <!--<TextBox
+
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                AcceptsReturn="True"
+                CornerRadius="8"
+                FontSize="{StaticResource MediumFontSize}"
+                IsReadOnly="True"
+                PlaceholderText="Get output here."
+                Text="{Binding OutputText, Mode=TwoWay}"
+                TextWrapping="Wrap" />-->
+        </Grid>
+        <i:Interaction.Behaviors>
+            <ic:EventTriggerBehavior EventName="KeyDown">
+                <ic:InvokeCommandAction Command="{Binding KeyDownCommand}" />
+            </ic:EventTriggerBehavior>
+        </i:Interaction.Behaviors>
+    </Grid>
+</Page>
