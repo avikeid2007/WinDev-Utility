@@ -1,7 +1,7 @@
 ﻿var UnoAppManifest = {
 
-    splashScreenImage: "Assets/SplashScreen.png",
-    splashScreenColor: "#fff",
-    displayName: "WinDevUtilityUno"
+    splashScreenImage: "Assets/SplashScreen.scale-200.png",
+    splashScreenColor: " #3cb371",
+    displayName: "WinDEV Utility"
 
 }

@@ -22,12 +22,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\SettingsStorageExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\TaskExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\EnumToBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\FileHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Json.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ThemeSelectorHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\DialogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CommandViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\GuidViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PocoViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\XamlViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\CommandPage.xaml.cs">
       <DependentUpon>CommandPage.xaml</DependentUpon>
@@ -41,6 +44,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\PocoPage.xaml.cs">
       <DependentUpon>PocoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SettingPage.xaml.cs">
+      <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\XamlPage.xaml.cs">
       <DependentUpon>XamlPage.xaml</DependentUpon>
@@ -63,6 +69,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\SettingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\XamlPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -80,8 +90,10 @@
 		 explicitly included in the projitem, so files can be added from vscode
 		 without manipulating the projitem file.
 	-->
+    <Content Include="$(MSBuildThisFileDirectory)Assets\github.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\logo-light.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\logo.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\twitter.png" />
     <_Globbled_Page Include="$(MSBuildThisFileDirectory)**/*.xaml" Exclude="@(Page);@(ApplicationDefinition)">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -71,7 +71,8 @@
                     <wasm:Grid Margin="{StaticResource XSmallTopMargin}">
                         <TextBox
                             x:Name="NumberBoxSpinButtonPlacementExample"
-                            Height="64"  BeforeTextChanging="TextBox_BeforeTextChanging"
+                            Height="64"
+                            BeforeTextChanging="TextBox_BeforeTextChanging"
                             Header="How many GUIDs do you want (1-1000)"
                             Text="{Binding NoofGuid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wasm:Grid>
@@ -353,6 +354,7 @@
                 Margin="8,0,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
+                wasm:IsEnabled="False"
                 IsOn="{Binding IsSequential, Mode=TwoWay}"
                 OffContent=""
                 OnContent="" />

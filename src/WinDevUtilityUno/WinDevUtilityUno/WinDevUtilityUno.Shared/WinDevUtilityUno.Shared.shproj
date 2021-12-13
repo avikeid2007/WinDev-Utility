@@ -15,8 +15,10 @@
     <_Globbed_Compile Remove="Extensions\SettingsStorageExtensions.cs" />
     <_Globbed_Compile Remove="Extensions\StringExtensions.cs" />
     <_Globbed_Compile Remove="Extensions\TaskExtensions.cs" />
+    <_Globbed_Compile Remove="Helpers\EnumToBooleanConverter.cs" />
     <_Globbed_Compile Remove="Helpers\FileHelper.cs" />
     <_Globbed_Compile Remove="Helpers\Json.cs" />
+    <_Globbed_Compile Remove="Helpers\ThemeSelectorHelper.cs" />
     <_Globbed_Compile Remove="Services\DialogService.cs" />
     <_Globbed_Compile Remove="ViewModels\CommandViewModel.cs" />
     <_Globbed_Compile Remove="ViewModels\GuidViewModel.cs" />
@@ -27,6 +29,7 @@
     <_Globbed_Compile Remove="Views\CommandPage.xaml.cs" />
     <_Globbed_Compile Remove="Views\GuidPage.xaml.cs" />
     <_Globbed_Compile Remove="Views\PocoPage.xaml.cs" />
+    <_Globbed_Compile Remove="Views\SettingPage.xaml.cs" />
     <_Globbed_Compile Remove="Views\XamlPage.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -41,6 +44,7 @@
     <_Globbled_Page Remove="Views\CommandPage.xaml" />
     <_Globbled_Page Remove="Views\GuidPage.xaml" />
     <_Globbled_Page Remove="Views\PocoPage.xaml" />
+    <_Globbled_Page Remove="Views\SettingPage.xaml" />
     <_Globbled_Page Remove="Views\XamlPage.xaml" />
   </ItemGroup>
 </Project>

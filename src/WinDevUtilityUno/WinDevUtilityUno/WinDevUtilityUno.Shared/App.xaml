@@ -28,7 +28,8 @@
                     <SolidColorBrush x:Key="IconBrush" Color="Gray" />
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
-
+            <ImageSource x:Key="twitter">/Assets/twitter.png</ImageSource>
+            <ImageSource x:Key="github">/Assets/github.png</ImageSource>
             <x:Double x:Key="NarrowMinWidth">0</x:Double>
             <x:Double x:Key="NormalMinWidth">521</x:Double>
             <x:Double x:Key="WideMinWidth">1300</x:Double>

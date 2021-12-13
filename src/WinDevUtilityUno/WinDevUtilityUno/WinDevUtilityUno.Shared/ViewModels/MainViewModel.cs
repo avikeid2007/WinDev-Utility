@@ -5,7 +5,6 @@ using System.Windows.Input;
 
 using WinDevUtilityUno.Views;
 
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 
@@ -23,22 +22,23 @@ namespace WinDevUtilityUno.ViewModels
         {
             if (args.IsSettingsInvoked)
             {
-#if WINDOWS_UWP
-                // Set theme for window root.
-                if (Window.Current.Content is FrameworkElement frameworkElement)
-                {
-                    if (frameworkElement.ActualTheme == ElementTheme.Dark)
-                    {
-                        frameworkElement.RequestedTheme = ElementTheme.Light;
-                    }
-                    else
-                    {
-                        frameworkElement.RequestedTheme = ElementTheme.Dark;
-                    }
-                }
-#else
-        Uno.UI.ApplicationHelper.RequestedCustomTheme = "Dark";
-#endif
+                Frame.Navigate(typeof(SettingPage), null, new EntranceNavigationTransitionInfo());
+                //#if WINDOWS_UWP
+                //                // Set theme for window root.
+                //                if (Window.Current.Content is FrameworkElement frameworkElement)
+                //                {
+                //                    if (frameworkElement.ActualTheme == ElementTheme.Dark)
+                //                    {
+                //                        frameworkElement.RequestedTheme = ElementTheme.Light;
+                //                    }
+                //                    else
+                //                    {
+                //                        frameworkElement.RequestedTheme = ElementTheme.Dark;
+                //                    }
+                //                }
+                //#else
+                //                Uno.UI.ApplicationHelper.RequestedCustomTheme = "Dark";
+                //#endif
             }
 
             if (args.InvokedItemContainer is WinUI.NavigationViewItem selectedItem)
@@ -57,6 +57,7 @@ namespace WinDevUtilityUno.ViewModels
                     case "cmd":
                         Frame.Navigate(typeof(CommandPage), null, new EntranceNavigationTransitionInfo());
                         break;
+
                     default:
                         break;
                 }
