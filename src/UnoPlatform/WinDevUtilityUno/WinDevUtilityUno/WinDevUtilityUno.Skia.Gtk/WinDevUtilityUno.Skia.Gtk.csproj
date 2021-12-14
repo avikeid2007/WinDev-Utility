@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType Condition="'$(Configuration)'=='Release'">WinExe</OutputType>
 		<OutputType Condition="'$(Configuration)'=='Debug'">Exe</OutputType>
@@ -7,7 +7,6 @@
 	</PropertyGroup>
 	<ItemGroup Condition="exists('..\WinDevUtilityUno.UWP')">
 		<EmbeddedResource Include="..\WinDevUtilityUno.UWP\Package.appxmanifest" LogicalName="Package.appxmanifest" />
-		<Content Include="..\WinDevUtilityUno.UWP\Assets\StoreLogo.png" Link="Assets\StoreLogo.png" />
 		<Content Include="Assets\Fonts\uno-fluentui-assets.ttf" />
 	</ItemGroup>
 	<ItemGroup>
