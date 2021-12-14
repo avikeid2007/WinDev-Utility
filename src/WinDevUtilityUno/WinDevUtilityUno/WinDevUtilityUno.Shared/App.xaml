@@ -1,0 +1,81 @@
+﻿<Application
+    x:Class="WinDevUtilityUno.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinDevUtilityUno">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+
+
+                <!--  Place resources here  -->
+            </ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <ImageSource x:Key="Logo">/Assets/logo-light.png</ImageSource>
+                    <SolidColorBrush x:Key="IconBrush" Color="Gray" />
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="Dark">
+                    <ImageSource x:Key="Logo">/Assets/logo.png</ImageSource>
+                    <SolidColorBrush x:Key="IconBrush" Color="White" />
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="HighContrast">
+                    <ImageSource x:Key="Logo">/Assets/logo-light.png</ImageSource>
+                    <SolidColorBrush x:Key="IconBrush" Color="Gray" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+            <ImageSource x:Key="twitter">/Assets/twitter.png</ImageSource>
+            <ImageSource x:Key="github">/Assets/github.png</ImageSource>
+            <x:Double x:Key="NarrowMinWidth">0</x:Double>
+            <x:Double x:Key="NormalMinWidth">521</x:Double>
+            <x:Double x:Key="WideMinWidth">1300</x:Double>
+
+            <SolidColorBrush x:Key="ThemeControlForegroundBaseHighBrush" Color="{ThemeResource SystemBaseHighColor}" />
+
+            <x:Double x:Key="XLargeFontSize">32</x:Double>
+            <x:Double x:Key="LargeFontSize">24</x:Double>
+            <x:Double x:Key="SemiLargeFontSize">20</x:Double>
+            <x:Double x:Key="MediumFontSize">16</x:Double>
+
+            <Thickness x:Key="LargeTopMargin">0,36,0,0</Thickness>
+
+            <!--  Medium size margins  -->
+            <Thickness x:Key="MediumLeftMargin">24,0,0,0</Thickness>
+            <Thickness x:Key="MediumLeftRightMargin">24,0,24,0</Thickness>
+            <Thickness x:Key="MediumLeftTopRightBottomMargin">24,24,24,24</Thickness>
+            <Thickness x:Key="MediumTopMargin">0,24,0,0</Thickness>
+            <Thickness x:Key="MediumTopBottomMargin">0,24,0,24</Thickness>
+            <Thickness x:Key="MediumRightMargin">0,0,24,0</Thickness>
+            <Thickness x:Key="MediumBottomMargin">0,0,0,24</Thickness>
+
+            <!--  Small size margins  -->
+            <Thickness x:Key="SmallLeftMargin">12, 0, 0, 0</Thickness>
+            <Thickness x:Key="SmallLeftTopMargin">12, 12, 0, 0</Thickness>
+            <Thickness x:Key="SmallLeftRightMargin">12, 0, 12, 0</Thickness>
+            <Thickness x:Key="SmallLeftTopRightBottomMargin">12, 12, 12, 12</Thickness>
+            <Thickness x:Key="SmallTopMargin">0, 12, 0, 0</Thickness>
+            <Thickness x:Key="SmallTopRightBottomMargin">0, 12, 12, 12</Thickness>
+            <Thickness x:Key="SmallTopBottomMargin">0, 12, 0, 12</Thickness>
+            <Thickness x:Key="SmallRightMargin">0, 0, 12, 0</Thickness>
+
+            <!--  Extra Small size margins  -->
+            <Thickness x:Key="XSmallLeftMargin">8, 0, 0, 0</Thickness>
+            <Thickness x:Key="XSmallLeftTopRightBottomMargin">8, 8, 8, 8</Thickness>
+            <Thickness x:Key="XSmallTopMargin">0, 8, 0, 0</Thickness>
+            <Thickness x:Key="XSmallTopBottomMargin">0, 8, 0, 8</Thickness>
+            <Thickness x:Key="XSmallLeftRightMargin">8, 0, 8, 0</Thickness>
+            <Thickness x:Key="XSmallBottomMargin">0, 0, 0, 8</Thickness>
+            <!--  Extra Extra Small size margins  -->
+            <Thickness x:Key="XXSmallTopMargin">0, 4, 0, 0</Thickness>
+            <Thickness x:Key="XXSmallTopBottomMargin">0, 4, 0, 4</Thickness>
+            <Thickness x:Key="XXSmallTopRightBottomMargin">0, 4, 4, 4</Thickness>
+            <Thickness x:Key="XXSmallLeftRightMargin">4, 0, 4,0</Thickness>
+        </ResourceDictionary>
+
+    </Application.Resources>
+
+</Application>
