@@ -7,18 +7,19 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:local="using:WinDevUtilityUno.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:not_win="http://uno.ui/not_win"
     xmlns:richText="using:RichTextControls"
     xmlns:wasm="http://uno.ui/wasm"
     xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    mc:Ignorable="d wasm">
+    mc:Ignorable="d wasm not_win">
 
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftTopRightBottomMargin}">
         <Grid Background="Transparent">
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*" />
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="2*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -428,7 +429,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <wasm:ScrollViewer
+                <not_win:ScrollViewer
                     Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
                     BorderBrush="#ccc"
                     BorderThickness="1"
@@ -443,11 +444,7 @@
                         TabIndex="0"
                         Text="{x:Bind VM.OutputText, Mode=OneWay}"
                         TextWrapping="Wrap" />
-                    <!--<wasm:TextBox.Shadow>
-                            <ThemeShadow />
-                        </wasm:TextBox.Shadow>-->
-
-                </wasm:ScrollViewer>
+                </not_win:ScrollViewer>
                 <win:ScrollViewer
                     Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
                     BorderBrush="#ccc"
