@@ -7,12 +7,13 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:local="using:WinDevUtilityUno.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:not_win="http://uno.ui/not_win"
     xmlns:wasm="http://uno.ui/wasm"
     xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     x:Name="GridGenPage"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    mc:Ignorable="d wasm">
+    mc:Ignorable="d wasm not_win">
 
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftTopRightBottomMargin}">
         <Grid.RowDefinitions>
@@ -68,14 +69,14 @@
                             SpinButtonPlacementMode="Compact"
                             Value="{Binding NoofGuid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </win:Grid>
-                    <wasm:Grid Margin="{StaticResource XSmallTopMargin}">
+                    <not_win:Grid Margin="{StaticResource XSmallTopMargin}">
                         <TextBox
                             x:Name="NumberBoxSpinButtonPlacementExample"
                             Height="64"
                             BeforeTextChanging="TextBox_BeforeTextChanging"
                             Header="How many GUIDs do you want (1-1000)"
                             Text="{Binding NoofGuid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </wasm:Grid>
+                    </not_win:Grid>
                     <Grid
                         x:Name="GridPocoButtons"
                         Grid.Row="1"

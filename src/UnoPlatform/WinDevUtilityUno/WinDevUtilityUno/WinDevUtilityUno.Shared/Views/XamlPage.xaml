@@ -7,12 +7,13 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:local="using:WinDevUtilityUno.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:not_win="http://uno.ui/not_win"
     xmlns:richText="using:RichTextControls"
     xmlns:wasm="http://uno.ui/wasm"
     xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    mc:Ignorable="d wasm">
+    mc:Ignorable="d wasm not_win">
 
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftTopRightBottomMargin}">
         <Grid.RowDefinitions>
@@ -285,7 +286,7 @@
                 SpinButtonPlacementMode="Compact"
                 Value="{Binding ColumnWidth, Mode=TwoWay}" />
         </win:Grid>
-        <wasm:Grid
+        <not_win:Grid
             x:Name="GridOption"
             Grid.Column="1"
             Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
@@ -360,7 +361,7 @@
                 Header="Column Width"
                 IsEnabled="{Binding IsCustomWidth}"
                 Text="{Binding ColumnWidth, Mode=TwoWay}" />
-        </wasm:Grid>
+        </not_win:Grid>
         <Grid
             x:Name="GridPocoButtons"
             Grid.Row="1"
@@ -510,7 +511,7 @@
                     CornerRadius="8"
                     HighlightLanguage="XML" />
             </ScrollViewer>-->
-            <wasm:ScrollViewer
+            <not_win:ScrollViewer
                 Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
                 BorderBrush="#ccc"
                 BorderThickness="1"
@@ -529,7 +530,7 @@
                             <ThemeShadow />
                         </wasm:TextBox.Shadow>-->
 
-            </wasm:ScrollViewer>
+            </not_win:ScrollViewer>
             <win:ScrollViewer
                 Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
                 BorderBrush="#ccc"

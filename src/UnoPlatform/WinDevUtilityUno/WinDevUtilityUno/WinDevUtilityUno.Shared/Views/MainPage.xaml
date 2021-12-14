@@ -15,7 +15,7 @@
         <winui:NavigationView
             x:Name="navigationView"
             Background="Transparent"
-            IsBackButtonVisible="Visible"
+            IsBackButtonVisible="Collapsed"
             IsSettingsVisible="True"
             PaneDisplayMode="Top">
             <winui:NavigationView.MenuItems>
