@@ -10,7 +10,7 @@
   <Identity
     Name="34488AvnishKumar.WinDevUtility"
     Publisher="CN=1494B4FB-4349-4083-8AFA-16D2A64B8D99"
-    Version="1.0.4.0" />
+    Version="1.0.8.0" />
 
   <mp:PhoneIdentity PhoneProductId="9AFAEB5A-046B-4E42-8504-3B15D075745F" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

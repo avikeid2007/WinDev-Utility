@@ -9,7 +9,9 @@
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
     xmlns:richText="using:RichTextControls"
     xmlns:rss="using:Microsoft.Toolkit.Parsers.Rss"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
+    winui:BackdropMaterial.ApplyToRootOrPageBackground="True"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftTopRightBottomMargin}">
@@ -18,9 +20,10 @@
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         <Pivot
-            x:Name="ContentPivot" SelectionChanged="ContentPivot_SelectionChanged"
+            x:Name="ContentPivot"
             ItemsSource="{Binding BlogList}"
-            SelectedItem="{Binding SelectOption, Mode=TwoWay}">
+            SelectedItem="{Binding SelectOption, Mode=TwoWay}"
+            SelectionChanged="ContentPivot_SelectionChanged">
             <Pivot.HeaderTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

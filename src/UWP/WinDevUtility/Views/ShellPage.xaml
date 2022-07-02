@@ -12,7 +12,8 @@
     xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     Name="shelPage"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
-    Background="Transparent"
+    winui:BackdropMaterial.ApplyToRootOrPageBackground="True"
+
     mc:Ignorable="d">
     <i:Interaction.Behaviors>
         <ic:EventTriggerBehavior EventName="Loaded">
@@ -28,7 +29,6 @@
     <Grid>
         <winui:NavigationView
             x:Name="navigationView"
-            Background="Transparent"
             IsBackButtonVisible="Visible"
             IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
             IsSettingsVisible="True"
@@ -41,6 +41,13 @@
                         FontSize="16"
                         FontWeight="Medium"
                         Text="Property Generator" />
+                </winui:NavigationViewItem>
+                <winui:NavigationViewItem x:Uid="CommandMenu" helpers:NavHelper.NavigateTo="Command">
+                    <TextBlock
+                        Margin="2,0,0,0"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Text="Mvvm Command" />
                 </winui:NavigationViewItem>
                 <winui:NavigationViewItem x:Uid="GuidMenu" helpers:NavHelper.NavigateTo="Guid">
                     <TextBlock
@@ -56,14 +63,14 @@
                         FontWeight="Medium"
                         Text="XAML Snippet" />
                 </winui:NavigationViewItem>
-
-                <winui:NavigationViewItem x:Uid="CommandMenu" helpers:NavHelper.NavigateTo="Command">
+                <winui:NavigationViewItem x:Uid="XamlResource" helpers:NavHelper.NavigateTo="UnusedXaml">
                     <TextBlock
                         Margin="2,0,0,0"
                         FontSize="16"
                         FontWeight="Medium"
-                        Text="Mvvm Command" />
+                        Text="Find Unused Xaml Resource" />
                 </winui:NavigationViewItem>
+
                 <winui:NavigationViewItem helpers:NavHelper.NavigateTo="Blogs">
                     <TextBlock
                         Margin="2,0,0,0"

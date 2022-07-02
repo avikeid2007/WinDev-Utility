@@ -4,7 +4,8 @@
     {
         CS,
         Txt,
-        Xaml
+        Xaml,
+        Csv
     }
     public enum BlogType
     {

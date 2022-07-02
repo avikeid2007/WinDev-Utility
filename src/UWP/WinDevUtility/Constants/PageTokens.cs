@@ -10,6 +10,7 @@ namespace WinDevUtility
         public const string GuidPage = "Guid";
         public const string XamlPage = "Xaml";
         public const string CommandPage = "Command";
+        public const string UnusedXamlPage = "UnusedXaml";
         internal static IEnumerable<string> GetAll() => typeof(PageTokens)
                                                             .GetFields()
                                                             .Select(p => p.GetValue(p) as string);

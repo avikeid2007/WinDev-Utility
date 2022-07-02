@@ -58,7 +58,7 @@ namespace WinDevUtility.ViewModels
             {
                 await OnExportCommandExecuteAsync();
             }
-            if (obj.Key == VirtualKey.F8)
+            if (obj.Key == VirtualKey.Escape)
             {
                 OnClearCommandExecute();
             }
@@ -285,7 +285,7 @@ namespace WinDevUtility.ViewModels
         private void SetPropertyStings(string propertyName, string propertType)
         {
             var publicPropertyName = propertyName.ToFirstUpper();
-            var privatePropertyName = $"_{ propertyName.ToFirstLower() }";
+            var privatePropertyName = $"_{propertyName.ToFirstLower()}";
             PrivatePropertyString += $"{privateStr} {propertType} {privatePropertyName};\r";
             PublicPropertyString += $"\r{publicStr} {propertType} {publicPropertyName} \r";
             PublicPropertyString += PropertyGetter(privatePropertyName);
