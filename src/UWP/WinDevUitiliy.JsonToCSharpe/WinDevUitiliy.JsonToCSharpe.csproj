@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="CodeWriters\DartCodeWriter.cs" />
+    <Compile Remove="CodeWriters\JavaCodeWriter.cs" />
+    <Compile Remove="CodeWriters\PythonCodeWriter.cs" />
+    <Compile Remove="CodeWriters\TypeScriptCodeWriter.cs" />
+    <Compile Remove="CodeWriters\VisualBasicCodeWriter.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="CodeWriters\php.txt" />
+    <None Remove="CodeWriters\sql.txt" />
+    <None Remove="CodeWriters\typescript.txt" />
+    <None Remove="CodeWriters\vb.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+</Project>

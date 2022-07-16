@@ -58,7 +58,7 @@ namespace WinDevUtility.ViewModels
             {
                 await OnExportCommandExecuteAsync();
             }
-            if (obj.Key == VirtualKey.F8)
+            if (obj.Key == VirtualKey.Escape)
             {
                 OnClearCommandExecute();
             }
@@ -253,6 +253,10 @@ namespace WinDevUtility.ViewModels
                         string[] lineWords = line.Split(new char[0]);
                         string propertType;
                         string propertyName;
+                        if (lineWords.Any(x => x.Equals("class")) || lineWords.Length == 1)
+                        {
+                            continue;
+                        }
                         if (line.StartsWith("public", System.StringComparison.OrdinalIgnoreCase) || line.StartsWith("private", System.StringComparison.OrdinalIgnoreCase) || line.StartsWith("protected", System.StringComparison.OrdinalIgnoreCase))
                         {
                             propertyName = ValidatePropertyName(lineWords[2]);
@@ -285,7 +289,7 @@ namespace WinDevUtility.ViewModels
         private void SetPropertyStings(string propertyName, string propertType)
         {
             var publicPropertyName = propertyName.ToFirstUpper();
-            var privatePropertyName = $"_{ propertyName.ToFirstLower() }";
+            var privatePropertyName = $"_{propertyName.ToFirstLower()}";
             PrivatePropertyString += $"{privateStr} {propertType} {privatePropertyName};\r";
             PublicPropertyString += $"\r{publicStr} {propertType} {publicPropertyName} \r";
             PublicPropertyString += PropertyGetter(privatePropertyName);

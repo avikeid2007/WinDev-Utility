@@ -56,7 +56,7 @@ ShowDialogCommand";
             {
                 await OnExportCommandExecuteAsync();
             }
-            if (obj.Key == VirtualKey.F8)
+            if (obj.Key == VirtualKey.Escape)
             {
                 OnClearCommandExecute();
             }

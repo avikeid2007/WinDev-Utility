@@ -7,8 +7,10 @@
     xmlns:helper="using:WinDevUtility.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     xmlns:xaml="using:Windows.UI.Xaml"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
+    winui:BackdropMaterial.ApplyToRootOrPageBackground="True"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Page.Resources>

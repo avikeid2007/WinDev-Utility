@@ -10,6 +10,7 @@
     xmlns:richText="using:RichTextControls"
     xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
+    winui:BackdropMaterial.ApplyToRootOrPageBackground="True"
     Loaded="Page_Loaded"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
@@ -114,7 +115,7 @@
                 Grid.Row="1"
                 Grid.Column="1"
                 Margin="8,0,0,0"
-                HorizontalAlignment="Right"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 IsOn="{Binding IsIncludeExecute, Mode=TwoWay}"
                 OffContent=""
@@ -133,7 +134,7 @@
                 Grid.Row="2"
                 Grid.Column="1"
                 Margin="8,0,0,0"
-                HorizontalAlignment="Right"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 IsEnabled="{Binding IsIncludeExecute}"
                 IsOn="{Binding IsIncludeCanExecute, Mode=TwoWay}"
@@ -153,7 +154,7 @@
                 Grid.Row="3"
                 Grid.Column="1"
                 Margin="8,0,0,0"
-                HorizontalAlignment="Right"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 IsOn="{Binding IsIncludeParameter, Mode=TwoWay}"
                 OffContent=""
@@ -299,7 +300,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <ScrollViewer
-               Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
+                Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
                 BorderBrush="#ccc"
                 BorderThickness="1"
                 CornerRadius="8">
@@ -313,7 +314,7 @@
                     HighlightLanguage="CSharp" />
             </ScrollViewer>
             <!--<TextBox
-                
+
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 AcceptsReturn="True"

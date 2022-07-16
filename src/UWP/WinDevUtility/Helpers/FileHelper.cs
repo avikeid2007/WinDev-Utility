@@ -17,8 +17,7 @@ namespace WinDevUtility.Helpers
         {
             var savePicker = new Windows.Storage.Pickers.FileSavePicker
             {
-                SuggestedStartLocation =
-                Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary
+                SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary
             };
             savePicker.FileTypeChoices.Add(GetFiletypes(fileTypes));
             savePicker.SuggestedFileName = fileName;
@@ -27,8 +26,7 @@ namespace WinDevUtility.Helpers
             {
                 Windows.Storage.CachedFileManager.DeferUpdates(file);
                 await Windows.Storage.FileIO.WriteTextAsync(file, text);
-                Windows.Storage.Provider.FileUpdateStatus status =
-                    await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(file);
+                Windows.Storage.Provider.FileUpdateStatus status = await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(file);
                 if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
                 {
                     return true;
@@ -56,6 +54,11 @@ namespace WinDevUtility.Helpers
                         "XAML File",
                         new List<string>() { ".xaml" }
                 ),
+                FileTypes.Csv => new KeyValuePair<string, IList<string>>
+               (
+                       "CSV File",
+                       new List<string>() { ".csv" }
+               ),
                 _ => new KeyValuePair<string, IList<string>>
                 (
                         "Text File",
