@@ -17,10 +17,10 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <PackageCertificateKeyFile>
-    </PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>1CF6CA34BDDBDF72BE793C065CBE6694798BF4EB</PackageCertificateThumbprint>
-    <AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
+    <PackageCertificateKeyFile>WinDevUtility_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>
+    </PackageCertificateThumbprint>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
@@ -201,6 +201,7 @@
     <Compile Include="ViewModels\BlogsViewModel.cs" />
     <Compile Include="ViewModels\CommandViewModel.cs" />
     <Compile Include="ViewModels\GuidViewModel.cs" />
+    <Compile Include="ViewModels\JsonToCSharpeViewModel.cs" />
     <Compile Include="ViewModels\PocoViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
@@ -218,6 +219,9 @@
     </Compile>
     <Compile Include="Views\GuidPage.xaml.cs">
       <DependentUpon>GuidPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\JsonToCSharpePage.xaml.cs">
+      <DependentUpon>JsonToCSharpePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PocoPage.xaml.cs">
       <DependentUpon>PocoPage.xaml</DependentUpon>
@@ -271,6 +275,10 @@
     <Page Include="Views\GuidPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\JsonToCSharpePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PocoPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -358,12 +366,12 @@
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <None Include="WinDevUtility_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
     <None Include="App.config" />
     <None Include="Settings.XamlStyler" />
-    <None Include="WinDevUtility_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -372,6 +380,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WinDevUitiliy.JsonToCSharpe\WinDevUitiliy.JsonToCSharpe.csproj">
+      <Project>{c9aea1ea-d3cd-4ce8-8a54-6d64f6d0fbf9}</Project>
+      <Name>WinDevUitiliy.JsonToCSharpe</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WinDevUtility.Core\WinDevUtility.Core.csproj">
       <Project>{10E28618-CCD5-4D16-9E12-9A1C3D12632B}</Project>
       <Name>WinDevUtility.Core</Name>

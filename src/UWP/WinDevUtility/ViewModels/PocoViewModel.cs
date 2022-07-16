@@ -253,6 +253,10 @@ namespace WinDevUtility.ViewModels
                         string[] lineWords = line.Split(new char[0]);
                         string propertType;
                         string propertyName;
+                        if (lineWords.Any(x => x.Equals("class")) || lineWords.Length == 1)
+                        {
+                            continue;
+                        }
                         if (line.StartsWith("public", System.StringComparison.OrdinalIgnoreCase) || line.StartsWith("private", System.StringComparison.OrdinalIgnoreCase) || line.StartsWith("protected", System.StringComparison.OrdinalIgnoreCase))
                         {
                             propertyName = ValidatePropertyName(lineWords[2]);
