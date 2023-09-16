@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Uno.Toolkit.UI;
+
 using WinDevUtilityUno.Extensions;
+
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;
@@ -33,7 +34,7 @@ namespace WinDevUtilityUno.Helpers
 
 
 #if __WASM__
-            SystemThemeHelper.SetApplicationTheme(darkMode: isDarkMode);
+           // SystemThemeHelper.SetApplicationTheme(darkMode: isDarkMode);
 #else
             foreach (var view in CoreApplication.Views)
             {
