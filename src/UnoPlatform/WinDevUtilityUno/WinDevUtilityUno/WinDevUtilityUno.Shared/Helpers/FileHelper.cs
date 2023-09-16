@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using WinDevUtilityUno.Constants;
 
 using Windows.ApplicationModel.DataTransfer;
@@ -59,6 +58,11 @@ namespace WinDevUtilityUno.Helpers
                         "XAML File",
                         new List<string>() { ".xaml" }
                 ),
+                FileTypes.Csv => new KeyValuePair<string, IList<string>>
+               (
+                       "CSV File",
+                       new List<string>() { ".csv" }
+               ),
                 _ => new KeyValuePair<string, IList<string>>
                 (
                         "Text File",

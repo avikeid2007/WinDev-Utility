@@ -57,7 +57,12 @@ namespace WinDevUtilityUno.ViewModels
                     case "cmd":
                         Frame.Navigate(typeof(CommandPage), null, new EntranceNavigationTransitionInfo());
                         break;
-
+                    case "JsonToCSharpe":
+                        Frame.Navigate(typeof(JsonToCSharpePage), null, new EntranceNavigationTransitionInfo());
+                        break;
+                    case "UnusedXaml":
+                        Frame.Navigate(typeof(UnusedXamlPage), null, new EntranceNavigationTransitionInfo());
+                        break;
                     default:
                         break;
                 }

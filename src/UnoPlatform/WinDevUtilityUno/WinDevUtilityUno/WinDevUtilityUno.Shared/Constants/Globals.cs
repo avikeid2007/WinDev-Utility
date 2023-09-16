@@ -78,7 +78,8 @@ public virtual ICollection<Blogs> WithVirtualKeyword";
     {
         CS,
         Txt,
-        Xaml
+        Xaml,
+        Csv
     }
     public enum BlogType
     {

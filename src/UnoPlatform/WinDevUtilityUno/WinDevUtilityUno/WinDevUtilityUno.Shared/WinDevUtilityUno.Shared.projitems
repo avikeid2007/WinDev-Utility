@@ -22,15 +22,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\SettingsStorageExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\TaskExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\CsvExportHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\EnumToBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\FileHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Json.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ThemeSelectorHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\XamlFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\DialogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CommandViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\GuidViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\JsonToCSharpeViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PocoViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UnusedXamlViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\XamlViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\CommandPage.xaml.cs">
       <DependentUpon>CommandPage.xaml</DependentUpon>
@@ -38,6 +42,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\GuidPage.xaml.cs">
       <DependentUpon>GuidPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\JsonToCSharpePage.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -48,6 +53,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\UnusedXamlPage.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\XamlPage.xaml.cs">
       <DependentUpon>XamlPage.xaml</DependentUpon>
     </Compile>
@@ -61,6 +67,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\JsonToCSharpePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -70,6 +80,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\SettingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\UnusedXamlPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

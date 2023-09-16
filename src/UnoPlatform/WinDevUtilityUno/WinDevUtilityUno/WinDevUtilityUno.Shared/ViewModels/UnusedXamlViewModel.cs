@@ -1,7 +1,6 @@
-﻿using AsyncCommands;
-using Prism.Commands;
-using Prism.Windows.Mvvm;
-using Prism.Windows.Navigation;
+﻿using BasicMvvm;
+using BasicMvvm.Commands;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,16 +8,18 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using WinDevUtility.Helpers;
-using WinDevUtility.Models;
-using WinDevUtility.Services;
+using WinDevUtilityUno.Constants;
+using WinDevUtilityUno.Helpers;
+using WinDevUtilityUno.Models;
+using WinDevUtilityUno.Services;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-namespace WinDevUtility.ViewModels
+
+namespace WinDevUtilityUno.ViewModels
 {
-    class UnusedXamlViewModel : ViewModelBase
+    public class UnusedXamlViewModel : BindableBase
     {
         private List<XamlFile> _xamlFiles;
         private StorageFolder _projectfolder;
@@ -48,7 +49,7 @@ namespace WinDevUtility.ViewModels
             set
             {
                 _projectPath = value;
-                RaisePropertyChanged();
+                OnPropertyChanged();
             }
         }
         public List<DataResource> ApplicationResources { get; set; }
@@ -57,10 +58,10 @@ namespace WinDevUtility.ViewModels
             ApplicationResources = new List<DataResource>();
             _dialogService = dialogService;
         }
-        public override void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState, bool suspending)
-        {
-            _ = SettingsStorageExtensions.SaveSettingAsync(PageTokens.UnusedXamlPage, nameof(PageTokens));
-        }
+        //public override void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState, bool suspending)
+        //{
+        //    _ = SettingsStorageExtensions.SaveSettingAsync(PageTokens.UnusedXamlPage, nameof(PageTokens));
+        //}
         public ICommand FindCommand => new AsyncCommand(OnFindCommandExecuteAsync);
         public ICommand CopyCommand => new DelegateCommand(OnCopyCommandExecute);
         public ICommand ExportCommand => new AsyncCommand(OnExportCommandExecuteAsync);
@@ -206,7 +207,7 @@ namespace WinDevUtility.ViewModels
                     x.DefinedInXamlFile.FileName,
                     x.Occurrences
                 }).ToList(), true);
-                await FileHelper.SaveFileAsync(content, FileTypes.Csv, "unusedXamlResource");
+                await FileHelper.SaveFileAsync(content, FileTypes.Csv, "unusedXamlResource.csv");
             }
         }
 
@@ -276,7 +277,7 @@ namespace WinDevUtility.ViewModels
         public int Progress
         {
             get { return _progress; }
-            set { _progress = value; RaisePropertyChanged(); }
+            set { _progress = value; OnPropertyChanged(); }
         }
         private bool _isLoading;
         private DataGrid _dataGrid;
@@ -284,7 +285,7 @@ namespace WinDevUtility.ViewModels
         public bool IsLoading
         {
             get { return _isLoading; }
-            set { _isLoading = value; RaisePropertyChanged(); }
+            set { _isLoading = value; OnPropertyChanged(); }
         }
     }
 }

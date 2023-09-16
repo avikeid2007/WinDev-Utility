@@ -21,16 +21,18 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BasicMvvm" Version="1.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="SequentialGuid" Version="2.5.0" />
-    <PackageReference Include="SkiaSharp.Views" Version="2.80.3" />
-    <PackageReference Include="Uno.Microsoft.Xaml.Behaviors.Uwp.Managed" Version="2.3.0-uno.12" />
-    <PackageReference Include="Uno.UI.Skia.Tizen" Version="4.1.0-dev.68" />
-    <PackageReference Include="Uno.UI.RemoteControl" Version="4.1.0-dev.68" Condition="'$(Configuration)'=='Debug'" />
-    <PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.1.0-dev.68" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="SequentialGuid" Version="4.0.4" />
+    <PackageReference Include="SkiaSharp.Views" Version="2.88.5" />
+    <PackageReference Include="Uno.Microsoft.Toolkit.Uwp.UI.Controls.DataGrid" Version="7.1.11" />
+    <PackageReference Include="Uno.Microsoft.Xaml.Behaviors.Uwp.Managed" Version="2.3.0" />
+    <PackageReference Include="Uno.Toolkit.UI" Version="4.2.22" />
+    <PackageReference Include="Uno.UI.Skia.Tizen" Version="4.10.13" />
+    <PackageReference Include="Uno.UI.RemoteControl" Version="4.10.13" Condition="'$(Configuration)'=='Debug'" />
+    <PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.10.13" />
   </ItemGroup>
   <Import Project="..\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.projitems" Label="Shared" />
   <ItemGroup>
@@ -38,5 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\StoreLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\UWP\WinDevUitiliy.JsonToCSharpe\WinDevUitiliy.JsonToCSharpe.csproj" />
   </ItemGroup>
 </Project>
