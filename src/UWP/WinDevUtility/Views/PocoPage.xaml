@@ -8,8 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
     xmlns:richText="using:RichTextControls"
-   xmlns:sys="using:System"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
+    winui:BackdropMaterial.ApplyToRootOrPageBackground="True"
     Loaded="Page_Loaded"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
@@ -24,58 +25,76 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Grid  Margin="8" >
+            <Grid Margin="8">
                 <Grid.RowDefinitions>
 
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <CommandBar IsSticky="True" DefaultLabelPosition="Right">
-                    <AppBarButton Label="String" Command="{Binding TypeCommand}" CommandParameter="string" >
+                <CommandBar DefaultLabelPosition="Right" IsSticky="True">
+                    <AppBarButton
+                        Command="{Binding TypeCommand}"
+                        CommandParameter="string"
+                        Label="String">
                         <AppBarButton.Icon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe84b;"/>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe84b;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
-                    <AppBarButton Label="Int" Command="{Binding TypeCommand}" CommandParameter="int" >
+                    <AppBarButton
+                        Command="{Binding TypeCommand}"
+                        CommandParameter="int"
+                        Label="Int">
                         <AppBarButton.Icon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xf151;"/>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xf151;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
-                    <AppBarButton Label="Bool" Command="{Binding TypeCommand}" CommandParameter="bool"  >
+                    <AppBarButton
+                        Command="{Binding TypeCommand}"
+                        CommandParameter="bool"
+                        Label="Bool">
                         <AppBarButton.Icon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe73a;"/>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe73a;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
-                    <AppBarButton Label="Visibility" Command="{Binding TypeCommand}" CommandParameter="Visibility"  >
+                    <AppBarButton
+                        Command="{Binding TypeCommand}"
+                        CommandParameter="Visibility"
+                        Label="Visibility">
                         <AppBarButton.Icon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xf19d;"/>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xf19d;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
-                    <AppBarButton Label="List" Command="{Binding TypeCommand}" CommandParameter="List&lt;>"  >
+                    <AppBarButton
+                        Command="{Binding TypeCommand}"
+                        CommandParameter="List&lt;&gt;"
+                        Label="List">
                         <AppBarButton.Icon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe8bc;"/>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe8bc;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
-                    <AppBarButton Label="ObservableCollection" Command="{Binding TypeCommand}" CommandParameter="ObservableCollection&lt;>"  >
+                    <AppBarButton
+                        Command="{Binding TypeCommand}"
+                        CommandParameter="ObservableCollection&lt;&gt;"
+                        Label="ObservableCollection">
                         <AppBarButton.Icon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe9d5;"/>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe9d5;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
                 </CommandBar>
 
-                <TextBox Grid.Row="1"
-                x:Name="TxtPocoInput"
-               
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                AcceptsReturn="True"
-                BorderBrush="#ccc"
-                CornerRadius="8"
-                FontSize="{StaticResource MediumFontSize}"
-                PlaceholderText="{Binding PlaceHolder}"
-                TabIndex="0"
-                Text="{Binding InputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                TextWrapping="Wrap">
+                <TextBox
+                    x:Name="TxtPocoInput"
+                    Grid.Row="1"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    AcceptsReturn="True"
+                    BorderBrush="#ccc"
+                    CornerRadius="8"
+                    FontSize="{StaticResource MediumFontSize}"
+                    PlaceholderText="{Binding PlaceHolder}"
+                    TabIndex="0"
+                    Text="{Binding InputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    TextWrapping="Wrap">
                     <TextBox.Shadow>
                         <ThemeShadow />
                     </TextBox.Shadow>
@@ -143,8 +162,9 @@
                         Grid.Row="1"
                         Grid.Column="1"
                         Margin="{StaticResource XSmallLeftMargin}"
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                        AutomationProperties.Name="simple ToggleSwitch"
                         IsOn="{Binding IsIncludePropertyChange, Mode=TwoWay}"
                         OffContent=""
                         OnContent="" />
@@ -161,7 +181,7 @@
                         Grid.Row="2"
                         Grid.Column="1"
                         Margin="{StaticResource XSmallLeftMargin}"
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         IsEnabled="{Binding IsIncludePropertyChange}"
                         IsOn="{Binding IsPrism, Mode=TwoWay}"
@@ -182,7 +202,7 @@
                         Grid.Row="3"
                         Grid.Column="1"
                         Margin="{StaticResource XSmallLeftMargin}"
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         IsOn="{Binding IsDirtyCheck, Mode=TwoWay}"
                         OffContent=""
@@ -200,7 +220,7 @@
                         Grid.Row="4"
                         Grid.Column="1"
                         Margin="{StaticResource XSmallLeftMargin}"
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         IsOn="{Binding IsGenerateClass, Mode=TwoWay}"
                         OffContent=""

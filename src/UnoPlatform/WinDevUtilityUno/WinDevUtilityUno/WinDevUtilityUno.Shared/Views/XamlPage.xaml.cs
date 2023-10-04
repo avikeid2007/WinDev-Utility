@@ -24,7 +24,7 @@ namespace WinDevUtilityUno.Views
             DataContext = VM;
         }
 
-        internal XamlViewModel VM { get; }
+        public XamlViewModel VM { get; }
         private void TextBox_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
         {
             args.Cancel = args.NewText.Any(c => !char.IsDigit(c));

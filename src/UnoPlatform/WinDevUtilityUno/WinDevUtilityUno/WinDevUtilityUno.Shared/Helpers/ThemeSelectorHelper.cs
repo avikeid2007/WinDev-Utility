@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-
+using Uno.Toolkit.UI;
 using WinDevUtilityUno.Extensions;
-
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
-
 using Windows.UI.Core;
-
 using Windows.UI.Xaml;
 
 namespace WinDevUtilityUno.Helpers
@@ -32,6 +29,12 @@ namespace WinDevUtilityUno.Helpers
 
         public static async Task SetRequestedThemeAsync()
         {
+            bool isDarkMode = Theme == ElementTheme.Dark;
+
+
+#if __WASM__
+            SystemThemeHelper.SetApplicationTheme(darkMode: isDarkMode);
+#else
             foreach (var view in CoreApplication.Views)
             {
                 await view.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
@@ -42,6 +45,7 @@ namespace WinDevUtilityUno.Helpers
                     }
                 });
             }
+#endif
         }
 
         private static async Task<ElementTheme> LoadThemeFromSettingsAsync()

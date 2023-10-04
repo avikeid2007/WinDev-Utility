@@ -33,7 +33,6 @@
                 <StackPanel Margin="{StaticResource XSmallTopMargin}">
                     <RadioButton
                         x:Uid="Settings_Theme_Light"
-                        wasm:IsEnabled="False"
                         Command="{Binding SwitchThemeCommand}"
                         Content="Light"
                         FontSize="15"
@@ -45,7 +44,6 @@
                     </RadioButton>
                     <RadioButton
                         x:Uid="Settings_Theme_Dark"
-                        wasm:IsEnabled="False"
                         Command="{Binding SwitchThemeCommand}"
                         Content="Dark"
                         FontSize="15"
@@ -57,7 +55,8 @@
                     </RadioButton>
                     <RadioButton
                         x:Uid="Settings_Theme_Default"
-                        wasm:IsEnabled="False"
+                        wasm:Visibility="Collapsed"
+                        win:Visibility="Visible"
                         Command="{Binding SwitchThemeCommand}"
                         Content="Default"
                         FontSize="15"

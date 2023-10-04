@@ -10,6 +10,7 @@
     xmlns:richText="using:RichTextControls"
     xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
+    winui:BackdropMaterial.ApplyToRootOrPageBackground="True"
     Loaded="Page_Loaded"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">

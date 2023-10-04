@@ -15,21 +15,28 @@
     <_Globbed_Compile Remove="Extensions\SettingsStorageExtensions.cs" />
     <_Globbed_Compile Remove="Extensions\StringExtensions.cs" />
     <_Globbed_Compile Remove="Extensions\TaskExtensions.cs" />
+    <_Globbed_Compile Remove="Helpers\CsvExportHelper.cs" />
     <_Globbed_Compile Remove="Helpers\EnumToBooleanConverter.cs" />
     <_Globbed_Compile Remove="Helpers\FileHelper.cs" />
     <_Globbed_Compile Remove="Helpers\Json.cs" />
     <_Globbed_Compile Remove="Helpers\ThemeSelectorHelper.cs" />
+    <_Globbed_Compile Remove="Models\XamlFile.cs" />
     <_Globbed_Compile Remove="Services\DialogService.cs" />
     <_Globbed_Compile Remove="ViewModels\CommandViewModel.cs" />
     <_Globbed_Compile Remove="ViewModels\GuidViewModel.cs" />
+    <_Globbed_Compile Remove="ViewModels\JsonToCSharpeViewModel.cs" />
     <_Globbed_Compile Remove="ViewModels\MainViewModel.cs" />
     <_Globbed_Compile Remove="ViewModels\PocoViewModel.cs" />
+    <_Globbed_Compile Remove="ViewModels\UnusedXamlViewModel.cs" />
     <_Globbed_Compile Remove="ViewModels\XamlViewModel.cs" />
     <_Globbed_Compile Remove="Views\BlankPage1.xaml.cs" />
     <_Globbed_Compile Remove="Views\CommandPage.xaml.cs" />
     <_Globbed_Compile Remove="Views\GuidPage.xaml.cs" />
+    <_Globbed_Compile Remove="Views\JsonToCSharpePage.xaml.cs" />
     <_Globbed_Compile Remove="Views\PocoPage.xaml.cs" />
     <_Globbed_Compile Remove="Views\SettingPage.xaml.cs" />
+    <_Globbed_Compile Remove="Views\UnusedXamlPage.xaml.cs" />
+    <_Globbed_Compile Remove="Views\XamlPage - Copy.xaml.cs" />
     <_Globbed_Compile Remove="Views\XamlPage.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -43,8 +50,11 @@
     <_Globbled_Page Remove="Views\BlankPage1.xaml" />
     <_Globbled_Page Remove="Views\CommandPage.xaml" />
     <_Globbled_Page Remove="Views\GuidPage.xaml" />
+    <_Globbled_Page Remove="Views\JsonToCSharpePage.xaml" />
     <_Globbled_Page Remove="Views\PocoPage.xaml" />
     <_Globbled_Page Remove="Views\SettingPage.xaml" />
+    <_Globbled_Page Remove="Views\UnusedXamlPage.xaml" />
+    <_Globbled_Page Remove="Views\XamlPage - Copy.xaml" />
     <_Globbled_Page Remove="Views\XamlPage.xaml" />
   </ItemGroup>
 </Project>

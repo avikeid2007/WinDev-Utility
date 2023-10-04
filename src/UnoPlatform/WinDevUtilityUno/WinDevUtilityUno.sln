@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34003.232
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WinDevUtilityUno.Shared", "WinDevUtilityUno\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.shproj", "{6279C845-92F8-4333-AB99-3D213163593C}"
 EndProject
@@ -13,30 +13,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinDevUtilityUno.iOS", "Win
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinDevUtilityUno.UWP", "WinDevUtilityUno\WinDevUtilityUno.UWP\WinDevUtilityUno.UWP.csproj", "{8EC249EE-8874-4043-8A8F-73047C20D8D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinDevUtilityUno.Wasm", "WinDevUtilityUno\WinDevUtilityUno.Wasm\WinDevUtilityUno.Wasm.csproj", "{93F51D48-FD0A-4CF2-802C-276FC67C8545}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinDevUtilityUno.Wasm", "WinDevUtilityUno\WinDevUtilityUno.Wasm\WinDevUtilityUno.Wasm.csproj", "{93F51D48-FD0A-4CF2-802C-276FC67C8545}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinDevUtilityUno.macOS", "WinDevUtilityUno\WinDevUtilityUno.macOS\WinDevUtilityUno.macOS.csproj", "{A19FB45B-D99B-4801-A8EB-EDDF7976F95C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinDevUtilityUno.Skia.Wpf.Host", "WinDevUtilityUno\WinDevUtilityUno.Skia.Wpf.Host\WinDevUtilityUno.Skia.Wpf.Host.csproj", "{48E72FD0-4EB6-4F65-AEF8-E38AAA3B0619}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinDevUtilityUno.Skia.Wpf.Host", "WinDevUtilityUno\WinDevUtilityUno.Skia.Wpf.Host\WinDevUtilityUno.Skia.Wpf.Host.csproj", "{48E72FD0-4EB6-4F65-AEF8-E38AAA3B0619}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinDevUtilityUno.Skia.Wpf", "WinDevUtilityUno\WinDevUtilityUno.Skia.Wpf\WinDevUtilityUno.Skia.Wpf.csproj", "{2BE559C1-A031-42FE-9C24-35712D2D9C54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinDevUtilityUno.Skia.Wpf", "WinDevUtilityUno\WinDevUtilityUno.Skia.Wpf\WinDevUtilityUno.Skia.Wpf.csproj", "{2BE559C1-A031-42FE-9C24-35712D2D9C54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinDevUtilityUno.Skia.Gtk", "WinDevUtilityUno\WinDevUtilityUno.Skia.Gtk\WinDevUtilityUno.Skia.Gtk.csproj", "{A1DFE6ED-2638-4C0F-947F-F1B3515BDEE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinDevUtilityUno.Skia.Gtk", "WinDevUtilityUno\WinDevUtilityUno.Skia.Gtk\WinDevUtilityUno.Skia.Gtk.csproj", "{A1DFE6ED-2638-4C0F-947F-F1B3515BDEE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinDevUtilityUno.Skia.Tizen", "WinDevUtilityUno\WinDevUtilityUno.Skia.Tizen\WinDevUtilityUno.Skia.Tizen.csproj", "{1F7A0DB0-661D-4DA5-93BE-E3E6E4391614}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinDevUtilityUno.Skia.Tizen", "WinDevUtilityUno\WinDevUtilityUno.Skia.Tizen\WinDevUtilityUno.Skia.Tizen.csproj", "{1F7A0DB0-661D-4DA5-93BE-E3E6E4391614}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinDevUitiliy.JsonToCSharpe", "..\..\UWP\WinDevUitiliy.JsonToCSharpe\WinDevUitiliy.JsonToCSharpe.csproj", "{F1954375-E719-44A4-A63B-4C246393BA9A}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		WinDevUtilityUno\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.projitems*{1f7a0db0-661d-4da5-93be-e3e6e4391614}*SharedItemsImports = 5
-		WinDevUtilityUno\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.projitems*{26bdc534-b5ba-4fab-bf27-62eb74969e6e}*SharedItemsImports = 4
-		WinDevUtilityUno\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.projitems*{2be559c1-a031-42fe-9c24-35712d2d9c54}*SharedItemsImports = 5
-		WinDevUtilityUno\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.projitems*{6279c845-92f8-4333-ab99-3d213163593c}*SharedItemsImports = 13
-		WinDevUtilityUno\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.projitems*{76545790-8915-4e12-afc2-b722afe7b673}*SharedItemsImports = 4
-		WinDevUtilityUno\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.projitems*{8ec249ee-8874-4043-8a8f-73047c20d8d3}*SharedItemsImports = 4
-		WinDevUtilityUno\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.projitems*{93f51d48-fd0a-4cf2-802c-276fc67c8545}*SharedItemsImports = 5
-		WinDevUtilityUno\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.projitems*{a19fb45b-d99b-4801-a8eb-eddf7976f95c}*SharedItemsImports = 4
-		WinDevUtilityUno\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.projitems*{a1dfe6ed-2638-4c0f-947f-f1b3515bdee5}*SharedItemsImports = 5
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
 		Ad-Hoc|ARM = Ad-Hoc|ARM
@@ -586,6 +577,62 @@ Global
 		{1F7A0DB0-661D-4DA5-93BE-E3E6E4391614}.Release|x64.Build.0 = Release|Any CPU
 		{1F7A0DB0-661D-4DA5-93BE-E3E6E4391614}.Release|x86.ActiveCfg = Release|Any CPU
 		{1F7A0DB0-661D-4DA5-93BE-E3E6E4391614}.Release|x86.Build.0 = Release|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Ad-Hoc|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Ad-Hoc|Any CPU.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Ad-Hoc|ARM.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Ad-Hoc|ARM.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Ad-Hoc|ARM64.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Ad-Hoc|ARM64.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Ad-Hoc|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Ad-Hoc|x64.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Ad-Hoc|x64.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Ad-Hoc|x86.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Ad-Hoc|x86.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.AppStore|Any CPU.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.AppStore|ARM.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.AppStore|ARM.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.AppStore|ARM64.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.AppStore|ARM64.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.AppStore|iPhone.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.AppStore|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.AppStore|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.AppStore|x64.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.AppStore|x64.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.AppStore|x86.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.AppStore|x86.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Debug|ARM.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Debug|x64.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Debug|x86.Build.0 = Debug|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Release|ARM.Build.0 = Release|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Release|ARM64.Build.0 = Release|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Release|iPhone.Build.0 = Release|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Release|x64.ActiveCfg = Release|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Release|x64.Build.0 = Release|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Release|x86.ActiveCfg = Release|Any CPU
+		{F1954375-E719-44A4-A63B-4C246393BA9A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -603,5 +650,16 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {84D6EE20-C5AE-498D-80D9-07047CF77240}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		WinDevUtilityUno\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.projitems*{1f7a0db0-661d-4da5-93be-e3e6e4391614}*SharedItemsImports = 5
+		WinDevUtilityUno\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.projitems*{26bdc534-b5ba-4fab-bf27-62eb74969e6e}*SharedItemsImports = 4
+		WinDevUtilityUno\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.projitems*{2be559c1-a031-42fe-9c24-35712d2d9c54}*SharedItemsImports = 5
+		WinDevUtilityUno\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.projitems*{6279c845-92f8-4333-ab99-3d213163593c}*SharedItemsImports = 13
+		WinDevUtilityUno\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.projitems*{76545790-8915-4e12-afc2-b722afe7b673}*SharedItemsImports = 4
+		WinDevUtilityUno\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.projitems*{8ec249ee-8874-4043-8a8f-73047c20d8d3}*SharedItemsImports = 4
+		WinDevUtilityUno\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.projitems*{93f51d48-fd0a-4cf2-802c-276fc67c8545}*SharedItemsImports = 5
+		WinDevUtilityUno\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.projitems*{a19fb45b-d99b-4801-a8eb-eddf7976f95c}*SharedItemsImports = 4
+		WinDevUtilityUno\WinDevUtilityUno.Shared\WinDevUtilityUno.Shared.projitems*{a1dfe6ed-2638-4c0f-947f-f1b3515bdee5}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,283 @@
+﻿<Page
+    x:Class="WinDevUtilityUno.Views.UnusedXamlPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:local="using:WinDevUtilityUno.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+
+    <Grid Margin="{StaticResource MediumLeftTopRightBottomMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+        <Button
+            Margin="16,16,0,0"
+            HorizontalAlignment="Stretch"
+            Background="Chocolate"
+            Command="{Binding SelectProjectCommand}"
+            CornerRadius="4">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                    FontSize="{StaticResource SemiLargeFontSize}"
+                    Foreground="White"
+                    Text="&#xED25;" />
+                <TextBlock
+                    Margin="{StaticResource XSmallLeftRightMargin}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="{StaticResource MediumFontSize}"
+                    FontWeight="Medium"
+                    Foreground="White"
+                    Text="Select UWP or WPF project folder" />
+            </StackPanel>
+        </Button>
+        <!--<TextBox
+            Grid.Column="1"
+            Margin="16"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            FontSize="{StaticResource MediumFontSize}"
+            PlaceholderText="Path of UWP or WPF project"
+            Text="{Binding ProjectPath, Mode=TwoWay}" />-->
+        <winui:BreadcrumbBar
+            x:Name="BreadcrumbBar1"
+            Grid.Column="1"
+            Margin="16,12,0,0"
+            VerticalAlignment="Center"
+            ItemsSource="{Binding ProjectPath}">
+            <winui:BreadcrumbBar.ItemTemplate>
+                <DataTemplate>
+                    <winui:BreadcrumbBarItem>
+                        <winui:BreadcrumbBarItem.ContentTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{Binding}" />
+                            </DataTemplate>
+                        </winui:BreadcrumbBarItem.ContentTemplate>
+                    </winui:BreadcrumbBarItem>
+                </DataTemplate>
+            </winui:BreadcrumbBar.ItemTemplate>
+        </winui:BreadcrumbBar>
+        <StackPanel Grid.Column="2" Orientation="Horizontal">
+            <TextBlock
+                VerticalAlignment="Center"
+                Style="{ThemeResource BodyTextStyle}"
+                Text="Filters :" />
+            <ToggleSwitch
+                x:Name="TglPropertyChange"
+                Margin="8,4,0,0"
+                VerticalAlignment="Center"
+                IsOn="{Binding IsUnusedOnly, Mode=TwoWay}"
+                OffContent="All resources"
+                OnContent="Unused only" />
+
+            <TextBlock
+                VerticalAlignment="Center"
+                Style="{ThemeResource BodyTextStyle}"
+                Text="Grouping:" />
+            <ToggleSwitch
+                Margin="8,4,0,0"
+                VerticalAlignment="Center"
+                IsOn="{Binding IsGrouped, Mode=TwoWay}"
+                OffContent="None"
+                OnContent="File Name" />
+        </StackPanel>
+        <Grid
+            x:Name="GridPocoButtons"
+            Grid.Row="1"
+            Grid.ColumnSpan="3"
+            Margin="16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button
+                Height="60"
+                HorizontalAlignment="Stretch"
+                Background="DodgerBlue"
+                Command="{Binding FindCommand}"
+                CornerRadius="4">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                        FontSize="{StaticResource SemiLargeFontSize}"
+                        Foreground="White"
+                        Text="&#xE773;" />
+                    <TextBlock
+                        Margin="{StaticResource XSmallLeftRightMargin}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="{StaticResource MediumFontSize}"
+                        FontWeight="Medium"
+                        Foreground="White"
+                        Text="Find" />
+                </StackPanel>
+            </Button>
+            <Button
+                Grid.Column="1"
+                Height="60"
+                Margin="{StaticResource SmallLeftMargin}"
+                HorizontalAlignment="Stretch"
+                Background="Tomato"
+                Command="{Binding CopyCommand}"
+                CornerRadius="4">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                        FontSize="{StaticResource SemiLargeFontSize}"
+                        Foreground="White"
+                        Text="&#xE8C8;" />
+                    <TextBlock
+                        Margin="{StaticResource XSmallLeftRightMargin}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="{StaticResource MediumFontSize}"
+                        FontWeight="Medium"
+                        Foreground="White"
+                        Text="Copy" />
+                </StackPanel>
+            </Button>
+            <Button
+                Grid.Column="2"
+                Height="60"
+                Margin="{StaticResource SmallLeftMargin}"
+                HorizontalAlignment="Stretch"
+                Background="MediumSeaGreen"
+                Command="{Binding ExportCommand}"
+                CornerRadius="4">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                        FontSize="{StaticResource SemiLargeFontSize}"
+                        Foreground="White"
+                        Text="&#xED25;" />
+                    <TextBlock
+                        Margin="{StaticResource XSmallLeftRightMargin}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="{StaticResource MediumFontSize}"
+                        FontWeight="Medium"
+                        Foreground="White"
+                        Text="Export" />
+                </StackPanel>
+            </Button>
+            <Button
+                Grid.Column="3"
+                Height="60"
+                Margin="{StaticResource SmallLeftMargin}"
+                HorizontalAlignment="Stretch"
+                Background="Orange"
+                Command="{Binding ClearCommand}"
+                CornerRadius="4">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                        FontSize="{StaticResource SemiLargeFontSize}"
+                        Foreground="White"
+                        Text="&#xE8E6;" />
+                    <TextBlock
+                        Margin="{StaticResource XSmallLeftRightMargin}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="{StaticResource MediumFontSize}"
+                        FontWeight="Medium"
+                        Foreground="White"
+                        Text="Clear" />
+                </StackPanel>
+            </Button>
+        </Grid>
+        <controls:DataGrid
+            x:Name="dataGrid"
+            Grid.Row="2"
+            Grid.ColumnSpan="3"
+            Margin="12"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            AreRowDetailsFrozen="False"
+            AreRowGroupHeadersFrozen="False"
+            AutoGenerateColumns="False"
+            CanUserReorderColumns="True"
+            CanUserResizeColumns="True"
+            CanUserSortColumns="False"
+            ColumnHeaderHeight="32"
+            FrozenColumnCount="0"
+            GridLinesVisibility="All"
+            HeadersVisibility="Column"
+            HorizontalScrollBarVisibility="Visible"
+            IsReadOnly="False"
+            LoadingRowGroup="dg_loadingRowGroup"
+            RowDetailsVisibilityMode="Visible"
+            RowGroupHeaderPropertyNameAlternative="FileName"
+            SelectionMode="Extended"
+            VerticalScrollBarVisibility="Visible">
+            <!--<controls:DataGrid.RowGroupHeaderStyles>
+            -->
+            <!--  Override the default Style for groups headers  -->
+            <!--
+                <Style TargetType="controls:DataGridRowGroupHeader">
+                    <Setter Property="Background" Value="LightGray" />
+                </Style>
+            </controls:DataGrid.RowGroupHeaderStyles>-->
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn
+                    Binding="{Binding Key}"
+                    Header="Key"
+                    Tag="Key" />
+                <controls:DataGridTextColumn
+                    Binding="{Binding DefinedInXamlFile.FileName}"
+                    Header="File Name"
+                    Tag="name" />
+
+                <controls:DataGridTextColumn
+                    Binding="{Binding Occurrences}"
+                    Header="Used in file names"
+                    Tag="used" />
+            </controls:DataGrid.Columns>
+            <i:Interaction.Behaviors>
+                <ic:EventTriggerBehavior EventName="Loaded">
+                    <ic:InvokeCommandAction Command="{Binding DgLoadedCommand}" CommandParameter="{Binding ElementName=dataGrid}" />
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </controls:DataGrid>
+        <winui:ProgressRing
+            Grid.Row="2"
+            Grid.ColumnSpan="3"
+            Width="60"
+            Height="60"
+            IsActive="{Binding IsLoading}" />
+        <i:Interaction.Behaviors>
+            <ic:EventTriggerBehavior EventName="KeyDown">
+                <ic:InvokeCommandAction Command="{Binding KeyDownCommand}" />
+            </ic:EventTriggerBehavior>
+        </i:Interaction.Behaviors>
+    </Grid>
+</Page>
